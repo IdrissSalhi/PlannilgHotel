@@ -101,9 +101,9 @@ class View :
                     temp = (self.pivot_day + timedelta((j-1)-self.pivot_day.weekday()))
                    #############################################################
                     machaine = str(temp.year)+"-"+str(temp.month).zfill(2)+"-"+str(temp.day).zfill(2)
-                    id_chambre = str(self.ROOMS[self.etage-1][c-1])
+                    id_chambre = int(self.ROOMS[self.etage-1][c-1])
                     id_chambre = self.controller.get_id_byNumChambre(id_chambre)
-                    resa = self.controller.get_reservation_byDateandRoomNumber(machaine, id_chambre)
+                    resa = self.controller.get_reservation_byDateandRoomId(machaine, id_chambre) 
                     if resa != None :
                     #machaine = str(self.ROOMS[self.etage-1][c-1])+"\n" + str(temp.day)+"/"+str(temp.month)+"/"+str(temp.year)
                         client = self.controller.getClientById(resa._id_client)
@@ -111,7 +111,9 @@ class View :
                             data_cell.winfo_children()[1].destroy()
                         data_cell.winfo_children()[0].pack_forget()
                         nomclient = client._nom
-                        resa_client = Button (master = data_cell,text=nomclient, command=lambda : self.fenetre_infos_resa(1), bg = "SeaGreen3")
+                        #resa_client = Button (master = data_cell,text=nomclient, command=lambda : self.fenetre_infos_resa(resa._id), bg = "SeaGreen3")
+                        resa_client = Button (master = data_cell,text=nomclient, command=lambda arg1 = resa._id : self.fenetre_infos_resa(arg1), bg = "SeaGreen3")
+
                         resa_client.pack(expand=True, fill=BOTH, side = LEFT)
                     
                     else : 
@@ -391,13 +393,48 @@ class View :
         
         window_infos = Toplevel(self.window)
         master_infos = Frame(master = window_infos,padx = 10,pady= 10)
-"""      
+
+        id_client = resa._id_client
+        client = self.controller.getClientById(id_client)
         nom_client = StringVar()
         nom_client.set(client._nom)
+        print (nom_client)
+        #prenom_client = StringVar()
+        #prenom_client.set(client._prenom)
+
+        Label(master_infos, 
+                text="NOM :",font=self.verdana_font).grid(row=0,sticky=E)
+        #Label(master_infos, 
+                #text="PRENOM :",font=self.verdana_font).grid(row=1,sticky=E)
+        
+        e_nom = Entry(master_infos,state = "disabled",textvariable= nom_client,font=self.verdana_font, width= 70)
+        #e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
+
+        e_nom.grid(row=0, column=1, sticky=W)
+        #e_prenom.grid(row=1, column=1, sticky=W)
+
+
+
+        master_infos.pack()
+        window_infos.resizable(False,False)
+        window_infos.mainloop()
+
+
+
+"""      
+self._id_client = id_client
+        self._id_chambre = id_chambre
+        self._nb_occupants = nb_occupants
+        self._date_arrivee = date_arrivee
+        self._date_depart = date_depart
+    
+        nom_client = StringVar()
+        nom_client.set(resa.id_client)
+
         prenom_client = StringVar()
-        prenom_client.set(client._prenom)
-        adresse_client = StringVar()
-        adresse_client.set(client._adresse)
+        prenom_client.set(resa.id_client)
+        nb_occupants = StringVar()
+        nb_occupants.set(client._)
         mail_client = StringVar()
         mail_client.set(client._mail)
         telephone_client = StringVar()

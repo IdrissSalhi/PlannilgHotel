@@ -29,6 +29,7 @@ class Chambre :
 class Reservation :
 
     def __init__(self,id_client,id_chambre,date_arrivee,date_depart,nb_occupants) :
+        self._id = -1
         self._id_client = id_client
         self._id_chambre = id_chambre
         self._nb_occupants = nb_occupants

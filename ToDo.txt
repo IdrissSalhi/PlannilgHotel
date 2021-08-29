@@ -1,3 +1,4 @@
 
 - Afficher les infos de la resa 
+- lier bouton à bonne résa
 - Creer resa 

@@ -29,8 +29,8 @@ controller.ajouter_chambre( Chambre(603,2))
 
 controller.ajouter_reservation(Reservation(2,3,"2021-07-01","2021-07-03",1))
 controller.ajouter_reservation(Reservation(1,5,"2021-07-02","2021-07-03",1))
-controller.ajouter_reservation(Reservation(3,7,"2021-07-25","2021-07-27",1))
-controller.ajouter_reservation(Reservation(3,7,"2021-07-18","2021-07-20",1))
+controller.ajouter_reservation(Reservation(3,7,"2021-08-15","2021-08-17",1))
+controller.ajouter_reservation(Reservation(3,7,"2021-08-15","2021-08-20",1))
 
 
 

@@ -44,8 +44,8 @@ class Controller :
     def getAllChambres(self) :
         return self._database.getAllChambres()
 
-    def get_reservation_byDateandRoomNumber(self, date, id_chambre):
-        return self._database.get_reservation_byDateandRoomNumber(date, id_chambre)
+    def get_reservation_byDateandRoomId(self, date, id_chambre):
+        return self._database.get_reservation_byDateandRoomId(date, id_chambre)
 
     def get_id_byNumChambre (self, id_chambre) : 
         return self._database.get_id_byNumChambre(id_chambre)

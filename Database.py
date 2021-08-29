@@ -157,9 +157,8 @@ class Database :
     def supprimer_client_byId(self,client) :
         self._cursor.execute("""Delete from CLIENTS where id = """+str(client._id))
 
-    def get_reservation_byDateandRoomNumber(self, date, id_chambre):
-        
-        self._cursor.execute("""Select * from RESERVATIONS where id_chambre = '""" + str(id_chambre) + """' 
+    def get_reservation_byDateandRoomId(self, date, id_chambre):
+        self._cursor.execute("""Select * from RESERVATIONS where id_chambre = """ + str(id_chambre) + """
                                 and (julianday(date_arrivee) - julianday('""" + date + """'))<=0
                                 and (julianday(date_depart) - julianday('""" + date + """'))>=0"""
                             )
@@ -173,8 +172,7 @@ class Database :
             return reservation
 
     def get_id_byNumChambre (self, id_chambre) : 
-
-        self._cursor.execute("Select id from CHAMBRES where num_ch = '""" + id_chambre + """' """)
+        self._cursor.execute("Select id from CHAMBRES where num_ch = """ + str(id_chambre) + """ """)
         db_chambre = self._cursor.fetchall()
         if len(db_chambre)== 0 :
             return -1
