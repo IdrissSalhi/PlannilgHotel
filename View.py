@@ -1,11 +1,12 @@
+from calendar import month
 from tkinter import *
 from tkinter import messagebox
-#from tkinter import Widget
 from datetime import *
 import tkinter.font as font
 from typing import Optional
 from Controller import *
 from Model import *
+from tkcalendar import Calendar
 
 
 JOURS = ["LUNDI","MARDI","MERCREDI","JEUDI","VENDREDI","SAMEDI","DIMANCHE"]
@@ -397,22 +398,43 @@ class View :
         id_client = resa._id_client
         client = self.controller.getClientById(id_client)
         nom_client = StringVar()
+        prenom_client = StringVar()
+        nb_occupants = IntVar()
+        date_arrivee = StringVar()
+        date_depart = StringVar()
+
         nom_client.set(client._nom)
-        print (nom_client)
-        #prenom_client = StringVar()
-        #prenom_client.set(client._prenom)
+        prenom_client.set(client._prenom)
+        nb_occupants.set(resa._nb_occupants)
+        date_arrivee.set(datetime.strptime(resa._date_arrivee,"%Y-%m-%d"))
+        essai = datetime.strptime(resa._date_arrivee,"%Y-%m-%d")
+        #date_depart.set(resa._date_depart)
 
         Label(master_infos, 
                 text="NOM :",font=self.verdana_font).grid(row=0,sticky=E)
-        #Label(master_infos, 
-                #text="PRENOM :",font=self.verdana_font).grid(row=1,sticky=E)
+        Label(master_infos, 
+                text="PRENOM :",font=self.verdana_font).grid(row=1,sticky=E)
+        Label(master_infos, 
+                text="OCCUPANTS :",font=self.verdana_font).grid(row=2,sticky=E)
+        Label(master_infos, 
+                text="ARRIVEE :",font=self.verdana_font).grid(row=3,sticky=E) 
+        Label(master_infos, 
+                text="DEPART :",font=self.verdana_font).grid(row=3,sticky=E)          
         
         e_nom = Entry(master_infos,state = "disabled",textvariable= nom_client,font=self.verdana_font, width= 70)
+        e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
+        e_nb_occupants = Entry(master_infos,state = "disabled",textvariable= nb_occupants,font=self.verdana_font,width= 70)
+        e_date_arrivee = Calendar(master_infos,state = "disabled",year = essai.year,month = essai.month, day = essai.day, font=self.verdana_font,width= 70)
+        #nb occupânts max
+        #nb occupânts max
+        #e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
         #e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
 
-        e_nom.grid(row=0, column=1, sticky=W)
-        #e_prenom.grid(row=1, column=1, sticky=W)
 
+        e_nom.grid(row=0, column=1, sticky=W)
+        e_prenom.grid(row=1, column=1, sticky=W)
+        e_nb_occupants.grid(row=2, column=1, sticky=W)
+        e_date_arrivee.grid(row=3, column=1, sticky=W)
 
 
         master_infos.pack()
