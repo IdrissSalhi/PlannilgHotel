@@ -6,7 +6,7 @@ import tkinter.font as font
 from typing import Optional
 from Controller import *
 from Model import *
-from tkcalendar import Calendar
+from tkcalendar import *
 
 
 JOURS = ["LUNDI","MARDI","MERCREDI","JEUDI","VENDREDI","SAMEDI","DIMANCHE"]
@@ -400,14 +400,14 @@ class View :
         nom_client = StringVar()
         prenom_client = StringVar()
         nb_occupants = IntVar()
-        date_arrivee = StringVar()
+        
         date_depart = StringVar()
 
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
         nb_occupants.set(resa._nb_occupants)
-        date_arrivee.set(datetime.strptime(resa._date_arrivee,"%Y-%m-%d"))
-        essai = datetime.strptime(resa._date_arrivee,"%Y-%m-%d")
+        #date_arrivee.set(datetime.strptime(resa._date_arrivee,"%Y-%m-%d"))
+
         #date_depart.set(resa._date_depart)
 
         Label(master_infos, 
@@ -424,7 +424,9 @@ class View :
         e_nom = Entry(master_infos,state = "disabled",textvariable= nom_client,font=self.verdana_font, width= 70)
         e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
         e_nb_occupants = Entry(master_infos,state = "disabled",textvariable= nb_occupants,font=self.verdana_font,width= 70)
-        e_date_arrivee = Calendar(master_infos,state = "disabled",year = essai.year,month = essai.month, day = essai.day, font=self.verdana_font,width= 70)
+        e_date_arrivee = DateEntry(master_infos,font=self.verdana_font,width= 70)
+        e_date_arrivee.set_date(resa._date_arrivee)
+        e_date_arrivee.configure(state = "disabled")
         #nb occupânts max
         #nb occupânts max
         #e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)

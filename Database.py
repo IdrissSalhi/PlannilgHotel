@@ -89,7 +89,7 @@ class Database :
         if len(db_reservation)== 0 :
             return None
         else :
-            reservation = Reservation(db_reservation[0][1],db_reservation[0][2],db_reservation[0][3],db_reservation[0][4],db_reservation[0][5])
+            reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5])
             reservation._id = db_reservation[0][0]
             return reservation
 

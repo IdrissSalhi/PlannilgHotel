@@ -1,5 +1,8 @@
 
 
+from datetime import *
+
+
 class Client :
     
     def __init__(self,nom="",prenom="",adresse="",mail="",telephone="") :
@@ -35,6 +38,8 @@ class Reservation :
         self._nb_occupants = nb_occupants
         self._date_arrivee = date_arrivee
         self._date_depart = date_depart
+        
+       
     
     def display(self):
         print("("+str(self._id_client)+")  " +"("+str(self._id_chambre) +")  "+"("+str(self._date_arrivee) + ")  " +"("+str(self._date_depart) +")")

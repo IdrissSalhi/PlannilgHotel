@@ -1,5 +1,3 @@
 - Continuer travil du calendar
--faire un cal.get_date() 
 - Afficher les infos de la resa 
-- lier bouton à bonne résa
 - Creer resa 
