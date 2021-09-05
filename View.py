@@ -2,21 +2,17 @@ from calendar import month
 from tkinter import *
 from tkinter import messagebox
 from datetime import *
+import tkinter
 import tkinter.font as font
 from typing import Optional
 from Controller import *
 from Model import *
 from tkcalendar import *
+from tkinter import ttk
 
 
 JOURS = ["LUNDI","MARDI","MERCREDI","JEUDI","VENDREDI","SAMEDI","DIMANCHE"]
 MOIS = ["JANVIER","FEVRIER","MARS","AVRIL","MAI","JUIN","JUILLET","AOUT","SEPTEMBRE","OCTOBRE","NOVEMBRE","DECEMBRE"]
-
-"""ROOMS = [   [101,102,103,104,105,106],
-            [201,202,203,204],
-            [301,302,303,304,305,306,307,308,309,310],
-            [401,402,403,404,405,406,407,408]
-        ]"""
 
 class View :
 
@@ -396,37 +392,43 @@ class View :
         master_infos = Frame(master = window_infos,padx = 10,pady= 10)
 
         id_client = resa._id_client
+        id_chambre = resa._id_chambre
         client = self.controller.getClientById(id_client)
+        chambre = self.controller.getChambreById(id_chambre)
         nom_client = StringVar()
         prenom_client = StringVar()
+        num_chambre = IntVar()
         nb_occupants = IntVar()
         
-        date_depart = StringVar()
-
+        
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
+        num_chambre.set(chambre._numero)
         nb_occupants.set(resa._nb_occupants)
-        #date_arrivee.set(datetime.strptime(resa._date_arrivee,"%Y-%m-%d"))
-
-        #date_depart.set(resa._date_depart)
 
         Label(master_infos, 
                 text="NOM :",font=self.verdana_font).grid(row=0,sticky=E)
         Label(master_infos, 
                 text="PRENOM :",font=self.verdana_font).grid(row=1,sticky=E)
         Label(master_infos, 
-                text="OCCUPANTS :",font=self.verdana_font).grid(row=2,sticky=E)
+                text="CHAMBRE :",font=self.verdana_font).grid(row=1,sticky=E)
         Label(master_infos, 
-                text="ARRIVEE :",font=self.verdana_font).grid(row=3,sticky=E) 
+                text="ARRIVEE :",font=self.verdana_font).grid(row=2,sticky=E) 
         Label(master_infos, 
-                text="DEPART :",font=self.verdana_font).grid(row=3,sticky=E)          
+                text="DEPART :",font=self.verdana_font).grid(row=3,sticky=E)
+        Label(master_infos, 
+                text="OCCUPANTS :",font=self.verdana_font).grid(row=4,sticky=E)          
         
         e_nom = Entry(master_infos,state = "disabled",textvariable= nom_client,font=self.verdana_font, width= 70)
         e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
+        e_num_chambre = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
         e_nb_occupants = Entry(master_infos,state = "disabled",textvariable= nb_occupants,font=self.verdana_font,width= 70)
         e_date_arrivee = DateEntry(master_infos,font=self.verdana_font,width= 70)
         e_date_arrivee.set_date(resa._date_arrivee)
         e_date_arrivee.configure(state = "disabled")
+        e_date_depart = DateEntry(master_infos,font=self.verdana_font,width= 70)
+        e_date_depart.set_date(resa._date_depart)
+        e_date_depart.configure(state = "disabled")
         #nb occupânts max
         #nb occupânts max
         #e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
@@ -435,9 +437,9 @@ class View :
 
         e_nom.grid(row=0, column=1, sticky=W)
         e_prenom.grid(row=1, column=1, sticky=W)
-        e_nb_occupants.grid(row=2, column=1, sticky=W)
-        e_date_arrivee.grid(row=3, column=1, sticky=W)
-
+        e_date_arrivee.grid(row=2, column=1, sticky=W)
+        e_date_depart.grid(row=3, column=1, sticky=W)
+        e_nb_occupants.grid(row=4, column=1, sticky=W)
 
         master_infos.pack()
         window_infos.resizable(False,False)

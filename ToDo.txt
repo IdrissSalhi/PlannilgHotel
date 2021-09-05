@@ -1,3 +1,4 @@
+- Chercher ttk.Combobox
 - Continuer travil du calendar
 - Afficher les infos de la resa 
 - Creer resa 
