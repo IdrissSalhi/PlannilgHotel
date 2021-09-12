@@ -141,9 +141,9 @@ class View :
                 tab.append(clients[i]._nom +" "+ clients[i]._prenom+" |"+clients[i]._mail)
            
             self.client_sv.set(tab[0])
-            opt = OptionMenu(self.master_clients, self.client_sv, *tab)
+            opt = ttk.Combobox(self.master_clients, values = tab, textvariable = self.client_sv )
             
-            opt.config(image=self.images["pixel"], width=300,height=40, font=('Helvetica', 12), anchor='w',compound="left" ) #############################
+            #opt.config(image=self.images["pixel"], width=300,height=40, font=('Helvetica', 12), anchor='w',compound="left" ) #############################
             opt.pack(side=LEFT)
             
         ##Bouton infos client
@@ -159,14 +159,13 @@ class View :
         if clients != []:
             if len(self.master_clients.winfo_children()) == 1 :
                 self.creer_option_infos()
-            menu = self.master_clients.winfo_children()[1]["menu"]
-            menu.delete(0, "end")
+            cbox = self.master_clients.winfo_children()[1]
             tab = []
             for i in range(0,len(clients)) :
                 tab.append(clients[i]._nom +" "+ clients[i]._prenom+" |"+clients[i]._mail)
-                menu.add_command(label=tab[i], command=lambda value=tab[i]: self.client_sv.set(value))
             self.client_sv.set(tab[0])
-
+            cbox['values'] = tab
+            
         else:
         
             while len(self.master_clients.winfo_children()) != 1 :
@@ -423,7 +422,7 @@ class View :
         
         e_nom = Entry(master_infos,state = "disabled",textvariable= nom_client,font=self.verdana_font, width= 70)
         e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
-        e_num_chambre = ttk.Combobox(master_infos,state = "enabled",textvariable= num_chambre,font=self.verdana_font,width= 70)
+        e_num_chambre = ttk.Combobox(master_infos,state = "disabled",textvariable= num_chambre,font=self.verdana_font,width= 70)
         e_num_chambre['values'] = liste_num_ch
         e_nb_occupants = Entry(master_infos,state = "disabled",textvariable= nb_occupants,font=self.verdana_font,width= 70)
         e_date_arrivee = DateEntry(master_infos,font=self.verdana_font,width= 70)
