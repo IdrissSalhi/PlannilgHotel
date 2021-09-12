@@ -399,29 +399,32 @@ class View :
         prenom_client = StringVar()
         num_chambre = IntVar()
         nb_occupants = IntVar()
-        
-        
+        liste_chambre = self.controller.getAllChambres()
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
         num_chambre.set(chambre._numero)
         nb_occupants.set(resa._nb_occupants)
+        liste_num_ch = []
+        for i in range (0,len(liste_chambre)) :
+            liste_num_ch.append(liste_chambre[i]._numero)
 
         Label(master_infos, 
                 text="NOM :",font=self.verdana_font).grid(row=0,sticky=E)
         Label(master_infos, 
                 text="PRENOM :",font=self.verdana_font).grid(row=1,sticky=E)
         Label(master_infos, 
-                text="CHAMBRE :",font=self.verdana_font).grid(row=1,sticky=E)
+                text="CHAMBRE :",font=self.verdana_font).grid(row=2,sticky=E)
         Label(master_infos, 
-                text="ARRIVEE :",font=self.verdana_font).grid(row=2,sticky=E) 
+                text="ARRIVEE :",font=self.verdana_font).grid(row=3,sticky=E) 
         Label(master_infos, 
-                text="DEPART :",font=self.verdana_font).grid(row=3,sticky=E)
+                text="DEPART :",font=self.verdana_font).grid(row=4,sticky=E)
         Label(master_infos, 
-                text="OCCUPANTS :",font=self.verdana_font).grid(row=4,sticky=E)          
+                text="OCCUPANTS :",font=self.verdana_font).grid(row=5,sticky=E)          
         
         e_nom = Entry(master_infos,state = "disabled",textvariable= nom_client,font=self.verdana_font, width= 70)
         e_prenom = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
-        e_num_chambre = Entry(master_infos,state = "disabled",textvariable= prenom_client,font=self.verdana_font,width= 70)
+        e_num_chambre = ttk.Combobox(master_infos,state = "enabled",textvariable= num_chambre,font=self.verdana_font,width= 70)
+        e_num_chambre['values'] = liste_num_ch
         e_nb_occupants = Entry(master_infos,state = "disabled",textvariable= nb_occupants,font=self.verdana_font,width= 70)
         e_date_arrivee = DateEntry(master_infos,font=self.verdana_font,width= 70)
         e_date_arrivee.set_date(resa._date_arrivee)
@@ -437,9 +440,11 @@ class View :
 
         e_nom.grid(row=0, column=1, sticky=W)
         e_prenom.grid(row=1, column=1, sticky=W)
-        e_date_arrivee.grid(row=2, column=1, sticky=W)
-        e_date_depart.grid(row=3, column=1, sticky=W)
-        e_nb_occupants.grid(row=4, column=1, sticky=W)
+        e_num_chambre.grid(row=2, column=1, sticky=W)
+
+        e_date_arrivee.grid(row=3, column=1, sticky=W)
+        e_date_depart.grid(row=4, column=1, sticky=W)
+        e_nb_occupants.grid(row=5, column=1, sticky=W)
 
         master_infos.pack()
         window_infos.resizable(False,False)
