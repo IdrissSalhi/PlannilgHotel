@@ -1,0 +1,49 @@
+.principale{
+    border : none;
+    border-collapse: collapse;
+    margin: 5% 0;
+}
+
+
+
+table{
+    
+    width: 100%;
+}
+
+.tr_principale{
+    
+    border: 1px solid black;
+}
+
+.tr_principale:not(.encodage) > td{
+    width: 33%;
+}
+
+.num_chambre{ 
+    font-weight: bold;
+    font-size: larger;
+}
+
+.num_chambre:not(.encodage):not(.arrive_ajd) {
+    padding: 20;
+}
+
+.arrive_ajd{
+    padding: 18;
+    border-radius: 50%;
+    border: 2px solid black;
+    
+}
+
+
+.client{
+    border-left: 1px solid black;
+    width: 80%;
+    padding-left: 2%;    
+
+}
+
+.client:not(.fin_de_ligne){
+    border-right: 1px solid black;
+}
