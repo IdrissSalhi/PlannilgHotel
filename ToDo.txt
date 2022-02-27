@@ -1,5 +1,5 @@
--nombre de nuités
-- Tarification ?
+-nombre de nuités à droite
+- Chevauchement resa
 
 - Readme
 

@@ -30,7 +30,7 @@ def generer_pdf(date, controller) :
     content += "<tr class=tr_principale>"
     for j in range (1,4):
         content += "<td>"
-        content += "<table><tr>"
+        content += "<table><tr class = bordures>"
         resa = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
             , controller.get_id_byNumChambre(100+j))
     
@@ -39,14 +39,24 @@ def generer_pdf(date, controller) :
         else :
             content += "<td class=num_chambre>"
         content += str(100+j)
-        if j == 3 :
-                content += "</td><td class=\"client fin_de_ligne\">"
-        else :
-                content += "</td><td class=client>"
+       
+        content += "</td><td class=client>"
+                
          
         if resa != None :
             client = controller.getClientById(resa._id_client)
-            content += " (" + str(resa.getNuitees(date)) + "j) " + client._nom + " " + client._prenom
+            content += " " +  client._nom + " " + client._prenom 
+        
+        
+        if j==3 :
+            content += "</td><td class = \"nb_nuits fin_de_ligne\">"
+        else :
+            content += "</td><td class = nb_nuits>"    
+        
+        if resa != None:
+            content += " " + str(resa.getNuitees(date)) + "j "
+
+
         content += "</td></tr></table>"
         content += "</td>"
     content += "</tr>"
@@ -68,14 +78,22 @@ def generer_pdf(date, controller) :
                 content += "<td class=num_chambre>"
             
             content += str(100*j+i)
-            if j == 4 :
-                content += "</td><td class=\"client fin_de_ligne\">"
-            else :
-                content += "</td><td class=client>"
+       
+            
+            content += "</td><td class=client>"
 
             if resa != None :
                 client = controller.getClientById(resa._id_client)
-                content += " (" + str(resa.getNuitees(date)) + "j) " + client._nom + " " + client._prenom
+                content += " " +  client._nom + " " + client._prenom 
+        
+        
+            if j==4 :
+                content += "</td><td class = \"nb_nuits fin_de_ligne\">"
+            else :
+                content += "</td><td class = nb_nuits>"    
+        
+            if resa != None:
+                content += " " + str(resa.getNuitees(date)) + "j "
             content += "</td></tr></table>"
             content += "</td>"
         content += "</tr>"
@@ -97,14 +115,22 @@ def generer_pdf(date, controller) :
             else :
                 content += "<td class=num_chambre>"
             content += str(100*j+i)
-            if j == 7 :
-                content += "</td><td class=\"client fin_de_ligne\">"
-            else :
-                content += "</td><td class=client>"
-        
+            
+            content += "</td><td class=client>"
+
             if resa != None :
                 client = controller.getClientById(resa._id_client)
-                content += " (" + str(resa.getNuitees(date)) + "j) " + client._nom + " " + client._prenom
+                content += " " +  client._nom + " " + client._prenom 
+        
+        
+            if j==7 :
+                content += "</td><td class = \"nb_nuits fin_de_ligne\">"
+            else :
+                content += "</td><td class = nb_nuits>"    
+            
+            if resa != None:
+                content += " " + str(resa.getNuitees(date)) + "j "
+                
             content += "</td></tr></table>"
             content += "</td>"
         content += "</tr>"
@@ -129,9 +155,9 @@ def generer_pdf(date, controller) :
                 content += " X "
             cpt += 1
             if j == 9 :
-                content += "</td><td class=\"client fin_de_ligne\"></td></tr></table>"
+                content += "</td><td class=\"encodage_client fin_de_ligne\"></td></tr></table>"
             else :
-                content += "</td><td class=client></td></tr></table>"
+                content += "</td><td class=encodage_client></td></tr></table>"
             content += "</td> "
         content += "</tr>"
 

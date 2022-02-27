@@ -11,6 +11,12 @@ table{
     width: 100%;
 }
 
+.bordures{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding-top: 20%;
+}
+
 .tr_principale{
     
     border: 1px solid black;
@@ -37,6 +43,9 @@ table{
 }
 
 
+
+
+
 .client{
     border-left: 1px solid black;
     width: 80%;
@@ -44,6 +53,21 @@ table{
 
 }
 
-.client:not(.fin_de_ligne){
-    border-right: 1px solid black;
+.nb_nuits{
+    width: 5%;
 }
+
+.nb_nuits:not(.fin_de_ligne){
+    border-right: 1px solid black;
+    padding-right: 20%;
+}
+
+.encodage_client{
+    border-left: 1px solid black;
+    width: 80%;
+    padding-left: 2%; }
+
+.encodage_client:not(.fin_de_ligne){
+    border-right: 1px solid black;
+    width: 80%;
+    padding-left: 2%; }
