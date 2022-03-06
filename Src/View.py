@@ -408,9 +408,7 @@ class View :
         master_infos = Frame(master = window_infos,padx = 10,pady= 10)
         
         id_client = resa._id_client
-        id_chambre = resa._id_chambre
         client = self.controller.getClientById(id_client)
-        chambre = self.controller.getChambreById(id_chambre)
         nom_client = StringVar()
         prenom_client = StringVar()
         num_chambre = IntVar()
@@ -418,7 +416,6 @@ class View :
         est_reglee = IntVar()
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
-        #num_chambre.set(chambre._numero)
         nb_occupants.set(resa._nb_occupants)
         est_reglee.set(resa._est_reglee)
         liste_num_ch = []
@@ -447,7 +444,11 @@ class View :
             liste_chambres_valides = self.controller.get_chambre_dispo(resa)
             if len(liste_chambres_valides) > 0 :
                 e_num_chambre['values'] = liste_chambres_valides
-                e_num_chambre.current(0)
+                if resa._id_chambre == -1 or self.controller.getChambreById(resa._id_chambre)._numero not in liste_chambres_valides :
+                   e_num_chambre.current(0)
+                else :
+                    e_num_chambre.current(liste_chambres_valides.index(self.controller.getChambreById(resa._id_chambre)._numero))
+                
             else :
                 e_num_chambre['values'] = []
                 e_num_chambre.delete(0,"end")

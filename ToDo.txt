@@ -1,5 +1,8 @@
--nombre de nuités à droite
-- Chevauchement resa
+
+BELLEVUE :
+- BK HB spécifier sur planning avec triangles ou rectangles le long de la ligne sur chambre
+-numéro de reservation
+- Inverser jours et chambre
 
 - Readme
 

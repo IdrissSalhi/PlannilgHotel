@@ -218,7 +218,7 @@ class Database :
         self._connexion.commit()
 
     def get_chambre_dispo(self, reservation) :
-        self._cursor.execute(""" Select num_ch from CHAMBRES INNER JOIN RESERVATIONS on RESERVATIONS.id_chambre = CHAMBRES.id where """ +str(reservation._id_chambre)+ """ <> id_chambre and
+        self._cursor.execute(""" Select num_ch from CHAMBRES INNER JOIN RESERVATIONS on RESERVATIONS.id_chambre = CHAMBRES.id where """ +str(reservation._id)+ """ <> RESERVATIONS.id and
             julianday('""" + reservation._date_depart.strftime("%Y-%m-%d %H:%M:%S") + """') - julianday(date_arrivee) >= 0 and
             julianday('""" + reservation._date_arrivee.strftime("%Y-%m-%d %H:%M:%S") + """') - julianday(date_depart) <= 0 
             """)
