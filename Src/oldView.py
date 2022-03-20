@@ -28,7 +28,7 @@ class View :
         self.master_add = Frame ( master = self.button_calendar,height=100)
 
         self.pivot_day = datetime.now()
-        self.page = 0
+        self.etage = 1
 
         self.wingdings_font = font.Font(family='Wingdings 3', size=30, weight='bold')
         self.verdana_font = font.Font(family='Verdana', size=12)
@@ -63,6 +63,15 @@ class View :
         dict["left"] = PhotoImage(file="Images/left.png").subsample(17,17)
         return dict
 
+    def set_ROOMS(self, r) :
+        self.ROOMS = r
+        if len(self.ROOMS)== 0 :
+            self.MAX_ROOMS = 0
+        else :    
+            self.MAX_ROOMS = len(self.ROOMS[0])
+            for i in range(1,len(self.ROOMS)) :
+                if len(self.ROOMS[i]) > self.MAX_ROOMS :
+                    self.MAX_ROOMS = len(self.ROOMS[i])
 
 
     def update_days(self):
@@ -84,31 +93,17 @@ class View :
         self.pivot_day -= timedelta(7)
         self.update_days()
 
+    def update_floors(self) :
+        for i in range (0,self.MAX_ROOMS):
+            data_cell = self.data_calendar.winfo_children()[i+8]
+            if i < len (self.ROOMS[self.etage-1]) :
+                data_cell.winfo_children()[0].configure(text = "\n" + str(self.ROOMS[self.etage-1][i]) + "\n", bg= COUL_CHAMBRES_CAL)
+            else :
+                data_cell.winfo_children()[0].configure(text = "\n\n",bg = COUL_FOND_CAL)
+        self.update_data()
 
-    def destroy_data(self) :
-        while (len(self.data_calendar.winfo_children()) > 8) :
-            self.data_calendar.winfo_children()[8].destroy()
-
-    def recreate_data(self) :
-        self.data_calendar.rowconfigure(0, weight=1, minsize=100)
-        for i in range(0,len(self.ROOMS[self.page])):
-            self.data_calendar.rowconfigure(i+1, weight=1, minsize=20)
-            data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) #########
-            label = Label(master=data_cell,text=self.ROOMS[self.page][i] ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
-
-
-            data_cell.grid(row = 0, column=i+1,sticky=N+S+E+W)
-            label.pack(fill=BOTH, side=LEFT,expand = True)
-        #creer les données a partir de old_update_data et initialisation
-
-    def refresh_data(self) :
-        self.destroy_data()   
-        self.recreate_data()
-    
-
-    def old_update_data(self):
-        print ("update_data()")
-        """for c in range (1,self.MAX_ROOMS+1):
+    def update_data(self):
+        for c in range (1,self.MAX_ROOMS+1):
             for j in range (1,8) :
                 data_cell = self.data_calendar.winfo_children()[7+self.MAX_ROOMS+j+(c-1)*7]
 
@@ -136,21 +131,21 @@ class View :
                 
                 else :
                     while len(data_cell.winfo_children()) >= 1 :
-                        data_cell.winfo_children()[0].destroy()"""
+                        data_cell.winfo_children()[0].destroy()
            
 
 
-    def next_page(self) :
+    def next_floor(self) :
       
-        if self.page < len(self.ROOMS) - 1: 
-            self.page = self.page + 1
-            self.refresh_data()
+        if self.etage < len(self.ROOMS): 
+            self.etage = self.etage + 1
+            self.update_floors()
 
-    def previous_page(self):
+    def previous_floor(self):
 
-        if self.page >  0:
-            self.page = self.page - 1
-            self.refresh_data()
+        if self.etage > 1 :
+            self.etage = self.etage - 1
+            self.update_floors()
 
 ########################################################
     def creer_option_infos(self):
@@ -200,23 +195,23 @@ class View :
     def initialisation (self):
 
         ##Creation des boutons
-        button_pagesuiv=Button(master = self.button_calendar, command=self.next_page ,bg =COUL_BOUTTONS_NAVIGATION, image=self.images["right"], height=90, width=100)
-        button_pageprec=Button(master = self.button_calendar, command=self.previous_page,bg = COUL_BOUTTONS_NAVIGATION, image=self.images["left"], height=90, width=100)
+        button_semainesuiv=Button(master = self.button_calendar, command=self.next_week ,bg =COUL_BOUTTONS_NAVIGATION, image=self.images["right"], height=90, width=100)
+        button_semaineprec=Button(master = self.button_calendar, command=self.previous_week,bg = COUL_BOUTTONS_NAVIGATION, image=self.images["left"], height=90, width=100)
 
         button_floor = Frame (master = self.data_calendar)
         button_floor.grid(row = 0, column=0,sticky=N+S+E+W)
 
 
-        button_semainesuiv = Button (master = button_floor, command=self.next_week ,bg =COUL_BOUTTONS_NAVIGATION, image=self.images["down"], width=100)
-        button_semaineprec = Button (master = button_floor ,command=self.previous_week ,bg =COUL_BOUTTONS_NAVIGATION, image=self.images["up"], width=100 )
+        button_etageprec = Button (master = button_floor, command=self.previous_floor ,bg =COUL_BOUTTONS_NAVIGATION, image=self.images["down"], width=100)
+        button_etagesuiv = Button (master = button_floor ,command=self.next_floor ,bg =COUL_BOUTTONS_NAVIGATION, image=self.images["up"], width=100 )
 
-        button_pageprec.pack(side = LEFT)
-        button_pagesuiv.pack(side = RIGHT)
+        button_semaineprec.pack(side = LEFT)
+        button_semainesuiv.pack(side = RIGHT)
         self.button_calendar.pack(padx = 10,pady=5,fill=BOTH, expand=False)
 
 
-        button_semaineprec.pack (side = LEFT,expand = True,fill=BOTH)
-        button_semainesuiv.pack (side = RIGHT,expand = True,fill=BOTH)
+        button_etageprec.pack (side = LEFT,expand = True,fill=BOTH)
+        button_etagesuiv.pack (side = RIGHT,expand = True,fill=BOTH)
 
        
 
@@ -228,18 +223,29 @@ class View :
             temp = (self.pivot_day + timedelta(i-self.pivot_day.weekday()))
             machaine = JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1])
             label = Button(master=data_cell,command=lambda arg1 = temp,arg2 = self.controller  : generer_pdf(arg1, arg2), text=machaine,bg = COUL_JOURS_CAL,fg = COUL_POLICE_JOURS, font = font.Font(family = POLICE_JOURS, size =POLICE_JOURS_TAILLE))
-            data_cell.grid(row = i+1, column=0,sticky=N+S+E+W)
+            data_cell.grid(row = 0, column=i+1,sticky=N+S+E+W)
             label.pack(fill=BOTH, side=LEFT,expand = True)
 
 
         ##Creation des colonnes chambres
-        self.recreate_data()
+        self.data_calendar.rowconfigure(0, weight=1, minsize=100)
+        for i in range(self.MAX_ROOMS):
+            self.data_calendar.rowconfigure(i+1, weight=1, minsize=20)
+            data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) #########
+            label = Label(master=data_cell,text=" " ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
+
+
+            data_cell.grid(row = i+1, column=0,sticky=N+S+E+W)
+            label.pack(fill=BOTH, side=LEFT,expand = True)
+
 
         ##Creation des données
-        for r in range(1,9):
+        for r in range(1,self.MAX_ROOMS+1):
             for c in range(1,8):
                 data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = SUNKEN)
                 data_cell.grid(row = r, column=c,sticky=N+S+E+W)
+        self.update_floors()
+
         self.data_calendar.pack(fill=BOTH,expand = True)
          
          

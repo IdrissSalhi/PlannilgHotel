@@ -9,7 +9,7 @@ view = View(controller)
 
 
 
-view.set_ROOMS(controller.getRoomsAsArray())
+#view.set_ROOMS(controller.getRoomsAsArray())
 
 
 

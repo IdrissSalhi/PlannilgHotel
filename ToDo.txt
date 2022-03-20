@@ -7,3 +7,23 @@ BELLEVUE :
 - Readme
 
 
+Nb de colonnes verticales? 
+Nb d'occupants pour chaque chambre?
+Spécificités des chambres (accessibilité, salle de bains, balcon)
+boutons couleurs de préférences
+
+
+
+- TAB ROOMS ( getroomsasArray()) 
+- supprimer max rooms et ce qui est lié
+- Inverser jours et chambres
+- Update à modifier (modifier update jours et chambres avant data)
+
+
+
+ROOMS = [[101,102,202,203,204],
+        [302,303,304,402,403,404,502,503],
+        [504,602,603,604,702,704],
+        [201,301,401,501,601,703],
+        [206,506,606,706,306,406],
+        [103,205,305,405,505,605,705]]
