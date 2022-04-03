@@ -248,3 +248,10 @@ class Database :
         res = self._cursor.fetchall()
         for i in res :
             print(i)
+    
+
+    def print_chambres(self):
+        self._cursor.execute("""SELECT * from CHAMBRES""")
+        res = self._cursor.fetchall()
+        for i in res :
+            print(i)

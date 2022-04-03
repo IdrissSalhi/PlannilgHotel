@@ -70,7 +70,7 @@ class View :
         for i in range(0,7):
             data_cell = self.data_calendar.winfo_children()[i+1]
             temp = (self.pivot_day + timedelta(i-self.pivot_day.weekday()))
-            machaine = JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1])
+            machaine ="\n" + JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1]) + "\n"
             data_cell.winfo_children()[0].configure(text = machaine,
                         command=lambda arg1 = temp,arg2 = self.controller  : generer_pdf(arg1, arg2))
         self.update_data()
@@ -90,18 +90,44 @@ class View :
             self.data_calendar.winfo_children()[8].destroy()
 
     def recreate_data(self) :
-        self.data_calendar.rowconfigure(0, weight=1, minsize=100)
-        for i in range(0,len(self.ROOMS[self.page])):
-            self.data_calendar.rowconfigure(i+1, weight=1, minsize=20)
+        self.data_calendar.columnconfigure(0, weight=1, minsize=150)
+        for i in range(0,8):
+            self.data_calendar.columnconfigure(i+1, weight=1, minsize=150)
             data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) #########
-            label = Label(master=data_cell,text=self.ROOMS[self.page][i] ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
-
+            if i < len(self.ROOMS[self.page]) :
+                label = Label(master=data_cell,text=self.ROOMS[self.page][i] ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
+            else :
+                label = Label(master=data_cell,text= "\n\n" ,bg = COUL_FOND_CAL)
 
             data_cell.grid(row = 0, column=i+1,sticky=N+S+E+W)
             label.pack(fill=BOTH, side=LEFT,expand = True)
+
+        for r in range(1,8):
+            for c in range(1,9):
+                data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = SUNKEN)
+                #########
+                if c < len(self.ROOMS[self.page])+1 :
+                    temp = (self.pivot_day + timedelta((r-1)-self.pivot_day.weekday()))
+                    machaine = str(temp.year)+"-"+str(temp.month).zfill(2)+"-"+str(temp.day).zfill(2)
+                    chambre = self.ROOMS[self.page][c-1] 
+                    id_chambre = int(self.ROOMS[self.page][c-1])
+                    id_chambre = self.controller.get_id_byNumChambre(id_chambre)
+                    resa = self.controller.get_reservation_byDateandRoomId(machaine, id_chambre) 
+                    if resa != None :
+                        client = self.controller.getClientById(resa._id_client)
+                        machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
+                        resa_client = Button (master = data_cell,text=machaineresa, command=lambda arg1 = resa : self.fenetre_infos_resa(arg1), bg = COUL_RESERVATION_IMPAYEE,fg = COUL_POLICE_DATA, font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE), height = 3)
+                        if resa._est_reglee == 1 :
+                            resa_client.configure(bg = COUL_RESERVATION_PAYEE)
+                        resa_client.pack(expand=True, fill=BOTH, side = LEFT)
+
+                #########
+                data_cell.grid(row = r, column=c,sticky=N+S+E+W)
+        self.data_calendar.pack(fill=BOTH,expand = True)
+        
         #creer les données a partir de old_update_data et initialisation
 
-    def refresh_data(self) :
+    def update_data(self) :
         self.destroy_data()   
         self.recreate_data()
     
@@ -144,13 +170,13 @@ class View :
       
         if self.page < len(self.ROOMS) - 1: 
             self.page = self.page + 1
-            self.refresh_data()
+            self.update_data()
 
     def previous_page(self):
 
         if self.page >  0:
             self.page = self.page - 1
-            self.refresh_data()
+            self.update_data()
 
 ########################################################
     def creer_option_infos(self):
@@ -220,27 +246,19 @@ class View :
 
        
 
-        ##Creation de la ligne des jours
-        self.data_calendar.columnconfigure(0, weight=1, minsize=150)
+        ##Creation de la colonne des jours
+        self.data_calendar.rowconfigure(0, weight=1, minsize=100)
         for i in range(7):
-            self.data_calendar.columnconfigure(i+1, weight=1, minsize=150)
+            self.data_calendar.rowconfigure(i+1, weight=1, minsize=20)
             data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED)
             temp = (self.pivot_day + timedelta(i-self.pivot_day.weekday()))
-            machaine = JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1])
+            machaine = "\n" + JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1]) + "\n"
             label = Button(master=data_cell,command=lambda arg1 = temp,arg2 = self.controller  : generer_pdf(arg1, arg2), text=machaine,bg = COUL_JOURS_CAL,fg = COUL_POLICE_JOURS, font = font.Font(family = POLICE_JOURS, size =POLICE_JOURS_TAILLE))
             data_cell.grid(row = i+1, column=0,sticky=N+S+E+W)
             label.pack(fill=BOTH, side=LEFT,expand = True)
 
 
-        ##Creation des colonnes chambres
-        self.recreate_data()
-
-        ##Creation des données
-        for r in range(1,9):
-            for c in range(1,8):
-                data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = SUNKEN)
-                data_cell.grid(row = r, column=c,sticky=N+S+E+W)
-        self.data_calendar.pack(fill=BOTH,expand = True)
+        self.update_data()
          
          
           ## Ajout nouvelle resa
