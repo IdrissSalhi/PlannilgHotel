@@ -21,7 +21,7 @@ class Chambre :
 
 class Reservation :
 
-    def __init__(self,id_client,id_chambre,date_arrivee,date_depart,nb_occupants,est_reglee=False) :
+    def __init__(self,id_client,id_chambre,date_arrivee,date_depart,nb_occupants,est_reglee=False,origine = "") :
         self._id = -1
         self._id_client = id_client
         self._id_chambre = id_chambre
@@ -29,6 +29,7 @@ class Reservation :
         self._est_reglee = est_reglee
         self._date_arrivee = date_arrivee
         self._date_depart = date_depart
+        self._origine = origine
     
     def getNuitees(self, from_date):
         print (self._date_depart, from_date.replace(hour=0,minute=0,second=0, microsecond=0))

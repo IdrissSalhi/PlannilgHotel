@@ -49,6 +49,7 @@ class Database :
             date_depart DATE,
             nb_occupants INTEGER NOT NULL,
             est_reglee INTEGER,
+            origine TINYTEXT,
             FOREIGN KEY (id_client) references CLIENTS (id),
             FOREIGN KEY (id_chambre) references CHAMBRES(id)
             
@@ -73,8 +74,8 @@ class Database :
         self._connexion.commit()
 
     def ajouter_reservation(self, reservation) :
-        db_reservation = (reservation._id_client, reservation._id_chambre, reservation._date_arrivee, reservation._date_depart, reservation._nb_occupants, reservation._est_reglee)
-        self._cursor.execute("""INSERT INTO RESERVATIONS (id_client, id_chambre, date_arrivee, date_depart, nb_occupants, est_reglee) VALUES (?,?,?,?,?,?)""",db_reservation)
+        db_reservation = (reservation._id_client, reservation._id_chambre, reservation._date_arrivee, reservation._date_depart, reservation._nb_occupants, reservation._est_reglee, reservation._origine)
+        self._cursor.execute("""INSERT INTO RESERVATIONS (id_client, id_chambre, date_arrivee, date_depart, nb_occupants, est_reglee, origine) VALUES (?,?,?,?,?,?,?)""",db_reservation)
         self._cursor.execute("""SELECT LAST_INSERT_ROWID(); """)
         self._connexion.commit()
         return self._cursor.fetchall()[0][0]
@@ -111,7 +112,7 @@ class Database :
         if len(db_reservation)== 0 :
             return None
         else :
-            reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6])
+            reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6],db_reservation[0][7])
             reservation._id = db_reservation[0][0]
             return reservation
 
@@ -176,7 +177,7 @@ class Database :
         if len(db_reservation)== 0 :
             return None
         else :
-            reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6])
+            reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6], db_reservation[0][7])
             reservation._id = db_reservation[0][0]
 
             return reservation
@@ -192,12 +193,13 @@ class Database :
     def modifier_reservation_byId (self, reservation) :
 
         self._cursor.execute("""UPDATE RESERVATIONS
-        SET date_arrivee = '"""+str(reservation._date_arrivee.strftime("%Y-%m-%d %H:%M:%S"))+"""',
-        date_depart = '"""+str(reservation._date_depart.strftime("%Y-%m-%d %H:%M:%S"))+"""',
-        nb_occupants = '"""+str(reservation._nb_occupants)+"""',
-        est_reglee = '"""+str(reservation._est_reglee)+"""',
-        id_chambre = '"""+str(reservation._id_chambre)+"""'
-        WHERE id = """+str(reservation._id))
+        SET date_arrivee = '"""+ str(reservation._date_arrivee.strftime("%Y-%m-%d %H:%M:%S")) +"""',
+        date_depart = '"""+ str(reservation._date_depart.strftime("%Y-%m-%d %H:%M:%S")) +"""',
+        nb_occupants = '"""+ str(reservation._nb_occupants) +"""',
+        est_reglee = '"""+ str(reservation._est_reglee) +"""',
+        origine = '"""+ reservation._origine +"""',
+        id_chambre = '"""+ str(reservation._id_chambre) +"""'
+        WHERE id = """+ str(reservation._id))
         self._connexion.commit()
         
 

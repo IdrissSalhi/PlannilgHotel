@@ -4,6 +4,8 @@ from tkinter import *
 from tkinter import messagebox
 from datetime import *
 import tkinter.font as font
+
+from numpy import expand_dims
 from Src.Controller import *
 from Src.Model import *
 from tkcalendar import *
@@ -61,6 +63,7 @@ class View :
         dict["down"] = PhotoImage(file="Images/down.png").subsample(17,17)
         dict["right"] = PhotoImage(file="Images/right.png").subsample(17,17)
         dict["left"] = PhotoImage(file="Images/left.png").subsample(17,17)
+        dict["Booking"] = PhotoImage(file="Images/Booking.png").subsample(1,1)
         return dict
 
 
@@ -116,10 +119,19 @@ class View :
                     if resa != None :
                         client = self.controller.getClientById(resa._id_client)
                         machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
-                        resa_client = Button (master = data_cell,text=machaineresa, command=lambda arg1 = resa : self.fenetre_infos_resa(arg1), bg = COUL_RESERVATION_IMPAYEE,fg = COUL_POLICE_DATA, font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE), height = 3)
+                        resa_client = Button (master = data_cell,text=machaineresa, 
+                                              command=lambda arg1 = resa : self.fenetre_infos_resa(arg1), 
+                                              bg = COUL_RESERVATION_IMPAYEE,
+                                              fg = COUL_POLICE_DATA, 
+                                              font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE), 
+                                              height = 3)
                         if resa._est_reglee == 1 :
                             resa_client.configure(bg = COUL_RESERVATION_PAYEE)
+                        if resa._origine == "Booking" :
+                            resa_client.configure(image= self.images["Booking"], compound= CENTER)
                         resa_client.pack(expand=True, fill=BOTH, side = LEFT)
+                         
+
 
                 #########
                 data_cell.grid(row = r, column=c,sticky=N+S+E+W)
@@ -432,12 +444,15 @@ class View :
         num_chambre = IntVar()
         nb_occupants = IntVar()
         est_reglee = IntVar()
+        origine = StringVar()
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
         nb_occupants.set(resa._nb_occupants)
         est_reglee.set(resa._est_reglee)
+        origine.set(resa._origine)
         liste_num_ch = []
         liste_nb_occupants = []
+        liste_origine = ["", "Booking", "Fastbooking"]
         for i in range (0, self.controller.get_capacite_max_chambre()) :
             liste_nb_occupants.append(i+1)
         Label(master_infos, 
@@ -453,7 +468,9 @@ class View :
         Label(master_infos, 
                 text="OCCUPANTS :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=3,column =0, sticky=E)
         Label(master_infos, 
-                text="REGLEE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =0, sticky=E)                  
+                text="REGLEE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =0, sticky=E)
+        Label(master_infos, 
+                text="ORIGINE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =2, sticky=E)
         
         def parameter_selected(event):
             resa._nb_occupants = e_nb_occupants.get() 
@@ -488,6 +505,10 @@ class View :
         e_date_depart.configure(state = "disabled")
         e_est_reglee = Checkbutton(master_infos,variable=est_reglee, onvalue=1, offvalue=0)
         e_est_reglee.configure(state = "disabled")
+        e_origine = ttk.Combobox(master_infos,state = "disabled",textvariable = origine, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
+        e_origine['values'] = liste_origine
+    
+
 
 
 
@@ -500,6 +521,7 @@ class View :
         e_date_depart.grid(row=2, column=3, sticky=W)
         e_nb_occupants.grid(row=3, column=1, sticky=W)
         e_est_reglee.grid(row = 4, column = 1, sticky=W)
+        e_origine.grid(row = 4, column = 3, sticky=W)
 
        
 
@@ -516,6 +538,7 @@ class View :
             resa._date_arrivee = datetime.combine(e_date_arrivee.get_date(),datetime.min.time())
             resa._date_depart = datetime.combine(e_date_depart.get_date(),datetime.min.time())
             resa._est_reglee = int(est_reglee.get())
+            resa._origine = origine.get()
             if resa._date_arrivee > resa._date_depart :
                 messagebox.showerror(title=None, message="Les dates sont invalides", parent = window_infos )
             else :
@@ -529,6 +552,7 @@ class View :
                 e_date_arrivee.configure(state="normal")
                 e_date_depart.configure(state="normal")
                 e_est_reglee.configure(state="normal")
+                e_origine.configure(state="normal")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_OUVERT, image = self.images["unlock"])
                 Button ( bout_quitter_frame, command=sauvegarder_infos, text = " Sauvegarder",
                 height=50,width=150, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),image = self.images["disk"],compound="left").pack(side = "left")
@@ -540,6 +564,7 @@ class View :
                 e_date_arrivee.configure(state="disabled")
                 e_date_depart.configure(state="disabled")
                 e_est_reglee.configure(state="disabled")
+                e_origine.configure(state="disabled")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_FERME, image = self.images["lock"])
                 bout_quitter_frame.winfo_children()[1].destroy()
                 bout_quitter_frame.winfo_children()[1].destroy()
