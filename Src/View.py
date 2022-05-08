@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter import messagebox
 from datetime import *
 import tkinter.font as font
+from turtle import width
 
 from numpy import expand_dims
 from Src.Controller import *
@@ -12,6 +13,7 @@ from tkcalendar import *
 from tkinter import ttk
 from Src.Config import *
 from Src.Bellevue.pdf_bellevue import *
+from PIL import Image, ImageTk
 
 
 JOURS = ["LUNDI","MARDI","MERCREDI","JEUDI","VENDREDI","SAMEDI","DIMANCHE"]
@@ -63,11 +65,8 @@ class View :
         dict["down"] = PhotoImage(file="Images/down.png").subsample(17,17)
         dict["right"] = PhotoImage(file="Images/right.png").subsample(17,17)
         dict["left"] = PhotoImage(file="Images/left.png").subsample(17,17)
-        dict["Booking"] = PhotoImage(file="Images/Booking.png").subsample(1,1)
         return dict
-
-
-
+       
     def update_days(self):
 
         for i in range(0,7):
@@ -114,22 +113,55 @@ class View :
                     machaine = str(temp.year)+"-"+str(temp.month).zfill(2)+"-"+str(temp.day).zfill(2)
                     chambre = self.ROOMS[self.page][c-1] 
                     id_chambre = int(self.ROOMS[self.page][c-1])
-                    id_chambre = self.controller.get_id_byNumChambre(id_chambre)
+                    id_chambre = self.controller.get_id_byNumChambre(id_chambre) 
                     resa = self.controller.get_reservation_byDateandRoomId(machaine, id_chambre) 
                     if resa != None :
+                        c_height = 75
+                        c_width = 130
+                        margin = 5
                         client = self.controller.getClientById(resa._id_client)
                         machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
-                        resa_client = Button (master = data_cell,text=machaineresa, 
+                        """resa_client = Button (master = data_cell,text=machaineresa, 
                                               command=lambda arg1 = resa : self.fenetre_infos_resa(arg1), 
                                               bg = COUL_RESERVATION_IMPAYEE,
                                               fg = COUL_POLICE_DATA, 
                                               font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE), 
-                                              height = 3)
-                        if resa._est_reglee == 1 :
-                            resa_client.configure(bg = COUL_RESERVATION_PAYEE)
+                                              height = 3)"""
+    
+                        canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE )
+                        if (resa._est_reglee) :
+                            canva.configure (background = COUL_RESERVATION_PAYEE)
+                    
+                        canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
+
                         if resa._origine == "Booking" :
-                            resa_client.configure(image= self.images["Booking"], compound= CENTER)
-                        resa_client.pack(expand=True, fill=BOTH, side = LEFT)
+                            canva.create_line(0,0, c_width/10 - margin, c_height/8, 0, c_height/4,
+                            c_width/10 - margin, 3*c_height/8, 0, c_height/2, 
+                            c_width/10 - margin, 5*c_height/8,  0, 6*c_height/8, 
+                            c_width/10 - margin, 7*c_height/8,  0, c_height, width = 2)
+                            
+                            canva.create_line(c_width,0, 9*c_width/10 + margin,c_height/8, c_width, c_height/4,
+                            9*c_width/10 + margin, 3*c_height/8, c_width, c_height/2, 
+                            9*c_width/10 + margin, 5*c_height/8,  c_width, 6*c_height/8, 
+                            9*c_width/10 + margin, 7*c_height/8,  c_width, c_height, width = 2)
+                        elif resa._origine == "Fastbooking" :
+                            canva.create_rectangle(0, 0, c_width/10 - margin, c_height, width = 2)
+                            canva.create_rectangle(0, c_height/4 , c_width/10 - margin, 3*c_height/4, width = 2)
+                            canva.create_line(0, c_height/2, c_width/10 - margin, c_height/2, width = 2)
+
+                            canva.create_rectangle(c_width, 0, 9*c_width/10 + margin, c_height, width = 2)
+                            canva.create_rectangle(c_width, c_height/4 , 9*c_width/10 + margin, 3*c_height/4, width = 2)
+                            canva.create_line(c_width, c_height/2, 9*c_width/10 + margin, c_height/2, width = 2)
+
+
+
+
+
+                        canva.pack()
+
+                       
+                        
+                        
                          
 
 

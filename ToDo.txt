@@ -21,3 +21,6 @@ boutons couleurs de préférences
 - Création de système de log, sauvegarde de la bdd toute les semaines
 -log : fichier texte qui dit ce qui a été fait par jour
 - Génération de l'adresse mail si NULL automatique (explicitement fausse)
+
+
+determiner taille bouton
