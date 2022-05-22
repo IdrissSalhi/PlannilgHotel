@@ -51,17 +51,16 @@ class Controller :
     
 
     def modifier_client_byId(self,client):
-        
-        if client._id == -1 :
-            if self._database.getClientByMail(client._mail) == None :
+        if self._database.getClientByMail(client._mail) == None :
+            if client._id == -1 :
                 self._database.ajouter_client(client)
-                return "OK"
-            else :
-                return "MAIL EXISTANT"
-
-        else : 
-            self._database.modifier_client_byId(client)
+            else : 
+                self._database.modifier_client_byId(client)
             return "OK"
+        else :
+            return "MAIL EXISTANT"
+
+        
             
     def supprimer_client_byId(self,client):
         self._database.supprimer_client_byId(client)

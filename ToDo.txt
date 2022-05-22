@@ -1,26 +1,9 @@
 
 BELLEVUE :
-- BK HB spécifier sur planning avec triangles ou rectangles le long de la ligne sur chambre
--numéro de reservation
-- Inverser jours et chambre
+
 
 - Readme
-
-
-Nb de colonnes verticales? 
-Nb d'occupants pour chaque chambre?
-Spécificités des chambres (accessibilité, salle de bains, balcon)
-boutons couleurs de préférences
-
-
-
-- bouton aujourd'hui
-
-
-
 - Création de système de log, sauvegarde de la bdd toute les semaines
--log : fichier texte qui dit ce qui a été fait par jour
-- Génération de l'adresse mail si NULL automatique (explicitement fausse)
+- log : fichier texte qui dit ce qui a été fait par jour
 
 
-determiner taille bouton

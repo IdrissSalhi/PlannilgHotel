@@ -134,7 +134,7 @@ class View :
                                               font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE), 
                                               height = 3)"""
     
-                        canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE )
+                        canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE,  )
                         if (resa._est_reglee) :
                             canva.configure (background = COUL_RESERVATION_PAYEE)
                     
@@ -158,6 +158,7 @@ class View :
                             canva.create_rectangle(c_width, 0, 9*c_width/10 + margin, c_height, width = 2)
                             canva.create_rectangle(c_width, c_height/4 , 9*c_width/10 + margin, 3*c_height/4, width = 2)
                             canva.create_line(c_width, c_height/2, 9*c_width/10 + margin, c_height/2, width = 2)
+                        canva.bind("<Button-1>", lambda event, arg1 = resa : self.fenetre_infos_resa(arg1))
 
 
                         canva.pack()
@@ -272,12 +273,12 @@ class View :
          
          
           ## Ajout nouvelle resa
-        creer_resa = Button(master = self.master_add, text = " Creer Reservation" , height= 45, command= self.creer_reservation, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),bg = COUL_BOUTTONS_AJOUTER, image=self.images["adduser"],compound="left")
-        creer_resa.pack(side=RIGHT)
+        creer_resa = Button(master = self.master_add, text = " Creer Reservation", height = 0.8 * self.element_height, width = 1.3 * self.element_width, command= self.creer_reservation, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),bg = COUL_BOUTTONS_AJOUTER, image=self.images["adduser"],compound="left")
+        creer_resa.pack(side=RIGHT, padx = 10, pady = 5)
         
         ## Ajout nouveau client
-        creer_client = Button(master = self.master_add, text = " Ajouter Client" , height= 45, command= lambda : self.fenetre_infos_client(None), fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),bg =COUL_BOUTTONS_AJOUTER ,image=self.images["adduser"],compound="left")
-        creer_client.pack(side=RIGHT)
+        creer_client = Button(master = self.master_add, text = " Ajouter Client" , height = 0.8 * self.element_height, width = 1.3 * self.element_width, command= lambda : self.fenetre_infos_client(None), fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),bg =COUL_BOUTTONS_AJOUTER ,image=self.images["adduser"],compound="left")
+        creer_client.pack(side=RIGHT, padx = 10, pady = 5)
       
   
         #Option + infos 
@@ -365,8 +366,10 @@ class View :
             client._adresse = adresse_client.get()
             client._mail = mail_client.get()
             client._telephone = telephone_client.get()
-            if client._mail != "" and client._nom != "" :
+            if client._nom != "" :
                 
+                if client._mail == "" :
+                    client._mail = client._nom + "." + client._prenom + "@bellevue.default"
                 if self.controller.modifier_client_byId(client) == "MAIL EXISTANT" :
                     messagebox.showerror(title=None, message="Le client existe deja", parent = window_infos )
                 else :
@@ -374,7 +377,7 @@ class View :
                     self.maj_option_menu()
                     self.update_data()
             else :
-                messagebox.showwarning(title = None, message= "Veuillez remplir au moins les champs nom et mail", parent = window_infos)
+                messagebox.showwarning(title = None, message= "Veuillez remplir au moins le champ nom ", parent = window_infos)
                 
                       
         def activer_modif () :
