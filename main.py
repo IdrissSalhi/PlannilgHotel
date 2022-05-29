@@ -3,7 +3,7 @@ from Src.Controller import *
 from Src.View import *
 from Src.Database import *
 
-db = Database()
+db = Database('DB/HotelBDD.db')
 controller = Controller(db)
 view = View(controller)
 

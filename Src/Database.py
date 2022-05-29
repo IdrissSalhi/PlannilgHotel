@@ -4,8 +4,8 @@ from Src.Model import *
 
 class Database : 
 
-    def __init__(self) :
-        self._connexion = sqlite3.connect('DB/HotelBDD.db')
+    def __init__(self, db_file) :
+        self._connexion = sqlite3.connect(db_file)
         self._cursor = self._connexion.cursor()
         self.create_tables()
         if len(self.getAllChambres())== 0 :
@@ -17,8 +17,10 @@ class Database :
             
             f_chambres.close()
 
-
-
+    def execute_query(self, query) :
+        self._cursor.execute(query)
+        self._connexion.commit()
+        return self._cursor.fetchall()
     
     
     def create_tables(self) :

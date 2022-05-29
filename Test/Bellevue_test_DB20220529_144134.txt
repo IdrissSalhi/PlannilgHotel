@@ -1,0 +1,10 @@
+RAPPORT DE TESTS DU 29/05/2022 a 14:41:34
+
+DEBUT TEST create_tables : 
+### SCENARIO 1 : chargement constructeur database ###
+OK 
+OK 
+OK 
+FAIL 
+### FIN SCENARIO 1 ###
+### SCENARIO 2 : create_tables avec table manquante ###

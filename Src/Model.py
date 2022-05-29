@@ -32,7 +32,6 @@ class Reservation :
         self._origine = origine
     
     def getNuitees(self, from_date):
-        print (self._date_depart, from_date.replace(hour=0,minute=0,second=0, microsecond=0))
         if from_date == None :
             return 1 + (self._date_depart - self._date_arrivee).days
         else :
