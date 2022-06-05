@@ -21,17 +21,20 @@ class Controller :
         return self._database.getAllClients()
     
     def ajouter_client(self,client) :
-        self.log("Client added : " + client._nom + ", " + client._prenom + ", " + client._mail + ", " + client._adresse + ", " + client._telephone)
-        self._database.ajouter_client(client)
-    
+        if client != None :
+            self.log("Client added : " + client._nom + ", " + client._prenom + ", " + client._mail + ", " + client._adresse + ", " + client._telephone)
+            self._database.ajouter_client(client)
+        
     def ajouter_chambre(self,chambre) :
-        self.log("Room added : " + str(chambre._numero) + ", " + str(chambre._capacite))
-        self._database.ajouter_chambre(chambre)
+        if chambre != None :
+            self.log("Room added : " + str(chambre._numero) + ", " + str(chambre._capacite))
+            self._database.ajouter_chambre(chambre)
     
 
     def ajouter_reservation(self, reservation) :
-        self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + str(reservation._est_reglee) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
-        self._database.ajouter_reservation(reservation)
+        if reservation != None :
+            self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + str(reservation._est_reglee) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
+            self._database.ajouter_reservation(reservation)
 
     
     def getClientById(self, _id) :
