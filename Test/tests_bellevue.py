@@ -6,6 +6,46 @@ from Src.Database import *
 import time
 import os
 
+def reset_database(file_name, db):
+    db.execute_query("""DROP TABLE IF EXISTS CHAMBRES;""")
+    db.execute_query("""DROP TABLE IF EXISTS CLIENTS;""")
+    db.execute_query("""DROP TABLE IF EXISTS RESERVATIONS;""")
+    db.execute_query("""CREATE TABLE IF NOT EXISTS CHAMBRES (
+            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+            num_ch INTEGER UNIQUE,
+            capacite Integer
+        )""")
+    db.execute_query("""CREATE TABLE IF NOT EXISTS CLIENTS(
+            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+            Nom TEXT,
+            Prenom TEXT,
+            Adresse TEXT,
+            mail Text UNIQUE,
+            telephone Text
+        )
+        """)
+    db.execute_query("""CREATE TABLE IF NOT EXISTS RESERVATIONS (
+            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+            id_client INTEGER NOT NULL,
+            id_chambre INTEGER NOT NULL,
+            date_arrivee DATE,
+            date_depart DATE,
+            nb_occupants INTEGER NOT NULL,
+            est_reglee INTEGER,
+            origine TINYTEXT,
+            FOREIGN KEY (id_client) references CLIENTS (id),
+            FOREIGN KEY (id_chambre) references CHAMBRES(id))""")
+    db.execute_query("""INSERT INTO CLIENTS(nom,prenom,adresse,mail,telephone) VALUES('Dupont', 'Emile', '13 rue Chappe', 'dupont@gmail.com', '0756958445')""")
+    db.execute_query("""INSERT INTO CLIENTS(nom,prenom,adresse,mail,telephone) VALUES('Nourd', 'Ryan', '847 rue Lamarck', 'nourd@gmail.com', '0659856454')""")
+    db.execute_query("""INSERT INTO CLIENTS(nom,prenom,adresse,mail,telephone) VALUES('Menard', 'Alice', '3 rue des Abbesses', 'menard@gmail.com', '0659874235')""")       
+    db.execute_query("""INSERT INTO CHAMBRES(num_ch,capacite) VALUES(101,2)""")
+    db.execute_query("""INSERT INTO CHAMBRES(num_ch,capacite) VALUES(304,1)""")
+    db.execute_query("""INSERT INTO CHAMBRES(num_ch,capacite) VALUES(706,3)""")
+    db.execute_query("""INSERT INTO RESERVATIONS(id_client, id_chambre, date_arrivee, date_depart, nb_occupants, est_reglee, origine) VALUES (1,2,'20220605', '20220609',1,1,'Booking')""")
+    db.execute_query("""INSERT INTO RESERVATIONS(id_client, id_chambre, date_arrivee, date_depart, nb_occupants, est_reglee, origine) VALUES (2,3,'20240701', '20240706',3,0,'Fastbooking')""")
+    db.execute_query("""INSERT INTO RESERVATIONS(id_client, id_chambre, date_arrivee, date_depart, nb_occupants, est_reglee, origine) VALUES (3,1,'20231225', '20231227',2,0,'')""")
+
+
 def test_constructor(file_name, db) :
     all_passed = True
     f = open("Test/" + file_name + ".txt", "a")
@@ -224,6 +264,8 @@ def test_ajouter_chambre (file_name, db) :
     f.close()
     return all_passed
 
+
+
 def test_ajouter_reservation (file_name, db) :
     all_passed = True
     f = open("Test/" + file_name + ".txt", "a")
@@ -261,7 +303,143 @@ def test_ajouter_reservation (file_name, db) :
     f.write("FIN TEST ajouter_reservation \n")
     f.close()
     return all_passed
+
+def test_modifier_client_byId(file_name, db) :
+    reset_database(file_name,db)
+    all_passed = True
+    f = open("Test/" + file_name + ".txt", "a")
+    f.write("DEBUT TEST modifier_client_byId : \n")
+    f.write("### SCENARIO 1 : modification client 1 ### \n")
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Dupont' AND Prenom = 'Emile' AND Adresse = '13 rue Chappe' AND mail = 'dupont@gmail.com' AND telephone = '0756958445' """)
+    if(len(res_client) == 1) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    test_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Prix' AND Prenom = 'Frank' AND Adresse = '50 rue Achat' AND mail = 'prix@gmail.com' AND telephone = '0656985425' """)
+    if(len(test_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    id_client = res_client[0][0]
+    new_client = Client("Prix","Frank", "50 rue Achat", "prix@gmail.com", "0656985425")
+    new_client._id = id_client
+    db.modifier_client_byId(new_client)
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Dupont' AND Prenom = 'Emile' AND Adresse = '13 rue Chappe' AND mail = 'dupont@gmail.com' AND telephone = '0756958445' """)
+    if(len(res_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    test_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Prix' AND Prenom = 'Frank' AND Adresse = '50 rue Achat' AND mail = 'prix@gmail.com' AND telephone = '0656985425' """)
+    if(len(test_client) == 1) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    if(test_client[0][0] == id_client) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    f.write ("### FIN SCENARIO 1 ###\n")
+
+    f.write("### SCENARIO 2 : modification client 2 ### \n")
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Nourd' AND Prenom = 'Ryan' AND Adresse = '847 rue Lamarck' AND mail = 'nourd@gmail.com' AND telephone = '0659856454' """)
+    if(len(res_client) == 1) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    test_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Four' AND Prenom = 'Carl' AND Adresse = '25 rue Promo' AND mail = 'four@gmail.com' AND telephone = '0659865478' """)
+    if(len(test_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    id_client = res_client[0][0]
+    new_client = Client("Four","Carl", "25 rue Promo", "four@gmail.com", "0659865478")
+    new_client._id = id_client
+    db.modifier_client_byId(new_client)
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Nourd' AND Prenom = 'Ryan' AND Adresse = '847 rue Lamarck' AND mail = 'nourd@gmail.com' AND telephone = '0659856454' """)
+    if(len(res_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    test_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Four' AND Prenom = 'Carl' AND Adresse = '25 rue Promo' AND mail = 'four@gmail.com' AND telephone = '0659865478' """)
+    if(len(test_client) == 1) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    if(test_client[0][0] == id_client) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
     
+    f.write ("### FIN SCENARIO 2 ###\n")
+    f.write("FIN TEST modifier_client_byId \n")
+    f.close()
+    return all_passed
+
+def test_supprimer_client_byId (file_name, db) :
+    reset_database(file_name,db)
+    all_passed = True
+    f = open("Test/" + file_name + ".txt", "a")
+    f.write("DEBUT TEST supprimer_client_byId : \n")
+    f.write("### SCENARIO 1 : supression client 1 ### \n")
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Dupont' AND Prenom = 'Emile' AND Adresse = '13 rue Chappe' AND mail = 'dupont@gmail.com' AND telephone = '0756958445' """)
+    if(len(res_client) == 1) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False 
+    new_client = Client("x","x", "x", "x", "x")
+    new_client._id = res_client[0][0]
+    db.supprimer_client_byId(new_client)
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Dupont' AND Prenom = 'Emile' AND Adresse = '13 rue Chappe' AND mail = 'dupont@gmail.com' AND telephone = '0756958445' """)
+    if(len(res_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    f.write ("### FIN SCENARIO 1 ###\n")
+
+    f.write("### SCENARIO 2 : suppression client 2 ### \n")
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Nourd' AND Prenom = 'Ryan' AND Adresse = '847 rue Lamarck' AND mail = 'nourd@gmail.com' AND telephone = '0659856454' """)
+    if(len(res_client) == 1) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    new_client = Client("x","x", "x", "x", "x")
+    new_client._id = res_client[0][0]  
+    db.supprimer_client_byId(new_client)
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Nourd' AND Prenom = 'Ryan' AND Adresse = '847 rue Lamarck' AND mail = 'nourd@gmail.com' AND telephone = '0659856454' """)
+    if(len(res_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    f.write ("### FIN SCENARIO 2 ###\n")
+    f.write("### SCENARIO 3 :  verification table vide ### \n")
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS WHERE Nom = 'Menard' AND Prenom = 'Alice' AND Adresse = '3 rue des Abbesses' AND mail = 'menard@gmail.com' AND telephone = '0659874235' """)
+    new_client = Client("x","x", "x", "x", "x")
+    new_client._id = res_client[0][0]
+    db.supprimer_client_byId(new_client)
+    res_client = db.execute_query(""" SELECT * FROM CLIENTS """)
+    if(len(res_client) == 0) :
+        f.write("OK \n")
+    else :
+        f.write("FAIL \n")
+        all_passed = False
+    f.write ("### FIN SCENARIO 3 ###\n")
+    f.write("FIN TEST supprimer_client_byId \n")
+    f.close()
+    return all_passed
 
 def run_tests(db) :
 
@@ -274,7 +452,9 @@ def run_tests(db) :
         test_create_tables(file_name, db) and
         test_ajouter_client(file_name, db) and
         test_ajouter_chambre(file_name, db) and
-        test_ajouter_reservation(file_name, db)) :
+        test_ajouter_reservation(file_name, db) and
+        test_modifier_client_byId(file_name,db) and
+        test_supprimer_client_byId(file_name,db)) :
         validation = True
     f = open("Test/" + file_name + ".txt", "a")
     if (validation == True) :
