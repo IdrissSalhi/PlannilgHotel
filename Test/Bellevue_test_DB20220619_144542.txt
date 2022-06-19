@@ -1,4 +1,4 @@
-RAPPORT DE TESTS DU 12/06/2022 a 13:35:04
+RAPPORT DE TESTS DU 19/06/2022 a 14:45:42
 
 DEBUT TEST __init__ : 
 ### SCENARIO 1 : chargement du fichier csv des chambres dans constructeur ###
@@ -51,7 +51,7 @@ FIN TEST ajouter_client
 DEBUT TEST ajouter_reservation : 
 ### SCENARIO 1 : Ajout d'une reservation ### 
 OK 
-OK 
+FAIL 
 ### FIN SCENARIO 1 ###
 ### SCENARIO 2 : Ajout d'une deuxieme et troisieme reservations ### 
 OK 
@@ -74,6 +74,32 @@ OK
 OK 
 ### FIN SCENARIO 2 ###
 FIN TEST modifier_client_byId 
-################ 
- ALL PASSED 
-################
+DEBUT TEST supprimer_client_byId : 
+### SCENARIO 1 : supression client 1 ### 
+OK 
+OK 
+### FIN SCENARIO 1 ###
+### SCENARIO 2 : suppression client 2 ### 
+OK 
+OK 
+### FIN SCENARIO 2 ###
+### SCENARIO 3 :  verification table vide ### 
+OK 
+### FIN SCENARIO 3 ###
+FIN TEST supprimer_client_byId 
+DEBUT TEST modifier_reservation_byId : 
+### SCENARIO 1 : modification reservation 1 ### 
+OK 
+OK 
+OK 
+OK 
+OK 
+### FIN SCENARIO 1 ###
+### SCENARIO 2 : modification reservation 2 ### 
+OK 
+OK 
+OK 
+OK 
+OK 
+### FIN SCENARIO 2 ###
+FIN TEST modifier_reservation_byId 
