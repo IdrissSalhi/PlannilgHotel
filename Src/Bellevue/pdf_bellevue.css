@@ -4,10 +4,7 @@
     margin: 5% 0;
 }
 
-
-
-table{
-    
+table{  
     width: 100%;
 }
 
@@ -18,7 +15,6 @@ table{
 }
 
 .tr_principale{
-    
     border: 1px solid black;
 }
 
@@ -38,19 +34,13 @@ table{
 .arrive_ajd{
     padding: 18;
     border-radius: 50%;
-    border: 2px solid black;
-    
+    border: 2px solid black;   
 }
-
-
-
-
 
 .client{
     border-left: 1px solid black;
     width: 80%;
     padding-left: 2%;    
-
 }
 
 .nb_nuits{

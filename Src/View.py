@@ -496,11 +496,11 @@ class View :
         e_nb_occupants = ttk.Combobox(master_infos,state = "disabled",textvariable = nb_occupants, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
         e_nb_occupants['values'] = liste_nb_occupants
         e_nb_occupants.bind("<<ComboboxSelected>>", parameter_selected)
-        e_date_arrivee = DateEntry(master_infos,fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
+        e_date_arrivee = DateEntry(master_infos, locale = "fr_FR", fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
         e_date_arrivee.set_date(resa._date_arrivee)
         e_date_arrivee.bind("<<DateEntrySelected>>", parameter_selected)
         e_date_arrivee.configure(state = "disabled")
-        e_date_depart = DateEntry(master_infos,fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
+        e_date_depart = DateEntry(master_infos, locale = "fr_FR", fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
         e_date_depart.set_date(resa._date_depart)
         e_date_depart.bind("<<DateEntrySelected>>", parameter_selected)
         e_date_depart.configure(state = "disabled")
