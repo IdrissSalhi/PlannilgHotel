@@ -1,13 +1,10 @@
 from calendar import calendar
-import pdfkit
 from datetime import datetime
-import locale
 import calendar
 import Src.Model
 import Src.Controller
+import webbrowser
 
-def generer_pdf2 (date, controller) :
-    print(date)
 
 def generer_pdf(date, controller) :
     content = ""
@@ -80,7 +77,6 @@ table{
 
 
     #Début doc : date
-    #locale.setlocale(locale.LC_TIME, 'fr_FR')
     content += str(date.day) + " " + calendar.month_name[date.month] + " " + str(date.year)
     content += "<br><br>"
 
@@ -229,8 +225,8 @@ table{
 
 
 
-
-    fichier_html = open("essai.html","w")
+    html_path = "Logs\\Feuilles_de_jour\\feuille_du_jour_" + str(date.day) + "-" + calendar.month_name[date.month] + "-" + str(date.year)+".html"
+    fichier_html = open(html_path,"w")
     fichier_html.write(content)
     fichier_html.close()
-    #pdfkit.from_string(content, fichier)
+    webbrowser.open(html_path)
