@@ -1,8 +1,5 @@
 12:53:42 Program Started
 13:06:08 Program Started
 13:10:57 Program Started
-14:31:47 Program Started
-14:32:50 Reservation added : 5, 31, 1, 1, 20220620, 20220626, Fastbooking
-14:35:33 Program Started
-14:35:53 Reservation supprimee  : id client : 5, id chambre : 31, nombre d'occupants : 1, reservation reglee : 1, date-arrivee :  20220620, date depart :  20220626, origine : Fastbooking
-14:36:15 Reservation added : 5, 31, 1, 1, 20220620, 20220626, Fastbooking
+14:34:43 Program Started
+14:35:10 Reservation added : 5, 31, 1, 1, 20220620, 20220626, Fastbooking

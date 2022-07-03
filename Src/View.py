@@ -99,13 +99,13 @@ class View :
         self.data_calendar.columnconfigure(0, weight=1)
         for i in range(0,8):
             self.data_calendar.columnconfigure(i+1, weight=1)
-            data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) #########
+            data_cell_ch = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) #########
             if i < len(self.ROOMS[self.page]) :
-                label = Label(master=data_cell,text=self.ROOMS[self.page][i] ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
+                label = Label(master=data_cell_ch,text=self.ROOMS[self.page][i] ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
             else :
-                label = Label(master=data_cell,text= "" ,bg = COUL_FOND_CAL)
+                label = Label(master=data_cell_ch,text= "" ,bg = COUL_FOND_CAL)
 
-            data_cell.grid(row = 0, column=i+1,sticky=N+S+E+W)
+            data_cell_ch.grid(row = 0, column=i+1,sticky=N+S+E+W)
             label.pack(fill=BOTH, side=LEFT,expand = True)
         
       
@@ -117,24 +117,17 @@ class View :
                 if c < len(self.ROOMS[self.page])+1 :
                     temp = (self.pivot_day + timedelta((r-1)-self.pivot_day.weekday()))
                     machaine = str(temp.year)+"-"+str(temp.month).zfill(2)+"-"+str(temp.day).zfill(2)
-                    chambre = self.ROOMS[self.page][c-1] 
                     id_chambre = int(self.ROOMS[self.page][c-1])
                     id_chambre = self.controller.get_id_byNumChambre(id_chambre) 
                     resa = self.controller.get_reservation_byDateandRoomId(machaine, id_chambre) 
                     if resa != None :
-                        c_height = self.element_height - 5
-                        c_width = self.element_width - 5
+                        c_height = int(self.element_height - 5)
+                        c_width = int(self.element_width - 5)
                         margin = 5
                         client = self.controller.getClientById(resa._id_client)
                         machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
-                        """resa_client = Button (master = data_cell,text=machaineresa, 
-                                              command=lambda arg1 = resa : self.fenetre_infos_resa(arg1), 
-                                              bg = COUL_RESERVATION_IMPAYEE,
-                                              fg = COUL_POLICE_DATA, 
-                                              font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE), 
-                                              height = 3)"""
     
-                        canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE,  )
+                        canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE)
                         if (resa._est_reglee) :
                             canva.configure (background = COUL_RESERVATION_PAYEE)
                     

@@ -6,17 +6,13 @@ import calendar
 import Src.Model
 import Src.Controller
 
+def generer_pdf2 (date, controller) :
+    print(date)
 
 def generer_pdf(date, controller) :
-    fichier = "hotel.pdf"
     content = ""
-    #chargement du fichier css
+    #chargement css
     content += "<style>"
-    """css = open("Src/Bellevue/pdf_bellevue.css", "r")
-    lecture = css.readlines()
-    for i in lecture :
-        content += i
-    css.close()"""
     content += """.principale{
     border : none;
     border-collapse: collapse;
@@ -84,7 +80,7 @@ table{
 
 
     #Début doc : date
-    locale.setlocale(locale.LC_ALL, 'fr_FR')
+    #locale.setlocale(locale.LC_TIME, 'fr_FR')
     content += str(date.day) + " " + calendar.month_name[date.month] + " " + str(date.year)
     content += "<br><br>"
 
@@ -94,10 +90,10 @@ table{
     for j in range (1,4):
         content += "<td>"
         content += "<table><tr class = bordures>"
-        resa = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
+        resa_pdf = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
             , controller.get_id_byNumChambre(100+j))
     
-        if resa != None and date.date() == resa._date_arrivee.date() :
+        if resa_pdf != None and date.date() == resa_pdf._date_arrivee.date() :
             content += "<td class=\"num_chambre arrive_ajd\">"
         else :
             content += "<td class=num_chambre>"
@@ -106,9 +102,9 @@ table{
         content += "</td><td class=client>"
                 
          
-        if resa != None :
-            client = controller.getClientById(resa._id_client)
-            content += " " +  client._nom + " " + client._prenom 
+        if resa_pdf != None :
+            client_pdf = controller.getClientById(resa_pdf._id_client)
+            content += " " +  client_pdf._nom + " " + client_pdf._prenom 
         
         
         if j==3 :
@@ -116,8 +112,8 @@ table{
         else :
             content += "</td><td class = nb_nuits>"    
         
-        if resa != None:
-            content += " " + str(resa.getNuitees(date)) + "j "
+        if resa_pdf != None:
+            content += " " + str(resa_pdf.getNuitees(date)) + "j "
 
 
         content += "</td></tr></table>"
@@ -132,10 +128,10 @@ table{
         for j in range (2,5):
             content += "<td>"
             content += "<table><tr>"
-            resa = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
+            resa_pdf = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
             , controller.get_id_byNumChambre(100*j+i))
     
-            if resa != None and date.date() == resa._date_arrivee.date() :
+            if resa_pdf != None and date.date() == resa_pdf._date_arrivee.date() :
                 content += "<td class=\"num_chambre arrive_ajd\">"
             else :
                 content += "<td class=num_chambre>"
@@ -145,9 +141,9 @@ table{
             
             content += "</td><td class=client>"
 
-            if resa != None :
-                client = controller.getClientById(resa._id_client)
-                content += " " +  client._nom + " " + client._prenom 
+            if resa_pdf != None :
+                client_pdf = controller.getClientById(resa_pdf._id_client)
+                content += " " +  client_pdf._nom + " " + client_pdf._prenom 
         
         
             if j==4 :
@@ -155,8 +151,8 @@ table{
             else :
                 content += "</td><td class = nb_nuits>"    
         
-            if resa != None:
-                content += " " + str(resa.getNuitees(date)) + "j "
+            if resa_pdf != None:
+                content += " " + str(resa_pdf.getNuitees(date)) + "j "
             content += "</td></tr></table>"
             content += "</td>"
         content += "</tr>"
@@ -170,10 +166,10 @@ table{
         for j in range (5,8):
             content += "<td>"
             content += "<table><tr>"
-            resa = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
+            resa_pdf = controller.get_reservation_byDateandRoomId(str(date.year)+"-"+str(date.month).zfill(2)+"-"+str(date.day).zfill(2)
             , controller.get_id_byNumChambre(100*j+i))
     
-            if resa != None and date.date() == resa._date_arrivee.date() :
+            if resa_pdf != None and date.date() == resa_pdf._date_arrivee.date() :
                 content += "<td class=\"num_chambre arrive_ajd\">"
             else :
                 content += "<td class=num_chambre>"
@@ -181,9 +177,9 @@ table{
             
             content += "</td><td class=client>"
 
-            if resa != None :
-                client = controller.getClientById(resa._id_client)
-                content += " " +  client._nom + " " + client._prenom 
+            if resa_pdf != None :
+                client_pdf = controller.getClientById(resa_pdf._id_client)
+                content += " " +  client_pdf._nom + " " + client_pdf._prenom 
         
         
             if j==7 :
@@ -191,8 +187,8 @@ table{
             else :
                 content += "</td><td class = nb_nuits>"    
             
-            if resa != None:
-                content += " " + str(resa.getNuitees(date)) + "j "
+            if resa_pdf != None:
+                content += " " + str(resa_pdf.getNuitees(date)) + "j "
                 
             content += "</td></tr></table>"
             content += "</td>"
@@ -234,7 +230,7 @@ table{
 
 
 
-    f = open("essai.html","w")
-    f.write(content)
-    f.close()
+    fichier_html = open("essai.html","w")
+    fichier_html.write(content)
+    fichier_html.close()
     #pdfkit.from_string(content, fichier)

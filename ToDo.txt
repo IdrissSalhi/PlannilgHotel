@@ -3,3 +3,5 @@ BELLEVUE :
 Test à continuer 
 
 Inclure css dans l'html
+
+492 496 date entry locale = "fr_FR"
