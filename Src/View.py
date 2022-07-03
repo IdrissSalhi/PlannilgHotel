@@ -12,7 +12,7 @@ from Src.Model import *
 from tkcalendar import *
 from tkinter import ttk
 from Src.Config import *
-from Src.Bellevue.pdf_bellevue import *
+from Src.Bellevue.html_bellevue import *
 from PIL import Image, ImageTk
 
 
@@ -78,7 +78,7 @@ class View :
             temp = (self.pivot_day + timedelta(i-self.pivot_day.weekday()))
             machaine ="" + JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1]) + ""
             data_cell.winfo_children()[0].configure(text = machaine,
-                        command=lambda arg1 = temp,arg2 = self.controller  : generer_pdf(arg1, arg2))
+                        command=lambda arg1 = temp,arg2 = self.controller  : generer_html(arg1, arg2))
         self.update_data()
 
     def next_week(self) :
@@ -255,7 +255,7 @@ class View :
             data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED)
             temp = (self.pivot_day + timedelta(i-self.pivot_day.weekday()))
             machaine = "" + JOURS[i] +" "+ str(temp.day)+ "\n" +str(MOIS[temp.month-1]) + ""
-            label = Button(master=data_cell,command=lambda arg1 = temp,arg2 = self.controller  : generer_pdf(arg1, arg2), text=machaine,bg = COUL_JOURS_CAL,fg = COUL_POLICE_JOURS, font = font.Font(family = POLICE_JOURS, size =POLICE_JOURS_TAILLE))
+            label = Button(master=data_cell,command=lambda arg1 = temp,arg2 = self.controller  : generer_html(arg1, arg2), text=machaine,bg = COUL_JOURS_CAL,fg = COUL_POLICE_JOURS, font = font.Font(family = POLICE_JOURS, size =POLICE_JOURS_TAILLE))
             label.pack(fill=BOTH, side=LEFT,expand = True)
             data_cell.configure(height = self.element_height, width = self.element_width)
             data_cell.grid(row = i+1, column=0,sticky=N+S+E+W)
