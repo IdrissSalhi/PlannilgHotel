@@ -1,0 +1,3 @@
+13:16:20 Program Started
+13:16:37 Client added : Tourdes, Roger, Tourdes.Roger@bellevue.default, , 
+13:16:51 Reservation added : 1, 1, 1, 0, 20220707, 20220710, 

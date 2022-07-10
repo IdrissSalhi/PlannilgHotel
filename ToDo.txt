@@ -6,3 +6,6 @@ Génération livrable :
                             Supprimer base de données
                             Purger les logs
                             Purger Html
+                            #Xcopy /e /s /I DB Livrable\DB
+
+pyinstaller --onefile --hidden-import "babel.numbers" main.py
