@@ -1,11 +1,6 @@
 
 BELLEVUE :
-Test à continuer 
 
-Génération livrable :
-                            Supprimer base de données
-                            Purger les logs
-                            Purger Html
-                            #Xcopy /e /s /I DB Livrable\DB
+Générer couleur au dessus du premier jour de resa et au dessous du dernier jour
 
-pyinstaller --onefile --hidden-import "babel.numbers" main.py
+3 - Ajouter séparation des blocs de resa (meme symbo selon origine)

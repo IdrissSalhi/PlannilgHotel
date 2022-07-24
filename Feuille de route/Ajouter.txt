@@ -1,0 +1,9 @@
+Ajouter code couleurs et chambre disponible selon le site 
+
+case commentaire
+
+statut : paye en totalité, accompte ; garantie mais pas payee, reglee par nuitées, 
+
+priw de la chambre, petit déjeuner, bar, taxe de séjour + tva, telephone (taux a 20%) (le reste 10%)
+
+facturation 

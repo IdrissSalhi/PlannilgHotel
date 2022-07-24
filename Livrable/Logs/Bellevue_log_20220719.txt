@@ -1,0 +1,13 @@
+18:51:25 Program Started
+18:51:35 Les reservations de Tourdes Roger ont ete supprimees
+18:51:35 Client Tourdes Rogersupprime :Tourdes.Roger@bellevue.default, , 
+19:10:03 Program Started
+19:11:26 Client added : Tourdes, Alain, Tourdes.Alain@bellevue.default, , 
+19:19:23 Reservation added : 2, 38, 1, 0, 20220708, 20220710, Booking
+19:20:51 Reservation modified : 2, 13, 1, 0, 20220708, 20220710, Booking
+19:21:25 Reservation modified : 2, 13, 1, 0, 20220708, 20220710, Fastbooking
+19:30:33 Reservation modified : 2, 13, 1, 1, 20220708, 20220710, Fastbooking
+19:30:42 Reservation modified : 2, 13, 1, 0, 20220708, 20220710, Fastbooking
+19:30:47 Reservation modified : 2, 13, 1, 1, 20220708, 20220710, Fastbooking
+19:39:32 Reservation modified : 2, 13, 1, 1, 20220708, 20220710, Fastbooking
+19:39:33 Reservation modified : 2, 13, 1, 1, 20220708, 20220710, Fastbooking

@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import messagebox
 from datetime import *
 import tkinter.font as font
-from turtle import width
+from turtle import color, width
 
 from numpy import expand_dims
 from Src.Controller import *
@@ -132,25 +132,34 @@ class View :
                             canva.configure (background = COUL_RESERVATION_PAYEE)
                     
                         canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
-
+                        ##################################
+                        #Si resa.date_depart == case.date#
+                        ##################################
                         if resa._origine == "Booking" :
-                            canva.create_line(0,0, c_width/10 - margin, c_height/8, 0, c_height/4,
-                            c_width/10 - margin, 3*c_height/8, 0, c_height/2, 
-                            c_width/10 - margin, 5*c_height/8,  0, 6*c_height/8, 
-                            c_width/10 - margin, 7*c_height/8,  0, c_height, width = 2)
+                            canva.create_rectangle(0,0,c_width/10, c_height +2 , width = 0, fill = COUL_BORDS_RESA_BOOKING)
+                            canva.create_line(-2 + margin, 0, c_width/10 -2, c_height/8, 0-2 + margin, c_height/4,
+                            c_width/10 -2, 3*c_height/8, 0-2 + margin, c_height/2, 
+                            c_width/10 -2, 5*c_height/8,  0-2 + margin, 6*c_height/8, 
+                            c_width/10 -2, 7*c_height/8,  0-2 + margin, c_height, width = 2, fill = COUL_TRAITS_RESA )
                             
+                            canva.create_rectangle(c_width + margin, 0, 9*c_width/10 + margin, c_height +2, width = 0, fill = COUL_BORDS_RESA_BOOKING)
                             canva.create_line(c_width,0, 9*c_width/10 + margin,c_height/8, c_width, c_height/4,
                             9*c_width/10 + margin, 3*c_height/8, c_width, c_height/2, 
                             9*c_width/10 + margin, 5*c_height/8,  c_width, 6*c_height/8, 
-                            9*c_width/10 + margin, 7*c_height/8,  c_width, c_height, width = 2)
+                            9*c_width/10 + margin, 7*c_height/8,  c_width, c_height, width = 2, fill = COUL_TRAITS_RESA)
                         elif resa._origine == "Fastbooking" :
-                            canva.create_rectangle(0, 0, c_width/10 - margin, c_height, width = 2)
-                            canva.create_rectangle(0, c_height/4 , c_width/10 - margin, 3*c_height/4, width = 2)
-                            canva.create_line(0, c_height/2, c_width/10 - margin, c_height/2, width = 2)
+                            canva.create_rectangle(0,0,c_width/10, c_height +2 , width = 0, fill = COUL_BORDS_RESA_HB)
+                            canva.create_rectangle(margin, 0, c_width/10 , c_height, width = 2)
+                            canva.create_rectangle(margin, c_height/4 , c_width/10, 3*c_height/4, width = 2)
+                            canva.create_line(margin, c_height/2, c_width/10, c_height/2, width = 2)
 
+                            canva.create_rectangle(c_width + margin, 0, 9*c_width/10 + margin, c_height +2, width = 0, fill = COUL_BORDS_RESA_HB)
                             canva.create_rectangle(c_width, 0, 9*c_width/10 + margin, c_height, width = 2)
                             canva.create_rectangle(c_width, c_height/4 , 9*c_width/10 + margin, 3*c_height/4, width = 2)
                             canva.create_line(c_width, c_height/2, 9*c_width/10 + margin, c_height/2, width = 2)
+                        else :
+                            canva.create_rectangle(0,0,c_width/10, c_height +2 , width = 0, fill = COUL_BORDS_RESA_CLASSIQUE)
+                            canva.create_rectangle(c_width + margin, 0, 9*c_width/10 + margin, c_height +2, width = 0, fill = COUL_BORDS_RESA_CLASSIQUE)
                         canva.bind("<Button-1>", lambda event, arg1 = resa : self.fenetre_infos_resa(arg1))
 
 
