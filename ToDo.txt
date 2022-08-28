@@ -1,6 +1,7 @@
 
 BELLEVUE :
 
-Générer couleur au dessus du premier jour de resa et au dessous du dernier jour
 
-3 - Ajouter séparation des blocs de resa (meme symbo selon origine)
+mofider resa dans bdd ajouter : - champs réglé (commence a 0)
+                                - total (valeur fixe)
+                                - changer couleurs pour rouge orange ou vert 

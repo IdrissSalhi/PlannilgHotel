@@ -113,7 +113,6 @@ class View :
         for r in range(1,8):
             for c in range(1,9):
                 data_cell = Frame (master=self.data_calendar, borderwidth=1,relief = SUNKEN)
-                #########
                 if c < len(self.ROOMS[self.page])+1 :
                     temp = (self.pivot_day + timedelta((r-1)-self.pivot_day.weekday()))
                     machaine = str(temp.year)+"-"+str(temp.month).zfill(2)+"-"+str(temp.day).zfill(2)
@@ -132,10 +131,34 @@ class View :
                             canva.configure (background = COUL_RESERVATION_PAYEE)
                     
                         canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
-                        ##################################
-                        #Si resa.date_depart == case.date#
-                        ##################################
+
+
                         if resa._origine == "Booking" :
+                            if resa._date_arrivee.date() == temp.date():
+                                canva.create_rectangle(0,0, c_width, c_height/8 , width = 0, fill = COUL_BORDS_RESA_BOOKING)
+                                canva.create_line(c_width/10 - margin/2, c_height/8, 3*c_width/20, 0, 
+                                2*c_width/10, c_height/8, 5*c_width/20, 0,
+                                6*c_width/20, c_height/8, 7*c_width/20, 0,
+                                8*c_width/20, c_height/8, 9*c_width/20, 0,
+                                10*c_width/20, c_height/8, 11*c_width/20, 0,
+                                12*c_width/20, c_height/8, 13*c_width/20, 0,
+                                14*c_width/20, c_height/8, 15*c_width/20, 0,
+                                16*c_width/20, c_height/8, 17*c_width/20, 0,
+                                18*c_width/20 + margin, c_height/8, width = 2, fill = COUL_TRAITS_RESA )
+
+                            if resa._date_depart.date() == temp.date():
+                                canva.create_rectangle(0, 7*c_height/8, c_width, c_height + margin , width = 0, fill = COUL_BORDS_RESA_BOOKING)
+                                canva.create_line(c_width/10 - margin/2, 7*c_height/8, 3*c_width/20, c_height, 
+                                2*c_width/10, 7*c_height/8, 5*c_width/20, c_height,
+                                6*c_width/20, 7*c_height/8, 7*c_width/20, c_height,
+                                8*c_width/20, 7*c_height/8, 9*c_width/20, c_height,
+                                10*c_width/20, 7*c_height/8, 11*c_width/20, c_height,
+                                12*c_width/20, 7*c_height/8, 13*c_width/20, c_height,
+                                14*c_width/20, 7*c_height/8, 15*c_width/20, c_height,
+                                16*c_width/20, 7*c_height/8, 17*c_width/20, c_height,
+                                18*c_width/20 + margin, 7*c_height/8, width = 2, fill = COUL_TRAITS_RESA )
+                            
+                            
                             canva.create_rectangle(0,0,c_width/10, c_height +2 , width = 0, fill = COUL_BORDS_RESA_BOOKING)
                             canva.create_line(-2 + margin, 0, c_width/10 -2, c_height/8, 0-2 + margin, c_height/4,
                             c_width/10 -2, 3*c_height/8, 0-2 + margin, c_height/2, 
@@ -147,7 +170,21 @@ class View :
                             9*c_width/10 + margin, 3*c_height/8, c_width, c_height/2, 
                             9*c_width/10 + margin, 5*c_height/8,  c_width, 6*c_height/8, 
                             9*c_width/10 + margin, 7*c_height/8,  c_width, c_height, width = 2, fill = COUL_TRAITS_RESA)
+                            
+                            
                         elif resa._origine == "Fastbooking" :
+                            if resa._date_arrivee.date() == temp.date():
+                                canva.create_rectangle(0,0, c_width, c_height/8 , width = 0, fill = COUL_BORDS_RESA_HB)
+                                canva.create_rectangle(c_width/10, 0, c_width , c_height/8, width = 2)
+                                canva.create_rectangle(3*c_width/10, 0, 7*c_width/10 , c_height/8, width = 2)
+                                canva.create_line(5*c_width/10, 0, 5*c_width/10, c_height/8 ,width = 2)
+
+                            if resa._date_depart.date() == temp.date():
+                                canva.create_rectangle(0, 7*c_height/8, c_width, c_height + margin , width = 0, fill = COUL_BORDS_RESA_HB)
+                                canva.create_rectangle(c_width/10, 7*c_height/8, c_width , c_height, width = 2)
+                                canva.create_rectangle(3*c_width/10, 7*c_height/8, 7*c_width/10 , c_height, width = 2)
+                                canva.create_line(5*c_width/10, 7*c_height/8, 5*c_width/10, c_height ,width = 2)
+
                             canva.create_rectangle(0,0,c_width/10, c_height +2 , width = 0, fill = COUL_BORDS_RESA_HB)
                             canva.create_rectangle(margin, 0, c_width/10 , c_height, width = 2)
                             canva.create_rectangle(margin, c_height/4 , c_width/10, 3*c_height/4, width = 2)
@@ -158,6 +195,10 @@ class View :
                             canva.create_rectangle(c_width, c_height/4 , 9*c_width/10 + margin, 3*c_height/4, width = 2)
                             canva.create_line(c_width, c_height/2, 9*c_width/10 + margin, c_height/2, width = 2)
                         else :
+                            if resa._date_arrivee.date() == temp.date():
+                                canva.create_rectangle(0,0, c_width, c_height/8 , width = 0, fill = COUL_BORDS_RESA_CLASSIQUE)
+                            if resa._date_depart.date() == temp.date():
+                                canva.create_rectangle(0, 7*c_height/8, c_width, c_height + margin , width = 0, fill = COUL_BORDS_RESA_CLASSIQUE)
                             canva.create_rectangle(0,0,c_width/10, c_height +2 , width = 0, fill = COUL_BORDS_RESA_CLASSIQUE)
                             canva.create_rectangle(c_width + margin, 0, 9*c_width/10 + margin, c_height +2, width = 0, fill = COUL_BORDS_RESA_CLASSIQUE)
                         canva.bind("<Button-1>", lambda event, arg1 = resa : self.fenetre_infos_resa(arg1))
@@ -165,12 +206,10 @@ class View :
 
                         canva.pack()
 
-                #########
                 data_cell.configure(width=self.element_width, height = self.element_height )
                 data_cell.grid(row = r, column=c,sticky=N+S+E+W)
         self.data_calendar.pack(fill=BOTH,expand = True)
         
-        #creer les données a partir de old_update_data et initialisation
 
     def update_data(self) :
         self.destroy_data()   
