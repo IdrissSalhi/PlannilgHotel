@@ -1,6 +1,9 @@
 
 BELLEVUE :
 
+creer classe facture : ensemble de facturations avec méthodes (get_total  ezt get_réglé comparé ensuite par le view)
+supprimer coche "regle" des resa
+
 
 mofider resa dans bdd ajouter : - champs réglé (commence a 0)
                                 - total (valeur fixe)

@@ -33,7 +33,7 @@ class Controller :
 
     def ajouter_reservation(self, reservation) :
         if reservation != None :
-            self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + str(reservation._est_reglee) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
+            self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
             self._database.ajouter_reservation(reservation)
 
     
@@ -86,12 +86,12 @@ class Controller :
 
     def modifier_reservation_byId(self, reservation) :
         if reservation._id == -1 :
-            self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + str(reservation._est_reglee) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
+            self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
             return self._database.ajouter_reservation(reservation)
             
              
         else :  
-            self.log("Reservation modified : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + str(reservation._est_reglee) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
+            self.log("Reservation modified : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) +  ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
             self._database.modifier_reservation_byId(reservation)
             return reservation._id
         
@@ -116,7 +116,7 @@ class Controller :
         return self._database.get_capacite_max_chambre()
 
     def  supprimer_resa_byId(self,reservation) :
-        self.log("Reservation supprimee  : id client : "+ str(reservation._id_client) + ", id chambre : " + str(reservation._id_chambre) + ", nombre d'occupants : " + str(reservation._nb_occupants) + ", reservation reglee : " + str(reservation._est_reglee) + ", date-arrivee :  " + reservation._date_arrivee.strftime("%Y%m%d") + ", date depart :  " + reservation._date_depart.strftime("%Y%m%d") + ", origine : " + reservation._origine )
+        self.log("Reservation supprimee  : id client : "+ str(reservation._id_client) + ", id chambre : " + str(reservation._id_chambre) + ", nombre d'occupants : " + str(reservation._nb_occupants) + ", date-arrivee :  " + reservation._date_arrivee.strftime("%Y%m%d") + ", date depart :  " + reservation._date_depart.strftime("%Y%m%d") + ", origine : " + reservation._origine )
        
         self._database.supprimer_resa_byId(reservation)
 

@@ -99,7 +99,7 @@ class View :
         self.data_calendar.columnconfigure(0, weight=1)
         for i in range(0,8):
             self.data_calendar.columnconfigure(i+1, weight=1)
-            data_cell_ch = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) #########
+            data_cell_ch = Frame (master=self.data_calendar, borderwidth=1,relief = RAISED) 
             if i < len(self.ROOMS[self.page]) :
                 label = Label(master=data_cell_ch,text=self.ROOMS[self.page][i] ,bg = COUL_CHAMBRES_CAL,fg = COUL_POLICE_CHAMBRES, font = font.Font(family = POLICE_CHAMBRES, size =POLICE_CHAMBRES_TAILLE))
             else :
@@ -127,8 +127,8 @@ class View :
                         machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
     
                         canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE)
-                        if (resa._est_reglee) :
-                            canva.configure (background = COUL_RESERVATION_PAYEE)
+                        """if (resa._est_reglee) :
+                            canva.configure (background = COUL_RESERVATION_PAYEE)"""
                     
                         canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
 
@@ -485,12 +485,10 @@ class View :
         prenom_client = StringVar()
         num_chambre = IntVar()
         nb_occupants = IntVar()
-        est_reglee = IntVar()
         origine = StringVar()
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
         nb_occupants.set(resa._nb_occupants)
-        est_reglee.set(resa._est_reglee)
         origine.set(resa._origine)
         liste_num_ch = []
         liste_nb_occupants = []
@@ -509,8 +507,6 @@ class View :
                 text="DEPART :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=2,column = 2,sticky=E)
         Label(master_infos, 
                 text="OCCUPANTS :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=3,column =0, sticky=E)
-        Label(master_infos, 
-                text="REGLEE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =0, sticky=E)
         Label(master_infos, 
                 text="ORIGINE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =2, sticky=E)
         
@@ -545,8 +541,6 @@ class View :
         e_date_depart.set_date(resa._date_depart)
         e_date_depart.bind("<<DateEntrySelected>>", parameter_selected)
         e_date_depart.configure(state = "disabled")
-        e_est_reglee = Checkbutton(master_infos,variable=est_reglee, onvalue=1, offvalue=0)
-        e_est_reglee.configure(state = "disabled")
         e_origine = ttk.Combobox(master_infos,state = "disabled",textvariable = origine, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
         e_origine['values'] = liste_origine
     
@@ -562,7 +556,6 @@ class View :
         e_date_arrivee.grid(row=2, column=1, sticky=W)
         e_date_depart.grid(row=2, column=3, sticky=W)
         e_nb_occupants.grid(row=3, column=1, sticky=W)
-        e_est_reglee.grid(row = 4, column = 1, sticky=W)
         e_origine.grid(row = 4, column = 3, sticky=W)
 
        
@@ -579,7 +572,6 @@ class View :
             resa._nb_occupants = int(e_nb_occupants.get())
             resa._date_arrivee = datetime.combine(e_date_arrivee.get_date(),datetime.min.time())
             resa._date_depart = datetime.combine(e_date_depart.get_date(),datetime.min.time())
-            resa._est_reglee = int(est_reglee.get())
             resa._origine = origine.get()
             if resa._date_arrivee > resa._date_depart :
                 messagebox.showerror(title=None, message="Les dates sont invalides", parent = window_infos )
@@ -593,7 +585,6 @@ class View :
                 e_num_chambre.configure(state="normal")
                 e_date_arrivee.configure(state="normal")
                 e_date_depart.configure(state="normal")
-                e_est_reglee.configure(state="normal")
                 e_origine.configure(state="normal")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_OUVERT, image = self.images["unlock"])
                 Button ( bout_quitter_frame, command=sauvegarder_infos, text = " Sauvegarder",
@@ -605,7 +596,6 @@ class View :
                 e_num_chambre.configure(state="disabled")
                 e_date_arrivee.configure(state="disabled")
                 e_date_depart.configure(state="disabled")
-                e_est_reglee.configure(state="disabled")
                 e_origine.configure(state="disabled")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_FERME, image = self.images["lock"])
                 bout_quitter_frame.winfo_children()[1].destroy()
