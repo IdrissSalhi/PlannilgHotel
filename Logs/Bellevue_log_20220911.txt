@@ -1,0 +1,28 @@
+12:41:06 Program Started
+12:42:29 Program Started
+12:42:37 Reservation added : 1, 1, 1, 20220906, 20220911, 
+12:43:12 Program Started
+12:44:18 Program Started
+12:44:25 Reservation modified : 1, 1, 1, 20220906, 20220911, 
+13:30:18 Program Started
+13:31:05 Program Started
+13:31:15 Reservation added : 1, 2, 1, 20220906, 20220911, 
+13:31:48 Reservation modified : 1, 2, 1, 20220907, 20220910, 
+13:32:18 Reservation modified : 1, 2, 1, 20220905, 20220909, 
+13:32:50 Reservation modified : 1, 2, 1, 20220908, 20220908, 
+13:33:12 Reservation modified : 1, 2, 1, 20220910, 20220913, 
+13:33:54 Reservation modified : 1, 2, 1, 20220909, 20220913, 
+13:35:56 Program Started
+13:36:05 Reservation modified : 1, 2, 1, 20220907, 20220913, 
+13:36:24 Reservation modified : 1, 2, 1, 20220907, 20220910, 
+13:40:47 Program Started
+13:40:55 Reservation modified : 1, 2, 1, 20220909, 20220910, 
+14:14:08 Program Started
+14:14:30 Reservation added : 1, 5, 1, 20220907, 20220909, 
+14:15:21 Program Started
+14:15:29 Client added : albert, einstein, albert.einstein@bellevue.default, , 
+14:15:40 Reservation added : 1, 1, 1, 20220907, 20220911, 
+14:16:37 Reservation added : 1, 2, 1, 20220906, 20220909, 
+14:19:29 Program Started
+14:19:39 Reservation added : 1, 2, 1, 20220907, 20220911, 
+14:20:07 Reservation added : 1, 5, 1, 20220909, 20220911, 

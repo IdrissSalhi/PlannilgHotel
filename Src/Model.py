@@ -37,6 +37,27 @@ class Reservation :
         else :
             return 1 + (self._date_depart - from_date.replace(hour=0,minute=0,second=0, microsecond=0)).days
 
+    def update_couts (self, nouveaux_cj) :
+        for cj in self._couts :
+            if cj._date_jour < self._date_arrivee or cj._date_jour > self._date_depart :
+                print("removed :" , cj._date_jour)
+                self._couts.remove(cj)
+        
+        for nc in nouveaux_cj :
+            tag = False
+            for oc in self._couts :
+                if nc._date_jour == oc._date_jour :
+                    tag = True
+            if tag == False :
+                self._couts.append(nc)
+    
+    def afficher_couts (self):
+        print(self._id)
+        for c in self._couts:
+            print(c._date_jour)
+    
+
+
 class Couts_jour :
     def __init__ (self, date_jour, total_chambre,total_petit_dej,total_bar,total_telephone,total_taxe_sejour) :
         self._id = -1

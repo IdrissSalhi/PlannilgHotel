@@ -39,3 +39,9 @@ COUL_POLICE_COMBOBOX = "black"
 POLICE_CHAMPS = 'Verdana'
 POLICE_CHAMPS_TAILLE = 12
 COUL_POLICE_CHAMPS = "black"
+
+############
+# TARIF #
+############
+PRIX_PETIT_DEJ = 8
+PRIX_TAXE_SEJOUR = 1

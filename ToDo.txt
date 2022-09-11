@@ -1,10 +1,17 @@
 
 BELLEVUE :
 
-creer classe facture : ensemble de facturations avec méthodes (get_total  ezt get_réglé comparé ensuite par le view)
-supprimer coche "regle" des resa
+
+Modifier tous les get resa, modifier toutes methodes resa
+
+mofider resa dans bdd ajouter :  View resa - changer couleurs pour rouge orange ou vert
+
+séparer occupants et occupants enfants
 
 
-mofider resa dans bdd ajouter : - champs réglé (commence a 0)
-                                - total (valeur fixe)
-                                - changer couleurs pour rouge orange ou vert 
+
+- modifier view sauvegarder_resa pour generer le tableau de Couts_jour
+- les charger en BDD 
+- continer get_couts_jour_byResa
+- modifier get_resa
+ 

@@ -576,6 +576,16 @@ class View :
             if resa._date_arrivee > resa._date_depart :
                 messagebox.showerror(title=None, message="Les dates sont invalides", parent = window_infos )
             else :
+                jour = resa._date_arrivee
+                nouveaux_jours = []
+                while jour != (resa._date_depart + timedelta(days=1))  :
+                    cj = Couts_jour(jour, 0, PRIX_PETIT_DEJ, 0, 0, resa._nb_occupants * PRIX_TAXE_SEJOUR)
+                    nouveaux_jours.append(cj)
+                    jour = jour + timedelta(days=1)
+                resa.update_couts(nouveaux_jours)
+                
+                resa.afficher_couts()
+                self.controller._database.print_couts_jour()
                 resa._id = self.controller.modifier_reservation_byId(resa)
                 self.update_data()          
         
