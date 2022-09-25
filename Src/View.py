@@ -585,7 +585,6 @@ class View :
                 resa.update_couts(nouveaux_jours)
                 
                 resa.afficher_couts()
-                self.controller._database.print_couts_jour()
                 resa._id = self.controller.modifier_reservation_byId(resa)
                 self.update_data()          
         

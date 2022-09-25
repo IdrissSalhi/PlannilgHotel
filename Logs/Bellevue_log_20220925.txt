@@ -1,0 +1,68 @@
+12:52:23 Program Started
+12:52:40 Reservation added : 1, 1, 1, 20220920, 20220924, 
+12:53:43 Reservation modified : 1, 1, 1, 20220920, 20220924, 
+12:54:18 Reservation added : 1, 2, 1, 20220920, 20220925, Booking
+12:54:56 Reservation modified : 1, 2, 1, 20220920, 20220925, Booking
+12:58:11 Program Started
+12:58:23 Client added : cxx, cccc, cxx.cccc@bellevue.default, , 
+12:58:46 Reservation added : 1, 1, 1, 20220919, 20220925, 
+13:01:22 Program Started
+13:01:28 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20220919, date depart :  20220925, origine : 
+13:01:37 Reservation added : 1, 1, 1, 20220921, 20220925, 
+13:04:04 Program Started
+13:04:11 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20220921, date depart :  20220925, origine : 
+13:04:18 Reservation added : 1, 1, 1, 20220920, 20220925, 
+13:32:03 Program Started
+13:32:18 Program Started
+13:32:41 Reservation added : 1, 2, 1, 20220919, 20220923, Booking
+13:33:16 Reservation modified : 1, 2, 1, 20220918, 20220923, Booking
+13:34:40 Program Started
+13:35:00 Reservation supprimee  : id client : 1, id chambre : 2, nombre d'occupants : 1, date-arrivee :  20220918, date depart :  20220923, origine : Booking
+13:35:14 Reservation added : 1, 2, 1, 20220919, 20220924, Fastbooking
+13:36:05 Reservation modified : 1, 2, 1, 20220918, 20220924, Fastbooking
+13:36:36 Reservation modified : 1, 3, 2, 20220920, 20220924, Fastbooking
+13:37:34 Reservation modified : 1, 3, 2, 20220921, 20220924, Fastbooking
+13:38:08 Reservation modified : 1, 3, 2, 20220920, 20220924, Fastbooking
+13:38:18 Reservation modified : 1, 3, 2, 20220922, 20220924, Fastbooking
+13:40:02 Reservation modified : 1, 3, 2, 20220923, 20220924, Fastbooking
+13:42:03 Program Started
+13:42:19 Reservation modified : 1, 1, 1, 20220921, 20220925, 
+13:42:28 Reservation modified : 1, 1, 1, 20220923, 20220925, 
+13:42:31 Reservation modified : 1, 1, 1, 20220923, 20220925, 
+13:42:41 Reservation modified : 1, 1, 1, 20220923, 20220925, 
+13:42:46 Reservation modified : 1, 1, 1, 20220922, 20220925, 
+13:44:10 Program Started
+13:44:16 Client added : dd, ff, dd.ff@bellevue.default, ff, 
+13:44:31 Reservation added : 1, 1, 1, 20220919, 20220923, 
+13:45:11 Reservation modified : 1, 1, 1, 20220921, 20220923, 
+13:45:35 Reservation modified : 1, 1, 1, 20220919, 20220923, 
+13:46:01 Reservation modified : 1, 1, 1, 20220919, 20220925, 
+13:46:16 Reservation modified : 1, 1, 1, 20220919, 20220921, 
+13:46:45 Program Started
+13:47:03 Reservation added : 1, 1, 1, 20220925, 20220925, bop
+13:50:04 Program Started
+13:50:12 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20220919, date depart :  20220921, origine : 
+13:50:20 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20220925, date depart :  20220925, origine : bop
+13:50:48 Reservation added : 1, 1, 1, 20220920, 20220925, 
+13:51:02 Reservation added : 1, 2, 1, 20220922, 20220925, Fastbooking
+13:51:13 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20220920, date depart :  20220925, origine : 
+14:05:21 Program Started
+14:05:28 Client added : aaa, aaa, aaa.aaa@bellevue.default, , 
+14:05:37 Client added : bbbb, bbbb, bbbb.bbbb@bellevue.default, , 
+14:05:51 Reservation added : 2, 1, 1, 20220925, 20220925, 
+14:06:09 Reservation added : 2, 3, 1, 20220925, 20220925, 
+14:06:13 Reservation added : 2, 4, 1, 20220925, 20220925, 
+14:06:25 Reservation added : 3, 5, 1, 20220925, 20220925, 
+14:06:37 Reservation added : 3, 6, 1, 20220925, 20220925, 
+14:06:44 Reservation added : 3, 7, 1, 20220925, 20220925, 
+14:06:57 Reservation supprimee  : id client : 1, id chambre : -1, nombre d'occupants : 1, date-arrivee :  20220925, date depart :  20220925, origine : 
+14:07:22 Reservation added : 1, 8, 1, 20220925, 20220925, 
+14:07:35 Reservation added : 1, 9, 1, 20220925, 20220925, 
+14:08:13 Les reservations de aaa aaa ont ete supprimees
+14:10:26 Program Started
+14:10:34 Les reservations de aaa aaa ont ete supprimees
+14:14:35 Program Started
+14:14:41 Les reservations de aaa aaa ont ete supprimees
+14:14:41 Client aaa aaasupprime :aaa.aaa@bellevue.default, , 
+14:15:32 Les reservations de bbbb bbbb ont ete supprimees
+14:15:32 Client bbbb bbbbsupprime :bbbb.bbbb@bellevue.default, , 

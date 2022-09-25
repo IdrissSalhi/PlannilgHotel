@@ -39,7 +39,7 @@ class Reservation :
 
     def update_couts (self, nouveaux_cj) :
         for cj in self._couts :
-            if cj._date_jour < self._date_arrivee or cj._date_jour > self._date_depart :
+            if cj._date_jour <= self._date_arrivee or cj._date_jour > self._date_depart :
                 print("removed :" , cj._date_jour)
                 self._couts.remove(cj)
         

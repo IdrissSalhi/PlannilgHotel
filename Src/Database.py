@@ -109,6 +109,8 @@ class Database :
             self._cursor.execute(""" INSERT INTO COUTS_JOUR (id_reservation, date_jour, total_chambre, regle_chambre,
                                      total_petit_dej, regle_petit_dej, total_bar, regle_bar, total_telephone, regle_telephone,
                                      total_taxe_sejour, regle_taxe_sejour) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) """, db_cj) 
+            self._connexion.commit()
+
 
         return id_resa
         
@@ -232,10 +234,16 @@ class Database :
         id_chambre = '"""+ str(reservation._id_chambre) +"""'
         WHERE id = """+ str(reservation._id))
         self._connexion.commit()
-        #TO DO 
-        #Supprimer tous les couts hors date
-        #Ajouter les couts non existants (avec requête) 
-
+        self._cursor.execute(""" DELETE FROM COUTS_JOUR WHERE id_reservation = '""" + str(reservation._id) + """'""")
+        self._connexion.commit()
+        for cj in reservation._couts :
+            db_cj = (reservation._id, cj._date_jour, cj._total_chambre, cj._regle_chambre,
+                     cj._total_petit_dej, cj._regle_petit_dej , cj._total_bar, cj._regle_bar,
+                     cj._total_telephone, cj._regle_telephone, cj._total_taxe_sejour, cj._regle_taxe_sejour)
+            self._cursor.execute(""" INSERT INTO COUTS_JOUR (id_reservation, date_jour, total_chambre, regle_chambre,
+                                     total_petit_dej, regle_petit_dej, total_bar, regle_bar, total_telephone, regle_telephone,
+                                     total_taxe_sejour, regle_taxe_sejour) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) """, db_cj) 
+            self._connexion.commit()
 
 
     def get_capacite_max_chambre(self) : 
@@ -250,6 +258,7 @@ class Database :
 
     def supprimer_resa_byId(self,reservation) :
         self._cursor.execute("""Delete from RESERVATIONS where id = """+str(reservation._id))
+        self._cursor.execute("""Delete from COUTS_JOUR where id_reservation = """+str(reservation._id))
         self._connexion.commit()
 
     def get_chambre_dispo(self, reservation) :
@@ -275,7 +284,9 @@ class Database :
         return resultat
 
     def supprimer_resa_byClient(self,client):
+        self._cursor.execute("""DELETE from COUTS_JOUR WHERE id_reservation IN (SELECT id FROM RESERVATIONS WHERE id_client = '""" +str(client._id)+ """')"""  )
         self._cursor.execute("""DELETE from RESERVATIONS WHERE id_client = """+str(client._id))
+
         self._connexion.commit()
 
     def print_reservations(self):
