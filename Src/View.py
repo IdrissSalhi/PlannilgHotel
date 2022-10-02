@@ -583,8 +583,6 @@ class View :
                     nouveaux_jours.append(cj)
                     jour = jour + timedelta(days=1)
                 resa.update_couts(nouveaux_jours)
-                
-                resa.afficher_couts()
                 resa._id = self.controller.modifier_reservation_byId(resa)
                 self.update_data()          
         

@@ -53,6 +53,8 @@ class Reservation :
     
     def afficher_couts (self):
         print(self._id)
+        if self._couts == [] :
+            print("liste vide")
         for c in self._couts:
             print(c._date_jour)
     
@@ -60,7 +62,6 @@ class Reservation :
 
 class Couts_jour :
     def __init__ (self, date_jour, total_chambre,total_petit_dej,total_bar,total_telephone,total_taxe_sejour) :
-        self._id = -1
         self._date_jour = date_jour
         self._total_chambre = total_chambre
         self._regle_chambre = 0
@@ -72,6 +73,13 @@ class Couts_jour :
         self._regle_telephone = 0
         self._total_taxe_sejour = total_taxe_sejour
         self._regle_taxe_sejour = 0
+    
+    def set_regle(self, regle_chambre, regle_petit_dej, regle_bar, regle_telephone, regle_taxe_sejour) :
+        self._regle_chambre = regle_chambre
+        self._regle_petit_dej = regle_petit_dej
+        self._regle_bar = regle_bar
+        self._regle_telephone = regle_telephone
+        self._regle_taxe_sejour = regle_taxe_sejour
 
 
         

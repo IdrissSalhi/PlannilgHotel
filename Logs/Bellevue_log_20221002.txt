@@ -1,0 +1,13 @@
+13:04:28 Program Started
+13:15:35 Program Started
+13:15:57 Reservation added : 1, 1, 1, 20220929, 20221002, 
+13:17:27 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20220929, date depart :  20221002, origine : 
+13:18:39 Program Started
+13:18:49 Reservation added : 1, 1, 1, 20220928, 20221002, 
+13:25:52 Program Started
+13:27:07 Program Started
+13:30:04 Program Started
+13:36:23 Program Started
+14:21:33 Program Started
+14:23:05 Program Started
+14:25:29 Program Started
