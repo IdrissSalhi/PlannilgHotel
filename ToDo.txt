@@ -15,4 +15,10 @@ séparer occupants et occupants enfants
 - continer get_couts_jour_byResa
 - modifier get_resa
 -lock champs resa (origine ne pas pouvoir marquer nimp)
+
+
+
+coutbellevuepdf :
+    - tout repasser en hauteur de texte
+    
  
