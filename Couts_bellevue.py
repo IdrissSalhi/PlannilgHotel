@@ -18,8 +18,11 @@ class Cout_View :
         self.window.title("Couts reservation")
         self.window.resizable(False, False)
         self.window.state("zoomed")
-        self.master_couts = Frame(master = self.window, highlightbackground = "blue", highlightthickness = 2)
-        self.master_titre= Frame(master = self.window, highlightbackground = "green", highlightthickness = 2)
+        self.scroll=Scrollbar(self.window, orient='horizontal')
+        self.master_couts_canvas = Canvas(master = self.window, xscrollcommand = self.scroll.set, scrollregion = (0,0,2000,0))
+        self.master_couts = Frame(master = self.master_couts_canvas, width = 1000, height = 200)
+        self.master_titre= Frame(master = self.window)
+        
 
         
         self._reservation = reservation
@@ -36,7 +39,7 @@ class Cout_View :
         data_cell.configure( height = self.element_height, width = self.element_width)
         data_cell.propagate(0)
         data_cell.grid(column = 0, row = 0, sticky= NSEW)
-        b_names = ["Chambre", "Petit-dejeuner", "Téléphone", "Bar", "", "Taxe Séjour"]
+        b_names = ["Chambre", "Petit-dejeuner", "Téléphone", "Bar", "Taxe Séjour"]
         for i in range(len(b_names)) :
             data_cell = Frame( master = self.master_titre)
             Button(master = data_cell, text = b_names[i], font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
@@ -47,43 +50,45 @@ class Cout_View :
         
         
         data_stringvar = []
-        #début couts jour
-        jour_stringvar = []
-        data_cell = Frame(master = self.master_couts)
-        Label(master = data_cell, text="").pack(fill=BOTH, side=LEFT,expand = True)
-        data_cell.configure(height = self.element_height, width = self.element_width )
-        data_cell.propagate(0)
-        data_cell.grid(column = 0, row = 0, sticky = W)
-        
-        for i in range(len(b_names)) :
-            var = StringVar()
+        j = 0
+        for cout in self._reservation._couts :
+            jour_stringvar = []
             data_cell = Frame(master = self.master_couts)
-            style = ttk.Style(self.window)
-            style.theme_use("default")
-            style.layout('resize1.TSpinbox', [('Spinbox.field',
-            {'expand': 1,
-            'sticky': 'nswe',
-            'children': [('null',
-                {'side': 'right',
-                'sticky': 'ns',
-                'children': [('Spinbox.uparrow', {'side': 'top', 'sticky': 'e'}),
-                ('Spinbox.downarrow', {'side': 'bottom', 'sticky': 'e'})]}),
-                ('Spinbox.padding',
-                {'sticky': 'nswe',
-                'children': [('Spinbox.textarea', {'sticky': 'nswe'})]})]})])
-            
-            style.configure('resize1.TSpinbox', arrowsize = 30)
-            ttk.Spinbox(master= data_cell, textvariable = var, from_ = 0 , to = 10000, style = 'resize1.TSpinbox',
-               font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=BOTTOM,expand = True)
+            Label(master = data_cell, text = cout._date_jour.strftime("%d-%m-%Y"), font = font.Font(family = POLICE_JOURS, size = POLICE_JOURS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
             data_cell.configure(height = self.element_height, width = self.element_width )
             data_cell.propagate(0)
-            data_cell.grid(column = 0, row = i+1, sticky = W)
-            jour_stringvar.append(var)
+            data_cell.grid(column = j, row = 0, sticky = W)
+            
+            for i in range(len(b_names)) :
+                var = StringVar()
+                data_cell = Frame(master = self.master_couts)
+                style = ttk.Style(self.window)
+                style.theme_use("default")
+                style.layout('resize1.TSpinbox', [('Spinbox.field',
+                {'expand': 1,
+                'sticky': 'nswe',
+                'children': [('null',
+                    {'side': 'right',
+                    'sticky': 'ns',
+                    'children': [('Spinbox.uparrow', {'side': 'top', 'sticky': 'e'}),
+                    ('Spinbox.downarrow', {'side': 'bottom', 'sticky': 'e'})]}),
+                    ('Spinbox.padding',
+                    {'sticky': 'nswe',
+                    'children': [('Spinbox.textarea', {'sticky': 'nswe'})]})]})])
+                
+                style.configure('resize1.TSpinbox', arrowsize = 30)
+                ttk.Spinbox(master= data_cell, textvariable = var, from_ = 0 , to = 10000, style = 'resize1.TSpinbox',
+                font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=BOTTOM,expand = True)
+                data_cell.configure(height = self.element_height, width = self.element_width )
+                data_cell.propagate(0)
+                data_cell.grid(column = j, row = i+1, sticky = W)
+                jour_stringvar.append(var)
 
 
-        
-        data_stringvar.append(jour_stringvar)
-        #fin couts jour
+            
+            data_stringvar.append(jour_stringvar)
+            j += 1
+            #fin couts jour
 
 
 
@@ -91,7 +96,11 @@ class Cout_View :
 
 
         self.master_titre.grid(column = 0, row = 0)
-        self.master_couts.grid(column = 1, row = 0, columnspan = 7, sticky=NSEW)
+        self.master_couts_canvas.create_window((0,0), window=self.master_couts, anchor="nw")
+        self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 7, sticky=NSEW)
+        self.scroll.config(command = self.master_couts_canvas.xview)
+        self.scroll.grid(column = 1, row = 1, columnspan = 7, sticky = NSEW)
+
 
         self.window.mainloop()
         
@@ -130,7 +139,7 @@ class Cout_View :
 
 
 ####################
-resa_test = controller.getReservationById(14)
+resa_test = controller.getReservationById(15)
 cv = Cout_View(resa_test)
 cv.initialisation()
 

@@ -150,9 +150,9 @@ class Database :
             reservation._id = db_reservation[0][0]
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(_id))
             db_couts_jour = self._cursor.fetchall()
-            for c in db_couts_jour :
-                couts_jour = Couts_jour(datetime.strptime(db_couts_jour[0][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[0][2], db_couts_jour[0][4], db_couts_jour[0][6], db_couts_jour[0][8], db_couts_jour[0][10])
-                couts_jour.set_regle(db_couts_jour[0][3],db_couts_jour[0][5],db_couts_jour[0][7],db_couts_jour[0][9],db_couts_jour[0][11])
+            for i in range (0, len(db_couts_jour)) :
+                couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][4], db_couts_jour[i][6], db_couts_jour[i][8], db_couts_jour[i][10])
+                couts_jour.set_regle(db_couts_jour[i][3],db_couts_jour[i][5],db_couts_jour[i][7],db_couts_jour[i][9],db_couts_jour[i][11])
                 reservation._couts.append(couts_jour)
             return reservation
     
