@@ -19,8 +19,9 @@ class Cout_View :
         self.window.resizable(False, False)
         self.window.state("zoomed")
         self.scroll=Scrollbar(self.window, orient='horizontal')
-        self.master_couts_canvas = Canvas(master = self.window, xscrollcommand = self.scroll.set, scrollregion = (0,0,2000,0))
-        self.master_couts = Frame(master = self.master_couts_canvas, width = 1000, height = 200)
+        self.master_couts_canvas = Canvas(master = self.window, width = self.element_width*8, xscrollcommand = self.scroll.set, scrollregion = (0,0,len(reservation._couts)*self.element_width,0))
+        self.master_couts = Frame(master = self.master_couts_canvas)
+        self.master_couts.propagate(0)
         self.master_titre= Frame(master = self.window)
         
 
@@ -90,8 +91,8 @@ class Cout_View :
             j += 1
             #fin couts jour
 
-
-
+        #TO DO 
+        #Set les stringvar a partir de la resa
         
 
 
@@ -139,7 +140,7 @@ class Cout_View :
 
 
 ####################
-resa_test = controller.getReservationById(15)
+resa_test = controller.getReservationById(2)
 cv = Cout_View(resa_test)
 cv.initialisation()
 

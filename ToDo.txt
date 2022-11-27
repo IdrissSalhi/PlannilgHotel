@@ -19,6 +19,6 @@ séparer occupants et occupants enfants
 
 
 coutbellevuepdf :
-    - tout repasser en hauteur de texte
+    - trouver largeur scrollbar
     
  

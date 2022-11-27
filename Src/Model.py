@@ -38,11 +38,9 @@ class Reservation :
             return 1 + (self._date_depart - from_date.replace(hour=0,minute=0,second=0, microsecond=0)).days
 
     def update_couts (self, nouveaux_cj) :
-        for cj in self._couts :
-            if cj._date_jour <= self._date_arrivee or cj._date_jour > self._date_depart :
-                print("removed :" , cj._date_jour)
-                self._couts.remove(cj)
-        
+     
+        self._couts = list(filter(lambda x: (x._date_jour > self._date_arrivee and x._date_jour <= self._date_depart), self._couts))
+
         for nc in nouveaux_cj :
             tag = False
             for oc in self._couts :
@@ -50,6 +48,9 @@ class Reservation :
                     tag = True
             if tag == False :
                 self._couts.append(nc)
+        
+      
+       
     
     def afficher_couts (self):
         print(self._id)

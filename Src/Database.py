@@ -238,7 +238,6 @@ class Database :
             return db_chambre[0][0]
     
     def modifier_reservation_byId (self, reservation) :
-
         self._cursor.execute("""UPDATE RESERVATIONS
         SET date_arrivee = '"""+ str(reservation._date_arrivee.strftime("%Y-%m-%d %H:%M:%S")) +"""',
         date_depart = '"""+ str(reservation._date_depart.strftime("%Y-%m-%d %H:%M:%S")) +"""',

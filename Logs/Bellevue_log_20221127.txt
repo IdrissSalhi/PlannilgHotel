@@ -1,0 +1,54 @@
+12:36:21 Program Started
+12:39:47 Program Started
+12:42:56 Program Started
+12:44:21 Program Started
+12:45:13 Program Started
+12:47:13 Program Started
+12:49:28 Program Started
+12:49:59 Reservation modified : 1, 1, 1, 20221203, 20221204, Booking
+12:50:16 Program Started
+12:51:21 Program Started
+12:51:30 Reservation modified : 1, 1, 1, 20221203, 20221211, Booking
+12:51:36 Program Started
+12:56:09 Program Started
+12:56:22 Reservation modified : 1, 1, 1, 20221128, 20221211, Booking
+12:57:54 Program Started
+12:57:59 Reservation modified : 1, 1, 1, 20221128, 20221211, Booking
+12:59:13 Program Started
+12:59:27 Reservation modified : 1, 1, 1, 20221209, 20221211, Booking
+13:17:17 Program Started
+13:17:24 Client added : x, x, x.x@bellevue.default, , 
+13:18:07 Reservation added : 1, 1, 1, 20221128, 20221211, 
+13:18:08 Reservation modified : 1, 1, 1, 20221128, 20221211, 
+13:18:15 Reservation modified : 1, 1, 1, 20221128, 20221211, 
+13:18:26 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20221128, date depart :  20221211, origine : 
+13:19:02 Program Started
+13:19:10 Reservation added : 1, 1, 1, 20221127, 20221211, 
+13:19:21 Program Started
+13:19:40 Program Started
+13:20:38 Program Started
+13:20:56 Program Started
+13:21:06 Reservation modified : 1, 1, 1, 20221210, 20221211, 
+13:21:12 Program Started
+13:21:55 Program Started
+13:22:12 Reservation modified : 1, 1, 1, 20221127, 20221211, 
+13:25:34 Program Started
+13:26:16 Program Started
+13:26:31 Reservation modified : 1, 1, 1, 20221209, 20221211, 
+13:29:09 Program Started
+13:29:15 Program Started
+13:29:24 Reservation modified : 1, 1, 1, 20221127, 20221211, 
+13:29:46 Program Started
+13:29:52 Reservation modified : 1, 1, 1, 20221209, 20221211, 
+13:58:50 Program Started
+14:01:37 Program Started
+14:01:45 Reservation modified : 1, 1, 1, 20221128, 20221211, 
+14:02:38 Program Started
+14:02:50 Reservation modified : 1, 1, 1, 20221209, 20221211, 
+14:03:13 Program Started
+14:03:46 Program Started
+14:03:53 Reservation modified : 1, 1, 1, 20221128, 20221211, 
+14:04:14 Program Started
+14:07:32 Program Started
+14:16:43 Program Started
+14:19:48 Program Started
