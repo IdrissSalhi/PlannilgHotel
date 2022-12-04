@@ -23,9 +23,10 @@ class Cout_View :
         self.master_couts = Frame(master = self.master_couts_canvas)
         self.master_couts.propagate(0)
         self.master_titre= Frame(master = self.window)
-        
-
-        
+        self.master_boutons = Frame(master = self.window)
+        self.images = {}
+        self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
+        self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
         self._reservation = reservation
 
         #to do   deux frames : - titre (colonne de gauche)
@@ -47,7 +48,10 @@ class Cout_View :
             data_cell.configure(height = self.element_height, width = self.element_width)
             data_cell.propagate(0)
             data_cell.grid(column = 0, row = i+1, sticky= NSEW)
-        #TO DO : Ajouter commande bouton
+        
+        
+        
+        
         
         
         data_stringvar = []
@@ -60,6 +64,10 @@ class Cout_View :
             data_cell.propagate(0)
             data_cell.grid(column = j, row = 0, sticky = W)
             
+
+
+
+        
             for i in range(len(b_names)) :
                 var = StringVar()
                 data_cell = Frame(master = self.master_couts)
@@ -92,8 +100,39 @@ class Cout_View :
             #fin couts jour
 
         #TO DO 
-        #Set les stringvar a partir de la resa
+        for i in range (0, len(self._reservation._couts)) :
+            data_stringvar[i][0].set(int(self._reservation._couts[i]._total_chambre))
+            data_stringvar[i][1].set(int(self._reservation._couts[i]._total_petit_dej))
+            data_stringvar[i][2].set(int(self._reservation._couts[i]._total_telephone))
+            data_stringvar[i][3].set(int(self._reservation._couts[i]._total_bar))
+            data_stringvar[i][4].set(int(self._reservation._couts[i]._total_taxe_sejour))
+
+        def sauvegarder_infos() :
+            x = False
+            for i in range (0, len(data_stringvar)) : 
+                for j in range (0, len(data_stringvar[i])) : 
+                    if data_stringvar[i][j].get()== "" or not data_stringvar[i][j].get().isnumeric() :
+                        x = True
+            if x == True :
+                print("Erreur")
+                messagebox.showerror(title=None, message="Au moins un des champs est invalide", parent = self.window )
         
+        def exit_button ():
+            self.window.quit()
+            self.window.destroy()
+
+        
+        bouton_sauvegarder = Button (master = self.window, 
+                text = " Sauvegarder", height=50,width=150, command = sauvegarder_infos,
+                fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),image = self.images["disk"],compound="left") 
+        boutton_quitter = Button( master = self.window,
+                text='Quitter', 
+                command=exit_button, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
+                height=50,width=150,image=self.images["quitter"],compound="left")
+
+
+
+
 
 
         self.master_titre.grid(column = 0, row = 0)
@@ -101,6 +140,8 @@ class Cout_View :
         self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 7, sticky=NSEW)
         self.scroll.config(command = self.master_couts_canvas.xview)
         self.scroll.grid(column = 1, row = 1, columnspan = 7, sticky = NSEW)
+        bouton_sauvegarder.grid(column = 0, row = 2)
+        boutton_quitter.grid(column = 0, row = 4)
 
 
         self.window.mainloop()
