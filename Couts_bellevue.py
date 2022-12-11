@@ -116,7 +116,19 @@ class Cout_View :
             if x == True :
                 print("Erreur")
                 messagebox.showerror(title=None, message="Au moins un des champs est invalide", parent = self.window )
-        
+            else :
+                
+                for i in range (0, len(self._reservation._couts)) : 
+                    self._reservation._couts[i]._total_chambre = int(data_stringvar[i][0].get())
+                    self._reservation._couts[i]._total_petit_dej = int(data_stringvar[i][1].get())
+                    self._reservation._couts[i]._total_telephone = int(data_stringvar[i][2].get())
+                    self._reservation._couts[i]._total_bar = int(data_stringvar[i][3].get())
+                    self._reservation._couts[i]._total_taxe_sejour = int(data_stringvar[i][4].get())
+                controller.modifier_reservation_byId(self._reservation)
+
+
+                        
+
         def exit_button ():
             self.window.quit()
             self.window.destroy()
