@@ -65,22 +65,12 @@ class Couts_jour :
     def __init__ (self, date_jour, total_chambre,total_petit_dej,total_bar,total_telephone,total_taxe_sejour) :
         self._date_jour = date_jour
         self._total_chambre = total_chambre
-        self._regle_chambre = 0
         self._total_petit_dej = total_petit_dej
-        self._regle_petit_dej = 0
         self._total_bar = total_bar
-        self._regle_bar = 0
         self._total_telephone = total_telephone
-        self._regle_telephone = 0
         self._total_taxe_sejour = total_taxe_sejour
-        self._regle_taxe_sejour = 0
     
-    def set_regle(self, regle_chambre, regle_petit_dej, regle_bar, regle_telephone, regle_taxe_sejour) :
-        self._regle_chambre = regle_chambre
-        self._regle_petit_dej = regle_petit_dej
-        self._regle_bar = regle_bar
-        self._regle_telephone = regle_telephone
-        self._regle_taxe_sejour = regle_taxe_sejour
+    
 
 
         

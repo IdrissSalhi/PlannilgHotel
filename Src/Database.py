@@ -59,16 +59,11 @@ class Database :
         self._cursor.execute("""CREATE TABLE IF NOT EXISTS COUTS_JOUR(
             id_reservation INTEGER NOT NULL,
             date_jour DATE,
-            total_chambre FLOAT NOT NULL,
-            regle_chambre FLOAT NOT NULL,
-            total_petit_dej FLOAT NOT NULL,
-            regle_petit_dej FLOAT NOT NULL,
-            total_bar FLOAT NOT NULL,
-            regle_bar FLOAT NOT NULL, 
-            total_telephone FLOAT NOT NULL,
-            regle_telephone FLOAT NOT NULL,
-            total_taxe_sejour FLOAT NOT NULL,
-            regle_taxe_sejour FLOAT NOT NULL,
+            total_chambre INTEGER NOT NULL,
+            total_petit_dej INTEGER NOT NULL,
+            total_bar  INTEGER NOT NULL,
+            total_telephone INTEGER NOT NULL,
+            total_taxe_sejour INTEGER NOT NULL,
             PRIMARY KEY (id_reservation, date_jour),
             FOREIGN KEY (id_reservation) references RESERVATIONS (id)
 
@@ -103,12 +98,12 @@ class Database :
         self._connexion.commit()
         id_resa = self._cursor.fetchall()[0][0]
         for cj in reservation._couts :
-            db_cj = (id_resa, cj._date_jour, cj._total_chambre, cj._regle_chambre,
-                     cj._total_petit_dej, cj._regle_petit_dej , cj._total_bar, cj._regle_bar,
-                     cj._total_telephone, cj._regle_telephone, cj._total_taxe_sejour, cj._regle_taxe_sejour)
-            self._cursor.execute(""" INSERT INTO COUTS_JOUR (id_reservation, date_jour, total_chambre, regle_chambre,
-                                     total_petit_dej, regle_petit_dej, total_bar, regle_bar, total_telephone, regle_telephone,
-                                     total_taxe_sejour, regle_taxe_sejour) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) """, db_cj) 
+            db_cj = (id_resa, cj._date_jour, cj._total_chambre, 
+                     cj._total_petit_dej,  cj._total_bar, 
+                     cj._total_telephone,  cj._total_taxe_sejour)
+            self._cursor.execute(""" INSERT INTO COUTS_JOUR (id_reservation, date_jour, total_chambre, 
+                                     total_petit_dej, total_bar, total_telephone,
+                                     total_taxe_sejour) VALUES (?,?,?,?,?,?,?) """, db_cj) 
             self._connexion.commit()
 
 
@@ -151,8 +146,7 @@ class Database :
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(_id))
             db_couts_jour = self._cursor.fetchall()
             for i in range (0, len(db_couts_jour)) :
-                couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][4], db_couts_jour[i][6], db_couts_jour[i][8], db_couts_jour[i][10])
-                couts_jour.set_regle(db_couts_jour[i][3],db_couts_jour[i][5],db_couts_jour[i][7],db_couts_jour[i][9],db_couts_jour[i][11])
+                couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][3], db_couts_jour[i][4], db_couts_jour[i][5], db_couts_jour[i][6])
                 reservation._couts.append(couts_jour)
             return reservation
     
@@ -223,8 +217,7 @@ class Database :
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(reservation._id))
             db_couts_jour = self._cursor.fetchall()
             for i in range (0, len(db_couts_jour)) :
-                couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][4], db_couts_jour[i][6], db_couts_jour[i][8], db_couts_jour[i][10])
-                couts_jour.set_regle(db_couts_jour[i][3],db_couts_jour[i][5],db_couts_jour[i][7],db_couts_jour[i][9],db_couts_jour[i][11])
+                couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][3], db_couts_jour[i][4], db_couts_jour[i][5], db_couts_jour[i][6])
                 reservation._couts.append(couts_jour)
 
             return reservation
@@ -249,12 +242,11 @@ class Database :
         self._cursor.execute(""" DELETE FROM COUTS_JOUR WHERE id_reservation = '""" + str(reservation._id) + """'""")
         self._connexion.commit()
         for cj in reservation._couts :
-            db_cj = (reservation._id, cj._date_jour, cj._total_chambre, cj._regle_chambre,
-                     cj._total_petit_dej, cj._regle_petit_dej , cj._total_bar, cj._regle_bar,
-                     cj._total_telephone, cj._regle_telephone, cj._total_taxe_sejour, cj._regle_taxe_sejour)
-            self._cursor.execute(""" INSERT INTO COUTS_JOUR (id_reservation, date_jour, total_chambre, regle_chambre,
-                                     total_petit_dej, regle_petit_dej, total_bar, regle_bar, total_telephone, regle_telephone,
-                                     total_taxe_sejour, regle_taxe_sejour) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) """, db_cj) 
+            db_cj = (reservation._id, cj._date_jour, cj._total_chambre,
+                     cj._total_petit_dej, cj._total_bar, cj._total_telephone, cj._total_taxe_sejour)
+            self._cursor.execute(""" INSERT INTO COUTS_JOUR (id_reservation, date_jour, total_chambre, 
+                                     total_petit_dej, total_bar, total_telephone,
+                                     total_taxe_sejour) VALUES (?,?,?,?,?,?,?) """, db_cj) 
             self._connexion.commit()
 
 

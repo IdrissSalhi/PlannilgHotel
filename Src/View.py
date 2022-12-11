@@ -8,6 +8,7 @@ from turtle import color, width
 
 from numpy import expand_dims
 from Src.Controller import *
+from Src.Couts_bellevue import Cout_View
 from Src.Model import *
 from tkcalendar import *
 from tkinter import ttk
@@ -69,6 +70,7 @@ class View :
         dict["down"] = PhotoImage(file="Images/down.png").subsample(17,17)
         dict["right"] = PhotoImage(file="Images/right.png").subsample(17,17)
         dict["left"] = PhotoImage(file="Images/left.png").subsample(17,17)
+        dict["euros"] = PhotoImage(file = "Images/euros.png").subsample(25,25)
         return dict
        
     def update_days(self):
@@ -558,8 +560,9 @@ class View :
         e_nb_occupants.grid(row=3, column=1, sticky=W)
         e_origine.grid(row = 4, column = 3, sticky=W)
 
-       
-
+        def infos_couts_jour() :
+            cv = Cout_View(resa,self.controller, self.window)
+            cv.initialisation()
         def exit_button ():
             window_infos.quit()
             window_infos.destroy()
@@ -618,20 +621,20 @@ class View :
                 self.maj_option_menu()
                 self.update_data()
 
-        
+        bout_cout = Button(master_infos, command = infos_couts_jour, text = " Facturation", height = 50, image=self.images["euros"],compound="left", fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE) )
         bout_quitter_frame = Frame (master_infos, height= 50)
         bout_editer_frame = Frame (master_infos, height= 50)
         bout_quitter_frame.propagate(0)
         bout_quitter_frame.grid (row=6,column=1,columnspan = 3, pady=(15,0),sticky= EW)
         Button( bout_quitter_frame,
-                text='Quitter', 
+                text=' Quitter', 
                 command=exit_button, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
                 height=50,width=120,image=self.images["quitter"],compound="left").pack(side = "right")
         bout_editer_frame = Frame (master_infos, height= 50, width = 100)
         Button(bout_editer_frame, command =activer_modif, image = self.images["lock"], bg = COUL_CADENAS_FERME, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE) ).pack(fill=BOTH,expand = True)
         bout_editer_frame.propagate(0)
         bout_editer_frame.grid (row=6,column=0, sticky=W, pady=(15,0))
-        
+        bout_cout.grid (row = 0, column = 3, rowspan = 2, sticky=EW)
         if resa._id == -1 :
             activer_modif()
             window_infos.title('Ajouter Reservation')

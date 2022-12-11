@@ -5,14 +5,16 @@ from Src.Controller import *
 import locale
 from Src.Config import *
 import tkinter.ttk as ttk
+from tkinter import *
+import tkinter.font as font
+
 
 
 locale.setlocale(locale.LC_TIME, 'fr_FR')
-db = Database('DB/HotelBDD.db')
-controller = Controller(db)
+
 class Cout_View :
-    def __init__(self, reservation):
-        self.window = Tk()
+    def __init__(self, reservation, controller, window):
+        self.window = Toplevel(window)
         self.element_height = self.window.winfo_screenheight()/9 - 5
         self.element_width = self.window.winfo_screenwidth()/9 - 5
         self.window.title("Couts reservation")
@@ -28,14 +30,11 @@ class Cout_View :
         self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
         self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
         self._reservation = reservation
+        self._controller = controller
 
-        #to do   deux frames : - titre (colonne de gauche)
-        #                       - zone slider (les couts, le reste des colonnes) 
-        #                       - frame boutons (quitter, sauvegarder, GENERER FACTURE)
-        #           
+        
     def initialisation (self) :
         
-        #remplir les titres et peupler zone des slider
         data_cell = Frame( master = self.master_titre)
         Label(master = data_cell, text = "DATE", font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
         data_cell.configure( height = self.element_height, width = self.element_width)
@@ -97,9 +96,7 @@ class Cout_View :
             
             data_stringvar.append(jour_stringvar)
             j += 1
-            #fin couts jour
 
-        #TO DO 
         for i in range (0, len(self._reservation._couts)) :
             data_stringvar[i][0].set(int(self._reservation._couts[i]._total_chambre))
             data_stringvar[i][1].set(int(self._reservation._couts[i]._total_petit_dej))
@@ -124,7 +121,7 @@ class Cout_View :
                     self._reservation._couts[i]._total_telephone = int(data_stringvar[i][2].get())
                     self._reservation._couts[i]._total_bar = int(data_stringvar[i][3].get())
                     self._reservation._couts[i]._total_taxe_sejour = int(data_stringvar[i][4].get())
-                controller.modifier_reservation_byId(self._reservation)
+                self._controller.modifier_reservation_byId(self._reservation)
 
 
                         
@@ -159,42 +156,5 @@ class Cout_View :
         self.window.mainloop()
         
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################
-resa_test = controller.getReservationById(2)
-cv = Cout_View(resa_test)
-cv.initialisation()
 
 

@@ -13,8 +13,6 @@ view = View(controller)
 
 
 
-#view.set_ROOMS(controller.getRoomsAsArray())
-
 
 
 view.initialisation()
