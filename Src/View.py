@@ -25,6 +25,8 @@ class View :
     def __init__(self, controller) :
         
         self.window = Tk()
+        style = ttk.Style(self.window)
+        style.theme_use("default")
         self.element_height = self.window.winfo_screenheight()/9 - 5
         self.element_width = self.window.winfo_screenwidth()/9 - 5
         self.window.title("Planning Hotel")
@@ -591,11 +593,11 @@ class View :
         
         def activer_modif () :
             if bout_editer_frame.winfo_children()[0]['bg'] == COUL_CADENAS_FERME :
-                e_nb_occupants.configure(state="normal")
-                e_num_chambre.configure(state="normal")
+                e_nb_occupants.configure(state="readonly")
+                e_num_chambre.configure(state="readonly")
                 e_date_arrivee.configure(state="normal")
                 e_date_depart.configure(state="normal")
-                e_origine.configure(state="normal")
+                e_origine.configure(state="readonly")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_OUVERT, image = self.images["unlock"])
                 Button ( bout_quitter_frame, command=sauvegarder_infos, text = " Sauvegarder",
                 height=50,width=150, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),image = self.images["disk"],compound="left").pack(side = "left")

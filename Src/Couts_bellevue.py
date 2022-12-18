@@ -1,3 +1,4 @@
+from tkinter import messagebox
 from ctypes import resize
 from textwrap import fill
 from Src.Model import *
@@ -29,6 +30,8 @@ class Cout_View :
         self.images = {}
         self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
         self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
+        self.images["no"] = PhotoImage (file="Images/no.png").subsample(25,25)
+        self.images["yes"] = PhotoImage (file="Images/yes.png").subsample(25,25)
         self._reservation = reservation
         self._controller = controller
 
@@ -41,9 +44,33 @@ class Cout_View :
         data_cell.propagate(0)
         data_cell.grid(column = 0, row = 0, sticky= NSEW)
         b_names = ["Chambre", "Petit-dejeuner", "Téléphone", "Bar", "Taxe Séjour"]
+        data_stringvar = []
+        
+        def data_ligne (index) :
+            window_data_ligne = Toplevel(self.window)
+            window_data_ligne.title(b_names[index])
+            infos_data_ligne = Frame(window_data_ligne, padx = 10, pady= 10)
+            infos_data = StringVar()
+            Label(infos_data_ligne, text = "Veuillez saisir une valeur", fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row = 0, column = 1, columnspan = 2)
+            Entry(infos_data_ligne, textvariable = infos_data, fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row = 1, column = 1, columnspan = 2)
+            def annuler ():
+                window_data_ligne.quit()
+                window_data_ligne.destroy()
+            def valider ():
+                for d in range (0, len(self._reservation._couts)) :
+                    data_stringvar[d][index].set(infos_data.get())
+                annuler()
+          
+            Button(infos_data_ligne, text = "Annuler", command = annuler,fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE), image = self.images["no"], compound="left").grid(row = 2, column = 3)
+            Button(infos_data_ligne, text= "Valider", command = valider,fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE), image = self.images["yes"], compound="left").grid(row = 2, column = 0)
+
+
+            infos_data_ligne.pack(fill=BOTH, side=LEFT,expand = True)
+            window_data_ligne.mainloop()
+
         for i in range(len(b_names)) :
             data_cell = Frame( master = self.master_titre)
-            Button(master = data_cell, text = b_names[i], font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
+            Button(master = data_cell, command=lambda arg1 = i  : data_ligne(arg1), text = b_names[i], font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
             data_cell.configure(height = self.element_height, width = self.element_width)
             data_cell.propagate(0)
             data_cell.grid(column = 0, row = i+1, sticky= NSEW)
@@ -53,7 +80,7 @@ class Cout_View :
         
         
         
-        data_stringvar = []
+        
         j = 0
         for cout in self._reservation._couts :
             jour_stringvar = []

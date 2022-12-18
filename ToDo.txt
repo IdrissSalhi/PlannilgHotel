@@ -13,7 +13,9 @@ séparer occupants et occupants enfants
 
 
 coutbellevuepdf :
-    - Set les stringvar a partir de la resa
-    - Clean up BDD et modèle en virant les champs "regle"
     - creer une fonctionnalité accompte
+    - ajouter un bouton générer facture
+    - faire fonction qui set les même valeurs lorsqu'on clique sur le bouton en début de ligne
+
+
  
