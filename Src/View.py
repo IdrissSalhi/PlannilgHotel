@@ -563,7 +563,8 @@ class View :
         e_origine.grid(row = 4, column = 3, sticky=W)
 
         def infos_couts_jour() :
-            cv = Cout_View(resa,self.controller, self.window)
+            exit_button()
+            cv = Cout_View(resa,self)
             cv.initialisation()
         def exit_button ():
             window_infos.quit()

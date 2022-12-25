@@ -39,7 +39,7 @@ class Reservation :
 
     def update_couts (self, nouveaux_cj) :
      
-        self._couts = list(filter(lambda x: (x._date_jour > self._date_arrivee and x._date_jour <= self._date_depart), self._couts))
+        self._couts = list(filter(lambda x: (x._date_jour >= self._date_arrivee and x._date_jour <= self._date_depart), self._couts))
 
         for nc in nouveaux_cj :
             tag = False

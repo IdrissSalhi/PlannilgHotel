@@ -8,14 +8,16 @@ from Src.Config import *
 import tkinter.ttk as ttk
 from tkinter import *
 import tkinter.font as font
+from tkinter.messagebox import askyesno
 
 
 
 locale.setlocale(locale.LC_TIME, 'fr_FR')
 
 class Cout_View :
-    def __init__(self, reservation, controller, window):
-        self.window = Toplevel(window)
+    def __init__(self, reservation, view):
+        self.view = view
+        self.window = Toplevel(view.window)
         self.element_height = self.window.winfo_screenheight()/9 - 5
         self.element_width = self.window.winfo_screenwidth()/9 - 5
         self.window.title("Couts reservation")
@@ -33,7 +35,7 @@ class Cout_View :
         self.images["no"] = PhotoImage (file="Images/no.png").subsample(25,25)
         self.images["yes"] = PhotoImage (file="Images/yes.png").subsample(25,25)
         self._reservation = reservation
-        self._controller = controller
+        self._controller = view.controller
 
         
     def initialisation (self) :
@@ -51,7 +53,7 @@ class Cout_View :
             window_data_ligne.title(b_names[index])
             infos_data_ligne = Frame(window_data_ligne, padx = 10, pady= 10)
             infos_data = StringVar()
-            Label(infos_data_ligne, text = "Veuillez saisir une valeur", fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row = 0, column = 1, columnspan = 2)
+            Label(infos_data_ligne, text = "Veuillez saisir une valeur pour " + b_names[index], fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row = 0, column = 1, columnspan = 2)
             Entry(infos_data_ligne, textvariable = infos_data, fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row = 1, column = 1, columnspan = 2)
             def annuler ():
                 window_data_ligne.quit()
@@ -78,7 +80,8 @@ class Cout_View :
         
         
         
-        
+        def highlight_save(name, index, mode):
+            boutton_sauvegarder.configure(bg = COUL_CADENAS_OUVERT)
         
         
         j = 0
@@ -90,10 +93,7 @@ class Cout_View :
             data_cell.propagate(0)
             data_cell.grid(column = j, row = 0, sticky = W)
             
-
-
-
-        
+    
             for i in range(len(b_names)) :
                 var = StringVar()
                 data_cell = Frame(master = self.master_couts)
@@ -130,6 +130,11 @@ class Cout_View :
             data_stringvar[i][2].set(int(self._reservation._couts[i]._total_telephone))
             data_stringvar[i][3].set(int(self._reservation._couts[i]._total_bar))
             data_stringvar[i][4].set(int(self._reservation._couts[i]._total_taxe_sejour))
+        
+        for i in range (0, len(data_stringvar)) :
+            for j in range(0, len(data_stringvar[i])) :
+                data_stringvar[i][j].trace("w", highlight_save)
+
 
         def sauvegarder_infos() :
             x = False
@@ -149,16 +154,26 @@ class Cout_View :
                     self._reservation._couts[i]._total_bar = int(data_stringvar[i][3].get())
                     self._reservation._couts[i]._total_taxe_sejour = int(data_stringvar[i][4].get())
                 self._controller.modifier_reservation_byId(self._reservation)
+                boutton_sauvegarder.configure(bg = boutton_quitter["background"])
+                self.view.update_data()
 
 
-                        
+                     
 
         def exit_button ():
-            self.window.quit()
-            self.window.destroy()
+            if boutton_quitter["background"] == boutton_sauvegarder["background"] :
+                self.window.quit()
+                self.window.destroy()
+            else :
+                answer = askyesno(title='confirmation',
+                    message="Voulez-vous continuer sans sauvegarder ?", parent = self.window)
+                if answer == True :
+                    self.window.quit()
+                    self.window.destroy()
+
 
         
-        bouton_sauvegarder = Button (master = self.window, 
+        boutton_sauvegarder = Button (master = self.window, 
                 text = " Sauvegarder", height=50,width=150, command = sauvegarder_infos,
                 fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),image = self.images["disk"],compound="left") 
         boutton_quitter = Button( master = self.window,
@@ -176,10 +191,10 @@ class Cout_View :
         self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 7, sticky=NSEW)
         self.scroll.config(command = self.master_couts_canvas.xview)
         self.scroll.grid(column = 1, row = 1, columnspan = 7, sticky = NSEW)
-        bouton_sauvegarder.grid(column = 0, row = 2)
+        boutton_sauvegarder.grid(column = 0, row = 2)
         boutton_quitter.grid(column = 0, row = 4)
 
-
+        self.window.protocol("WM_DELETE_WINDOW", exit_button)   
         self.window.mainloop()
         
 
