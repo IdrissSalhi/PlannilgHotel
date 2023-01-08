@@ -1,0 +1,40 @@
+12:45:37 Program Started
+12:45:53 Reservation modified : 1, 5, 1, 20221227, 20230106, Fastbooking
+12:48:58 Reservation modified : 1, 5, 1, 20221226, 20230106, Fastbooking
+13:13:33 Program Started
+13:13:49 Reservation modified : 1, 5, 1, 20221226, 20230106, Fastbooking
+13:14:05 Reservation modified : 1, 5, 1, 20221226, 20230107, Fastbooking
+13:15:43 Program Started
+13:16:00 Reservation modified : 1, 5, 1, 20230103, 20230107, Fastbooking
+13:16:28 Reservation modified : 1, 5, 1, 20221231, 20230107, Fastbooking
+13:16:30 Reservation modified : 1, 5, 1, 20221231, 20230107, Fastbooking
+13:16:32 Reservation modified : 1, 5, 1, 20221231, 20230107, Fastbooking
+13:22:21 Program Started
+13:22:45 Reservation modified : 1, 5, 1, 20230103, 20230107, Fastbooking
+13:23:16 Reservation modified : 1, 5, 1, 20230103, 20230107, Fastbooking
+13:23:32 Reservation modified : 1, 5, 1, 20221231, 20230107, Fastbooking
+13:25:07 Reservation modified : 1, 5, 1, 20221231, 20230109, Fastbooking
+13:25:31 Reservation modified : 1, 5, 1, 20221231, 20230102, Fastbooking
+13:25:54 Reservation modified : 1, 5, 1, 20221203, 20230107, Fastbooking
+13:26:20 Reservation modified : 1, 5, 1, 20221231, 20230102, Fastbooking
+13:33:05 Program Started
+13:33:23 Reservation modified : 1, 5, 1, 20230103, 20230105, Fastbooking
+13:33:50 Reservation modified : 1, 5, 1, 20230105, 20230107, Fastbooking
+13:34:08 Reservation modified : 1, 5, 1, 20230102, 20230105, Fastbooking
+13:34:35 Reservation modified : 1, 5, 1, 20230102, 20230105, Fastbooking
+13:34:51 Reservation modified : 1, 5, 1, 20230102, 20230105, Fastbooking
+13:35:08 Reservation modified : 1, 5, 1, 20230105, 20230107, Fastbooking
+13:41:00 Program Started
+13:41:43 Reservation supprimee  : id client : 1, id chambre : -1, nombre d'occupants : 1, date-arrivee :  20230108, date depart :  20230108, origine : 
+13:49:31 Program Started
+13:55:51 Program Started
+13:55:58 Reservation modified : 1, 5, 1, 20230104, 20230107, Fastbooking
+13:58:47 Program Started
+13:58:58 Reservation modified : 1, 5, 1, 20230101, 20230107, Fastbooking
+13:59:24 Reservation modified : 1, 1, 1, 20221231, 20230104, 
+14:00:01 Reservation modified : 1, 1, 1, 20221228, 20230104, 
+14:16:42 Program Started
+14:16:57 Program Started
+14:17:07 Client added :  x, x,  x.x@bellevue.default,  x, 
+14:18:10 Program Started
+14:18:22 Reservation added : 1, 1, 1, 20230104, 20230108, 

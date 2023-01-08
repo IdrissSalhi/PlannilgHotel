@@ -15,7 +15,10 @@ view
 coutbellevuepdf :
     - creer une fonctionnalité accompte
     - ajouter un bouton générer facture
-    - Verif changement de date resa et valeur jour extreme
-    - dans View ligne 588 basé nouveaux jours sur couts jours précédents et update_couts dans model 
 
- 
+
+
+
+def fct(a,b=0,c) :
+
+fct(4,5)

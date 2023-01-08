@@ -21,7 +21,7 @@ class Chambre :
 
 class Reservation :
 
-    def __init__(self,id_client,id_chambre,date_arrivee,date_depart,nb_occupants, origine = "") :
+    def __init__(self,id_client,id_chambre,date_arrivee,date_depart,nb_occupants,accompte, origine = "") :
         self._id = -1
         self._id_client = id_client
         self._id_chambre = id_chambre
@@ -29,6 +29,7 @@ class Reservation :
         self._date_arrivee = date_arrivee
         self._date_depart = date_depart
         self._origine = origine
+        self._accompte = accompte
         self._couts = []
     
     def getNuitees(self, from_date):
@@ -40,13 +41,22 @@ class Reservation :
     def update_couts (self, nouveaux_cj) :
      
         self._couts = list(filter(lambda x: (x._date_jour >= self._date_arrivee and x._date_jour <= self._date_depart), self._couts))
-
+        if self._couts != [] :
+            modele_cout = self._couts[0]
+        else :
+            modele_cout = nouveaux_cj[0]
+        
         for nc in nouveaux_cj :
             tag = False
             for oc in self._couts :
                 if nc._date_jour == oc._date_jour :
                     tag = True
             if tag == False :
+                nc._total_chambre = modele_cout._total_chambre
+                nc._total_petit_dej = modele_cout._total_petit_dej
+                nc._total_bar = modele_cout._total_bar
+                nc._total_telephone= modele_cout._total_telephone
+                nc._total_taxe_sejour= modele_cout._total_taxe_sejour
                 self._couts.append(nc)
         
       

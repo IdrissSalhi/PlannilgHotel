@@ -134,7 +134,7 @@ class Cout_View :
         for i in range (0, len(data_stringvar)) :
             for j in range(0, len(data_stringvar[i])) :
                 data_stringvar[i][j].trace("w", highlight_save)
-
+        #to do label_accompte = 
 
         def sauvegarder_infos() :
             x = False
@@ -181,6 +181,7 @@ class Cout_View :
                 command=exit_button, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
                 height=50,width=150,image=self.images["quitter"],compound="left")
 
+        
 
 
 

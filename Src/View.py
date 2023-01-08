@@ -590,6 +590,7 @@ class View :
                     jour = jour + timedelta(days=1)
                 resa.update_couts(nouveaux_jours)
                 resa._id = self.controller.modifier_reservation_byId(resa)
+                resa._couts = self.controller.getReservationById(resa._id)._couts
                 self.update_data()          
         
         def activer_modif () :
@@ -653,7 +654,7 @@ class View :
         
         def continue_button ():
             exit_button() 
-            resa = Reservation(id_client_selected[0],-1,datetime.now(),datetime.now(),1)
+            resa = Reservation(id_client_selected[0],-1,datetime.now(),datetime.now(),1,0)
             self.fenetre_infos_resa(resa)
         
         def client_selected(event):
