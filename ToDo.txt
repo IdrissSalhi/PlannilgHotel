@@ -13,8 +13,9 @@ view
 
 
 coutbellevuepdf :
-    - creer une fonctionnalité accompte
-    - ajouter un bouton générer facture
+    - ajouter un bouton générer facture + 
+    - regler decalgae bouton par rapport aux colonnes
+    - attention aux cas inférieur à 3 jours et supérieur à 8 jours
 
 
 

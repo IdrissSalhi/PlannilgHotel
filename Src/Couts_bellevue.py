@@ -30,11 +30,14 @@ class Cout_View :
         self.master_titre= Frame(master = self.window)
         self.master_accompte = Frame(master = self.window )
         self.master_accompte.propagate(0)
+        self.master_facture = Frame(master = self.window)
+        self.master_facture.propagate(0)
         self.images = {}
         self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
         self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
         self.images["no"] = PhotoImage (file="Images/no.png").subsample(25,25)
         self.images["yes"] = PhotoImage (file="Images/yes.png").subsample(25,25)
+        self.images["facture"] = PhotoImage (file="Images/Facture.png").subsample(15,15)
         self._reservation = reservation
         self._controller = view.controller
 
@@ -153,6 +156,12 @@ class Cout_View :
         accompte_spinbox.configure(height = int(self.element_height), width = int(self.element_width))
         accompte_spinbox.propagate(0)
         accompte_spinbox.grid(row = 0, column = 1)
+
+        #Facture
+
+        Button(master = self.master_facture, text = " Générer Facture",font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
+                height = int(self.element_height),width = int(self.element_width),
+                image =  self.images["facture"], compound = LEFT).grid(row = 0, column = 0)
         
         
         def sauvegarder_infos() :
@@ -216,6 +225,8 @@ class Cout_View :
         self.scroll.grid(column = 1, row = 1, columnspan = 7, sticky = NSEW)
         
         self.master_accompte.grid(column = 0, row = 2, columnspan = 2)
+        fac_col = len(self._reservation._couts)
+        self.master_facture.grid(column = fac_col, row = 2)
         boutton_sauvegarder.grid(column = 0, row = 3)
         boutton_quitter.grid(column = 0, row = 5)
         
