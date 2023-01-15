@@ -28,7 +28,8 @@ class Cout_View :
         self.master_couts = Frame(master = self.master_couts_canvas)
         self.master_couts.propagate(0)
         self.master_titre= Frame(master = self.window)
-        self.master_boutons = Frame(master = self.window)
+        self.master_accompte = Frame(master = self.window )
+        self.master_accompte.propagate(0)
         self.images = {}
         self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
         self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
@@ -134,18 +135,39 @@ class Cout_View :
         for i in range (0, len(data_stringvar)) :
             for j in range(0, len(data_stringvar[i])) :
                 data_stringvar[i][j].trace("w", highlight_save)
-        #to do label_accompte = 
+        
+        #Accompte
+        total_acccompte = StringVar()
+        total_acccompte.set(int(self._reservation._accompte))
+        total_acccompte.trace("w", highlight_save)
+    
+        accompte_label = Frame(master= self.master_accompte)
+        Label(master = accompte_label, text = "Accompte",font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
+        accompte_label.configure(height = int(self.element_height), width = int(self.element_width))
+        accompte_label.propagate(0)
+        accompte_label.grid(row = 0, column = 0)
 
+        accompte_spinbox = Frame(master= self.master_accompte)
+        ttk.Spinbox(master= accompte_spinbox, textvariable = total_acccompte, from_ = 0 , to = 100000, style = 'resize1.TSpinbox',
+                    font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side = LEFT, expand = True)
+        accompte_spinbox.configure(height = int(self.element_height), width = int(self.element_width))
+        accompte_spinbox.propagate(0)
+        accompte_spinbox.grid(row = 0, column = 1)
+        
+        
         def sauvegarder_infos() :
             x = False
             for i in range (0, len(data_stringvar)) : 
                 for j in range (0, len(data_stringvar[i])) : 
                     if data_stringvar[i][j].get()== "" or not data_stringvar[i][j].get().isnumeric() :
                         x = True
+            if total_acccompte.get() == "" or not total_acccompte.get().isnumeric() :
+                x= True
             if x == True :
                 print("Erreur")
                 messagebox.showerror(title=None, message="Au moins un des champs est invalide", parent = self.window )
             else :
+                self._reservation._accompte = int(total_acccompte.get())
                 
                 for i in range (0, len(self._reservation._couts)) : 
                     self._reservation._couts[i]._total_chambre = int(data_stringvar[i][0].get())
@@ -156,6 +178,7 @@ class Cout_View :
                 self._controller.modifier_reservation_byId(self._reservation)
                 boutton_sauvegarder.configure(bg = boutton_quitter["background"])
                 self.view.update_data()
+            
 
 
                      
@@ -186,15 +209,16 @@ class Cout_View :
 
 
 
-
         self.master_titre.grid(column = 0, row = 0)
         self.master_couts_canvas.create_window((0,0), window=self.master_couts, anchor="nw")
         self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 7, sticky=NSEW)
         self.scroll.config(command = self.master_couts_canvas.xview)
         self.scroll.grid(column = 1, row = 1, columnspan = 7, sticky = NSEW)
-        boutton_sauvegarder.grid(column = 0, row = 2)
-        boutton_quitter.grid(column = 0, row = 4)
-
+        
+        self.master_accompte.grid(column = 0, row = 2, columnspan = 2)
+        boutton_sauvegarder.grid(column = 0, row = 3)
+        boutton_quitter.grid(column = 0, row = 5)
+        
         self.window.protocol("WM_DELETE_WINDOW", exit_button)   
         self.window.mainloop()
         
