@@ -24,14 +24,14 @@ class Cout_View :
         self.window.resizable(False, False)
         self.window.state("zoomed")
         self.scroll=Scrollbar(self.window, orient='horizontal')
-        self.master_couts_canvas = Canvas(master = self.window, width = self.element_width*8, xscrollcommand = self.scroll.set, scrollregion = (0,0,len(reservation._couts)*self.element_width,0))
+        self.master_couts_canvas = Canvas(master = self.window, height = self.element_height*6, width = self.element_width*8, xscrollcommand = self.scroll.set, scrollregion = (0,0,len(reservation._couts)*self.element_width,0))
         self.master_couts = Frame(master = self.master_couts_canvas)
-        self.master_couts.propagate(0)
+        #self.master_couts.propagate(0)
         self.master_titre= Frame(master = self.window)
         self.master_accompte = Frame(master = self.window )
-        self.master_accompte.propagate(0)
+        #self.master_accompte.propagate(0)
         self.master_facture = Frame(master = self.window)
-        self.master_facture.propagate(0)
+        #self.master_facture.propagate(0)
         self.images = {}
         self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
         self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
@@ -164,6 +164,7 @@ class Cout_View :
                 image =  self.images["facture"], compound = LEFT).grid(row = 0, column = 0)
         
         
+        
         def sauvegarder_infos() :
             x = False
             for i in range (0, len(data_stringvar)) : 
@@ -214,21 +215,39 @@ class Cout_View :
                 height=50,width=150,image=self.images["quitter"],compound="left")
 
         
-
-
-
-
-        self.master_titre.grid(column = 0, row = 0)
-        self.master_couts_canvas.create_window((0,0), window=self.master_couts, anchor="nw")
-        self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 7, sticky=NSEW)
-        self.scroll.config(command = self.master_couts_canvas.xview)
-        self.scroll.grid(column = 1, row = 1, columnspan = 7, sticky = NSEW)
         
-        self.master_accompte.grid(column = 0, row = 2, columnspan = 2)
+
+
+
+
+        self.master_titre.grid(column = 0, row = 0, rowspan = 6)
+        self.master_couts_canvas.create_window((0,0), window=self.master_couts, anchor="nw")
+        self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 8, rowspan = 6, sticky= EW)#modif
+        self.scroll.config(command = self.master_couts_canvas.xview)
+        self.scroll.grid(column = 1, row = 7, columnspan = 8, sticky = NSEW)#modif
+        
+        self.master_accompte.grid(column = 0, row = 8, columnspan = 2)
         fac_col = len(self._reservation._couts)
-        self.master_facture.grid(column = fac_col, row = 2)
-        boutton_sauvegarder.grid(column = 0, row = 3)
-        boutton_quitter.grid(column = 0, row = 5)
+        if fac_col <= 1 :
+            fac_col = 2
+        elif fac_col >= 8 :
+            fac_col = 8
+        
+        for i in range (2,9):
+            if i != fac_col :
+                master_test = Frame(master = self.window)
+                master_test.propagate(0)
+                master_test.configure(height = self.element_height, width = self.element_width)
+                master_test.grid(row = 8, column = i)
+            else :
+                self.master_facture.grid(column = fac_col, row = 8)
+
+        
+     
+
+
+        boutton_sauvegarder.grid(column = 0, row = 9)
+        boutton_quitter.grid(column = 0, row = 10)
         
         self.window.protocol("WM_DELETE_WINDOW", exit_button)   
         self.window.mainloop()
