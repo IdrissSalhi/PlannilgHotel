@@ -16,6 +16,7 @@ locale.setlocale(locale.LC_TIME, 'fr_FR')
 
 class Cout_View :
     def __init__(self, reservation, view):
+
         self.view = view
         self.window = Toplevel(view.window)
         self.element_height = self.window.winfo_screenheight()/9 - 5
@@ -23,15 +24,12 @@ class Cout_View :
         self.window.title("Couts reservation")
         self.window.resizable(False, False)
         self.window.state("zoomed")
-        self.scroll=Scrollbar(self.window, orient='horizontal')
-        self.master_couts_canvas = Canvas(master = self.window, height = self.element_height*6, width = self.element_width*8, xscrollcommand = self.scroll.set, scrollregion = (0,0,len(reservation._couts)*self.element_width,0))
+        self.scroll=ttk.Scrollbar(self.window, orient='horizontal')
+        self.master_couts_canvas = Canvas(master = self.window, height = self.element_height*6, width = self.element_width*8, xscrollcommand = self.scroll.set, scrollregion =(0,0,len(reservation._couts)*self.element_width,0))                                  
         self.master_couts = Frame(master = self.master_couts_canvas)
-        #self.master_couts.propagate(0)
         self.master_titre= Frame(master = self.window)
         self.master_accompte = Frame(master = self.window )
-        #self.master_accompte.propagate(0)
         self.master_facture = Frame(master = self.window)
-        #self.master_facture.propagate(0)
         self.images = {}
         self.images["disk"] = PhotoImage(file = "Images/disk.png").subsample(30,30)
         self.images["quitter"] = PhotoImage (file="Images/quitter.png").subsample(25,25)
@@ -101,26 +99,12 @@ class Cout_View :
             for i in range(len(b_names)) :
                 var = StringVar()
                 data_cell = Frame(master = self.master_couts)
-                style = ttk.Style(self.window)
-                style.theme_use("default")
-                style.layout('resize1.TSpinbox', [('Spinbox.field',
-                {'expand': 1,
-                'sticky': 'nswe',
-                'children': [('null',
-                    {'side': 'right',
-                    'sticky': 'ns',
-                    'children': [('Spinbox.uparrow', {'side': 'top', 'sticky': 'e'}),
-                    ('Spinbox.downarrow', {'side': 'bottom', 'sticky': 'e'})]}),
-                    ('Spinbox.padding',
-                    {'sticky': 'nswe',
-                    'children': [('Spinbox.textarea', {'sticky': 'nswe'})]})]})])
                 
-                style.configure('resize1.TSpinbox', arrowsize = 30)
                 ttk.Spinbox(master= data_cell, textvariable = var, from_ = 0 , to = 10000, style = 'resize1.TSpinbox',
                 font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=BOTTOM,expand = True)
                 data_cell.configure(height = self.element_height, width = self.element_width )
                 data_cell.propagate(0)
-                data_cell.grid(column = j, row = i+1, sticky = W)
+                data_cell.grid(column = j, row = i+1, sticky = NSEW)
                 jour_stringvar.append(var)
 
 
@@ -224,15 +208,20 @@ class Cout_View :
         self.master_couts_canvas.create_window((0,0), window=self.master_couts, anchor="nw")
         self.master_couts_canvas.grid(column = 1, row = 0, columnspan = 8, rowspan = 6, sticky= EW)#modif
         self.scroll.config(command = self.master_couts_canvas.xview)
-        self.scroll.grid(column = 1, row = 7, columnspan = 8, sticky = NSEW)#modif
+        if len(self._reservation._couts) > 8 :
+            self.scroll.grid(column = 1, row = 7, columnspan = 8, sticky = NSEW)#modif
         
         self.master_accompte.grid(column = 0, row = 8, columnspan = 2)
+       
+        #Restreindre position nouton générer facture entre 2 et 8        
         fac_col = len(self._reservation._couts)
         if fac_col <= 1 :
             fac_col = 2
         elif fac_col >= 8 :
             fac_col = 8
         
+
+        #Ajout de frame pour conserver l'alignement colonne
         for i in range (2,9):
             if i != fac_col :
                 master_test = Frame(master = self.window)

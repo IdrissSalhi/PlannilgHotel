@@ -14,11 +14,44 @@ view
 
 coutbellevuepdf :
     - ajouter un bouton générer facture + 
-    - regler decalgae bouton par rapport aux colonnes
-    - attention aux cas inférieur à 3 jours et supérieur à 8 jours
+    - scrollbar + epaisse
 
 
 
 
 def fct(a,b=0,c) :
 
+
+
+style.layout('resize1.TSpinbox', [('Spinbox.field',
+                {'expand': 1,
+                'sticky': 'nswe',
+                'children': [('null',
+                    {'side': 'right',
+                    'sticky': 'ns',
+                    'children': [('Spinbox.uparrow', {'side': 'top', 'sticky': 'e'}),
+                    ('Spinbox.downarrow', {'side': 'bottom', 'sticky': 'e'})]}),
+                    ('Spinbox.padding',
+                    {'sticky': 'nswe',
+                    'children': [('Spinbox.textarea', {'sticky': 'nswe'})]})]})])
+              
+               
+                
+                style.configure('resize1.TSpinbox', arrowsize = 30)
+
+
+
+ style.layout("My.TScrollbar",
+                [('My.TScrollbar.trough',
+                    {'children': [('My.TScrollbar.thumb',
+                                    {'unit': '1',
+                                    'children':
+                                        [('My.TScrollbar.grip', {'sticky': ''})],
+                                    'sticky': 'nswe'})
+                                ],
+                    'sticky': 'ns'})])
+
+                style.configure("My.TScrollbar", gripcount=0, background="#b0b0b0",
+                                troughcolor='#252526', borderwidth=2, bordercolor='#252526',
+                                lightcolor='#252526', darkcolor='#252526',
+                                arrowsize=40)  # <----- ADDED THIS.

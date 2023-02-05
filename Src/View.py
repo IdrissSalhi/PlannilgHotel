@@ -26,7 +26,22 @@ class View :
         
         self.window = Tk()
         style = ttk.Style(self.window)
-        style.theme_use("default")
+        style.theme_use("classic")
+        
+        style.layout('resize1.TSpinbox', [('Spinbox.field',
+                        {'expand': 1,
+                        'sticky': 'nswe',
+                        'children': [('null',
+                            {'side': 'right',
+                            'sticky': 'ns',
+                            'children': [('Spinbox.uparrow', {'side': 'top', 'sticky': 'e'}),
+                            ('Spinbox.downarrow', {'side': 'bottom', 'sticky': 'e'})]}),
+                            ('Spinbox.padding',
+                            {'sticky': 'nswe',
+                            'children': [('Spinbox.textarea', {'sticky': 'nswe'})]})]})])
+        style.configure('resize1.TSpinbox', arrowsize = 30)
+
+
         self.element_height = self.window.winfo_screenheight()/9 - 5
         self.element_width = self.window.winfo_screenwidth()/9 - 5
         self.window.title("Planning Hotel")
