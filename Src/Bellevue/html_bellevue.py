@@ -13,9 +13,17 @@ def generer_html(date, controller) :
     content += """.principale{
     border : none;
     border-collapse: collapse;
-    margin: 5% 0;
+    margin: 2% 0;
+    
 }
-
+@media print {
+    body{
+        width: 21cm;
+        height: 29.7cm;
+        margin: 5mm 5mm 5mm 5mm; 
+        /* change the margins as you want them to be. */
+   } 
+}
 table{  
     width: 100%;
 }
@@ -23,7 +31,7 @@ table{
 .bordures{
     border-left: 1px solid black;
     border-right: 1px solid black;
-    padding-top: 20%;
+    padding-top: 10%;
 }
 
 .tr_principale{
@@ -77,7 +85,7 @@ table{
 
     #Début doc : date
     content += str(date.day) + " " + calendar.month_name[date.month] + " " + str(date.year)
-    content += "<br><br>"
+    
 
     #Table chambres 101 à 103"
     content += "<table class=principale>"

@@ -90,7 +90,8 @@ class Cout_View :
         for cout in self._reservation._couts :
             jour_stringvar = []
             data_cell = Frame(master = self.master_couts)
-            Label(master = data_cell, text = cout._date_jour.strftime("%d-%m-%Y"), font = font.Font(family = POLICE_JOURS, size = POLICE_JOURS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
+            machaine ="" + JOURS[cout._date_jour.weekday()] +" "+ str(cout._date_jour.day)+ "\n" +str(MOIS[cout._date_jour.month-1]) + "\n" + str(cout._date_jour.year)
+            Label(master = data_cell, text = machaine, font = font.Font(family = POLICE_JOURS, size = POLICE_JOURS_TAILLE)).pack(fill=BOTH, side=LEFT,expand = True)
             data_cell.configure(height = self.element_height, width = self.element_width )
             data_cell.propagate(0)
             data_cell.grid(column = j, row = 0, sticky = W)
@@ -100,8 +101,8 @@ class Cout_View :
                 var = StringVar()
                 data_cell = Frame(master = self.master_couts)
                 
-                ttk.Spinbox(master= data_cell, textvariable = var, from_ = 0 , to = 10000, style = 'resize1.TSpinbox',
-                font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side=BOTTOM,expand = True)
+                ttk.Spinbox(master= data_cell, textvariable = var, from_ = 0 , to = 10000, style = 'resize1.TSpinbox', justify = 'center',
+                font = font.Font(family = POLICE_SPINBOX, size = POLICE_SPINBOX_TAILLE)).pack(fill=BOTH, side=BOTTOM,expand = True)
                 data_cell.configure(height = self.element_height, width = self.element_width )
                 data_cell.propagate(0)
                 data_cell.grid(column = j, row = i+1, sticky = NSEW)
@@ -135,15 +136,16 @@ class Cout_View :
         accompte_label.grid(row = 0, column = 0)
 
         accompte_spinbox = Frame(master= self.master_accompte)
-        ttk.Spinbox(master= accompte_spinbox, textvariable = total_acccompte, from_ = 0 , to = 100000, style = 'resize1.TSpinbox',
-                    font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE)).pack(fill=BOTH, side = LEFT, expand = True)
+        ttk.Spinbox(master= accompte_spinbox, textvariable = total_acccompte, from_ = 0 , to = 100000, style = 'resize1.TSpinbox', justify = 'center',
+                    font = font.Font(family = POLICE_SPINBOX, size = POLICE_SPINBOX_TAILLE)).pack(fill=BOTH, side = LEFT, expand = True)
         accompte_spinbox.configure(height = int(self.element_height), width = int(self.element_width))
         accompte_spinbox.propagate(0)
         accompte_spinbox.grid(row = 0, column = 1)
 
         #Facture
 
-        Button(master = self.master_facture, text = " Générer Facture",font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
+        Button(master = self.master_facture,# command = 
+                text = " Générer Facture",font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
                 height = int(self.element_height),width = int(self.element_width),
                 image =  self.images["facture"], compound = LEFT).grid(row = 0, column = 0)
         

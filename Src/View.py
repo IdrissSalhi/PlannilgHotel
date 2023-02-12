@@ -17,8 +17,6 @@ from Src.Bellevue.html_bellevue import *
 from PIL import Image, ImageTk
 
 
-JOURS = ["LUNDI","MARDI","MERCREDI","JEUDI","VENDREDI","SAMEDI","DIMANCHE"]
-MOIS = ["JANVIER","FEVRIER","MARS","AVRIL","MAI","JUIN","JUILLET","AOUT","SEPTEMBRE","OCTOBRE","NOVEMBRE","DECEMBRE"]
 
 class View :
 
@@ -26,7 +24,7 @@ class View :
         
         self.window = Tk()
         style = ttk.Style(self.window)
-        style.theme_use("classic")
+        style.theme_use("clam")
         
         style.layout('resize1.TSpinbox', [('Spinbox.field',
                         {'expand': 1,
@@ -40,7 +38,7 @@ class View :
                             {'sticky': 'nswe',
                             'children': [('Spinbox.textarea', {'sticky': 'nswe'})]})]})])
         style.configure('resize1.TSpinbox', arrowsize = 30)
-
+        style.map('TCombobox', fieldbackground = [('disabled','lightgrey')])
 
         self.element_height = self.window.winfo_screenheight()/9 - 5
         self.element_width = self.window.winfo_screenwidth()/9 - 5
