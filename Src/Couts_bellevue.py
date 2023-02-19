@@ -9,7 +9,7 @@ import tkinter.ttk as ttk
 from tkinter import *
 import tkinter.font as font
 from tkinter.messagebox import askyesno
-
+from Src.Bellevue.html_facture import *
 
 
 locale.setlocale(locale.LC_TIME, 'fr_FR')
@@ -144,7 +144,7 @@ class Cout_View :
 
         #Facture
 
-        Button(master = self.master_facture,# command = 
+        Button(master = self.master_facture, command = lambda arg1 = self._reservation, arg2 = self._controller  : generer_facture(arg1, arg2),
                 text = " Générer Facture",font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
                 height = int(self.element_height),width = int(self.element_width),
                 image =  self.images["facture"], compound = LEFT).grid(row = 0, column = 0)

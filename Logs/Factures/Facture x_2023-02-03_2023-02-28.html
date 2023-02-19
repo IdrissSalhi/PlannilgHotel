@@ -1,12 +1,4 @@
-import Src.Model
-import webbrowser
-import Src.Controller
-
-
-
-def generer_facture(reservation : Src.Model.Reservation, controller) :
-    content = "<head>"
-    content = """ <style>
+ <style>
 
     @media print {
     body{
@@ -32,29 +24,23 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
 
 
 
-    </style>"""
-
-
-    content += "</head> \n  <body>"
-    content += """<header>
-        <div id=\"header_top\">
-            <div id=\"infos_bellevue\">
+    </style></head> 
+  <body><header>
+        <div id="header_top">
+            <div id="infos_bellevue">
                 <h1>Hotel Bellevue</h1>
                 46 rue Pasquier 75008 Paris
             </div>
-            <div id=\"infos_facture\">
+            <div id="infos_facture">
                 <h2>FACTURE</h2>
-                nÂ°
+                n°
             </div>
         </div>
         
-        <div id=\"header_bottom\">
+        <div id="header_bottom">
             lorem ipsum
         </div>
-    </header>"""
-
-
-    content+= """<div id="Tableau_detail">
+    </header><div id="Tableau_detail">
 
     <table>
         <th>
@@ -90,30 +76,4 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
 
 
 
-    </div>"""
-
-
-    content += "</body>"
-
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    html_path = "Logs\\Factures\\Facture" + controller.getClientById(reservation._id_client)._nom + "_" + reservation._date_arrivee.strftime("%Y-%m-%d")+ "_" + reservation._date_depart.strftime("%Y-%m-%d") +".html"
-    fichier_html = open(html_path,"w")
-    fichier_html.write(content)
-    fichier_html.close()
-    webbrowser.open(html_path)
+    </div></body>
