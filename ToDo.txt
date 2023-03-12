@@ -13,11 +13,10 @@ view
 
 
 generer facture :
-    - ajouter un bouton générer facture
-    - lier bouton à fonction générer_facture
+
     - creer visuel facture
-    - creer html_facture.py
     - creer dans html_facture notre visuel de facture
+    - Table des couts
     - Faire le lien entre couts et visuel
     - Sauvegarder les factures dans un dossier avec une nomenclature
 

@@ -419,7 +419,7 @@ class View :
         bout_editer_frame = Frame (master_infos, height= 50, width = 100)
         
         def sauvegarder_infos ():
-            client._nom = nom_client.get()
+            client._nom = nom_client.get().upper()
             client._prenom = prenom_client.get()
             client._adresse = adresse_client.get()
             client._mail = mail_client.get()
