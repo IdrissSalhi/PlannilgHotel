@@ -10,14 +10,19 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
     content = "<head>"
     content = """ <style>
 
-    @media print {
+    @media screen, print {
     body{
         width: 21cm;
         height: 29.7cm;
         margin: 5mm 5mm 5mm 5mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid black;
+        padding: 5mm;
         } 
     }
-
+   
 
     header{
         display:flex;
@@ -33,6 +38,29 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
     tr,td,th{
         border: 1px solid black;
     }
+
+    footer{
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #Total{
+        display:flex;
+        flex-direction: column;
+        align-items: flex-end;
+        
+    }
+
+    h3{
+        display:inline;
+    }
+
+    span {
+        border: 1px solid black;
+    }
+
+
 
 
 
@@ -140,14 +168,82 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
         content += str(reservation._couts[i]._total_chambre + reservation._couts[i]._total_petit_dej + reservation._couts[i]._total_telephone + reservation._couts[i]._total_bar + reservation._couts[i]._total_taxe_sejour)
         content +="</td>"
 
-    content+= """</table>
+    content+= """</table> </div>"""
+
+    #############FOOTER#############
+
+    content += """<footer>
+                <div id=\"TVA\">
+
+            <table>
+                <tr>
+                    <th> Taux <br> TVA </th>
+                    <th> Base <br> HT </th>
+                    <th> Montant <br> TVA </th>
+                    <th> Montant <br> TTC </th>
+                </tr>
+                <tr>
+                   <td>"""
+    content +=  "A"                   
+    content += "</td><td>"
+    content +=   "B"                  
+    content += "</td><td>"            
+    content +=   "V"                  
+    content += "</td><td>"
+    content +=   "C"  
+    content += "</td>"            
+               
+    content += "</tr></table></div>"           
+    
+    content += """<div id=\"Total\">
+                 <div> <h3> Sous-Total </h3> 
+                 <span> X </span> 
+                 </div>
+                 <div> <h3> Report </h3> 
+                 <span> X </span> 
+                 </div>
+                 <div> <h3> Total </h3> 
+                 <span> X </span> 
+                 </div>
+                 <div> <h3> </h3> 
+                 <span> X </span> 
+                 </div>
+                 <div> <h3> Arrhes/Acomptes </h3> 
+                 <span> X </span> 
+                 </div>
+                 <div> <h3> Net à régler </h3> 
+                 <span> X </span> 
+                 </div>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    """
+    content += "</div>"
+    
+    content+="</footer>"
 
 
 
-    </div>"""
+
+
+
+
+
 
 
     content += "</body>"
+
 
 
 
