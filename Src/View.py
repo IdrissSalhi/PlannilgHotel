@@ -108,6 +108,8 @@ class View :
         self.update_days()
 
 
+    
+    
     def destroy_data(self) :
         while (len(self.data_calendar.winfo_children()) > 8) :
             self.data_calendar.winfo_children()[8].destroy()
@@ -125,7 +127,7 @@ class View :
             data_cell_ch.grid(row = 0, column=i+1,sticky=N+S+E+W)
             label.pack(fill=BOTH, side=LEFT,expand = True)
         
-      
+    
 
         for r in range(1,8):
             for c in range(1,9):
@@ -311,6 +313,12 @@ class View :
         button_semaineprec.pack (side = LEFT,expand = True,fill=BOTH)
         button_semainesuiv.pack (side = RIGHT,expand = True,fill=BOTH)
 
+        def back_to_today(event) :
+            if event.char == " ":
+                self.pivot_day = datetime.now()
+                self.update_days()
+
+        self.window.bind('<KeyPress>', back_to_today)
        
 
         ##Creation de la colonne des jours

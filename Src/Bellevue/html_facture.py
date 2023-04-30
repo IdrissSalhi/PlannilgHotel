@@ -93,85 +93,85 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
     </header>"""
 
     
-    content+= """<div id="Tableau_detail">
+    content+= "<div id=\"Tableau_detail\">"
+    a = 0
+    b = a + 7 
+    for k in range (0,1+(len(reservation._couts)-1)//7):
+        b = min(b, len(reservation._couts))
+        content += """<table>
+            <tr>
+                <th>
+                DATE 
+                </th>"""
+        for i in range(a, b):
+            content+="<th>"
+            content+= JOURS[reservation._couts[i]._date_jour.weekday()] 
+            content+= "<br>"
+            content+=str(reservation._couts[i]._date_jour.day)+ "\n" +str(MOIS[reservation._couts[i]._date_jour.month-1]) + "\n" + str(reservation._couts[i]._date_jour.year)
+            content+="</th>"
+        content+= "</tr>"
 
-    <table>
-        <tr>
-            <th>
-               DATE 
-            </th>"""
-    for i in range(0,len(reservation._couts)):
-        content+=" <th> le "
-        content+= JOURS[reservation._couts[i]._date_jour.weekday()] 
-        content+= "<br>"
-        content+=str(reservation._couts[i]._date_jour.day)+ "\n" +str(MOIS[reservation._couts[i]._date_jour.month-1]) + "\n" + str(reservation._couts[i]._date_jour.year)
-        content+="</th>"
-    content+= "</tr>"
+        content+="""<tr>
+                <td> CHAMBRE </td>"""
+        for i in range(a, b):
+            content += "<td>"
+            content += str(reservation._couts[i]._total_chambre)
+            content +="</td>"
+        content += "</tr>"
 
-    content+="""<tr>
-            <td> CHAMBRE </td>"""
-    for i in range(0,len(reservation._couts)):
-        content += "<td>"
-        content += str(reservation._couts[i]._total_chambre)
-        content +="</td>"
-    content += "</tr>"
+        content += """<tr>
+                <td> PETIT-DEJ </td>"""
+        for i in range(a, b):
+            content += "<td>"
+            content += str(reservation._couts[i]._total_petit_dej)
+            content +="</td>"
+        content += "</tr>"
+            
+        content +=  """<tr>
+                <td>TELEPHONE </td>"""
+        for i in range(a, b):
+            content += "<td>"
+            content += str(reservation._couts[i]._total_telephone)
+            content +="</td>"
+        content += "</tr>"
+            
+        content +=  """    <tr>
+                <td>BAR </td>"""
+        for i in range(a, b):
+            content += "<td>"
+            content += str(reservation._couts[i]._total_bar)
+            content +="</td>"
+        content += "</tr>"
+        content+= """    <tr>
+                <td>  </td>"""
+        for i in range(a, b):
+            content+= "<td><br></td>"
+        content += "</tr>"
+        content+= """     <tr>
+                <td>TAXE SEJOUR</td>"""
+        for i in range(a, b):
+            content += "<td>"
+            content += str(reservation._couts[i]._total_taxe_sejour)
+            content +="</td>"
+        content += "</tr>"
+        content+= """    <tr>
+                <td> TOTAL JOUR </td>"""
+        for i in range(a, b):
+            content += "<td>"
+            content += str(reservation._couts[i].get_total_jour())
 
-    content += """<tr>
-            <td> PETIT-DEJ </td>"""
-    for i in range(0,len(reservation._couts)):
-        content += "<td>"
-        content += str(reservation._couts[i]._total_petit_dej)
-        content +="</td>"
-    content += "</tr>"
-        
-    content +=  """<tr>
-            <td>TELEPHONE </td>"""
-    for i in range(0,len(reservation._couts)):
-        content += "<td>"
-        content += str(reservation._couts[i]._total_telephone)
-        content +="</td>"
-    content += "</tr>"
-        
-    content +=  """    <tr>
-            <td>BAR </td>"""
-    for i in range(0,len(reservation._couts)):
-        content += "<td>"
-        content += str(reservation._couts[i]._total_bar)
-        content +="</td>"
-    content += "</tr>"
-    content+= """    <tr>
-            <td>  </td>"""
-    for i in range(0,len(reservation._couts)):
-        content+= "<td><br></td>"
-    content += "</tr>"
-    content+= """     <tr>
-            <td> </td>"""
-    for i in range(0,len(reservation._couts)):
-        content+= "<td><br></td>"
-    content += "</tr>"
-    content+= """    <tr>
-            <td>  </td>"""
-    for i in range(0,len(reservation._couts)):
-        content+= "<td><br></td>"
-    content += "</tr>"
-    content+= """     <tr>
-            <td>TAXE SEJOUR</td>"""
-    for i in range(0,len(reservation._couts)):
-        content += "<td>"
-        content += str(reservation._couts[i]._total_taxe_sejour)
-        content +="</td>"
-    content += "</tr>"
-    content+= """    <tr>
-            <td> TOTAL JOUR </td>"""
-    for i in range(0,len(reservation._couts)):
-        content += "<td>"
-        content += str(reservation._couts[i]._total_chambre + reservation._couts[i]._total_petit_dej + reservation._couts[i]._total_telephone + reservation._couts[i]._total_bar + reservation._couts[i]._total_taxe_sejour)
-        content +="</td>"
+            content +="</td>"
 
-    content+= """</table> </div>"""
+        content+= "</table> "
+        a += 7
+        b += 7 
+    
+    content += "</div>"
 
     #############FOOTER#############
-
+    somme = 0
+    for j in range (0,len(reservation._couts)):
+        somme += reservation._couts[j].get_total_jour()
     content += """<footer>
                 <div id=\"TVA\">
 
@@ -184,35 +184,49 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
                 </tr>
                 <tr>
                    <td>"""
-    content +=  "A"                   
+    
+    content +=  str(TVA) + "%"                   
     content += "</td><td>"
-    content +=   "B"                  
+    content +=   str(somme - (somme * TVA/100)) + " €"                
     content += "</td><td>"            
-    content +=   "V"                  
+    content +=   str(somme * TVA/100) + " €"
     content += "</td><td>"
-    content +=   "C"  
+    
+    content +=   str(somme) + " €"
     content += "</td>"            
                
     content += "</tr></table></div>"           
     
     content += """<div id=\"Total\">
                  <div> <h3> Sous-Total </h3> 
-                 <span> X </span> 
-                 </div>
+                 <span>"""
+    content += str(somme) + " €" 
+    content +=  """            
+                </span> 
+                </div>
                  <div> <h3> Report </h3> 
                  <span> X </span> 
                  </div>
                  <div> <h3> Total </h3> 
-                 <span> X </span> 
+                  <span>"""
+    content += str(somme) + " €"
+    content +=  """     
+                 </span> 
                  </div>
                  <div> <h3> </h3> 
                  <span> X </span> 
                  </div>
                  <div> <h3> Arrhes/Acomptes </h3> 
-                 <span> X </span> 
+                 <span>"""
+    content += str(reservation._accompte) + " €" 
+    content +=  """       
+                 </span> 
                  </div>
                  <div> <h3> Net à régler </h3> 
-                 <span> X </span> 
+                 <span>"""
+    content += str(somme - reservation._accompte) + " €" 
+    content +=  """      
+                 </span> 
                  </div>
 
 
@@ -267,3 +281,4 @@ def generer_facture(reservation : Src.Model.Reservation, controller) :
     fichier_html.write(content)
     fichier_html.close()
     webbrowser.open(html_path)
+

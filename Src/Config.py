@@ -58,4 +58,4 @@ MOIS = ["JANVIER","FEVRIER","MARS","AVRIL","MAI","JUIN","JUILLET","AOUT","SEPTEM
 # FACTURE #
 ############
 
-TVA = 1.10
+TVA = 10

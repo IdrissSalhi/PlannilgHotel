@@ -79,6 +79,10 @@ class Couts_jour :
         self._total_bar = total_bar
         self._total_telephone = total_telephone
         self._total_taxe_sejour = total_taxe_sejour
+
+    def get_total_jour(self):
+        return  self._total_chambre + self._total_petit_dej + self._total_bar + self._total_telephone + self._total_taxe_sejour
+    
     
     
 
