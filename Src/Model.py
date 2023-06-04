@@ -30,6 +30,7 @@ class Reservation :
         self._date_depart = date_depart
         self._origine = origine
         self._accompte = accompte
+        self._est_reglee = False
         self._couts = []
     
     def getNuitees(self, from_date):

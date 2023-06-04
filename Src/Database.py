@@ -52,8 +52,10 @@ class Database :
             nb_occupants INTEGER NOT NULL,
             accompte INTEGER,
             origine TINYTEXT,
+            est_reglee BOOLEAN,
             FOREIGN KEY (id_client) references CLIENTS (id),
             FOREIGN KEY (id_chambre) references CHAMBRES(id)
+            
             
         )
         """)
@@ -93,8 +95,8 @@ class Database :
 
     def ajouter_reservation(self, reservation) :
         
-        db_reservation = (reservation._id_client, reservation._id_chambre, reservation._date_arrivee, reservation._date_depart, reservation._nb_occupants, reservation._accompte, reservation._origine)
-        self._cursor.execute("""INSERT INTO RESERVATIONS (id_client, id_chambre, date_arrivee, date_depart, nb_occupants, accompte, origine) VALUES (?,?,?,?,?,?,?)""",db_reservation)
+        db_reservation = (reservation._id_client, reservation._id_chambre, reservation._date_arrivee, reservation._date_depart, reservation._nb_occupants, reservation._accompte, reservation._origine, reservation._est_reglee)
+        self._cursor.execute("""INSERT INTO RESERVATIONS (id_client, id_chambre, date_arrivee, date_depart, nb_occupants, accompte, origine, est_reglee) VALUES (?,?,?,?,?,?,?,?)""",db_reservation)
         self._cursor.execute("""SELECT LAST_INSERT_ROWID(); """)
         self._connexion.commit()
         id_resa = self._cursor.fetchall()[0][0]
@@ -144,6 +146,7 @@ class Database :
         else :
             reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6], db_reservation[0][7])
             reservation._id = db_reservation[0][0]
+            reservation._est_reglee = db_reservation[0][8] == "TRUE"
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(_id))
             db_couts_jour = self._cursor.fetchall()
             for i in range (0, len(db_couts_jour)) :
@@ -215,6 +218,7 @@ class Database :
         else :
             reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6], db_reservation[0][7])
             reservation._id = db_reservation[0][0]
+            reservation._est_reglee = db_reservation[0][8] == "TRUE"
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(reservation._id))
             db_couts_jour = self._cursor.fetchall()
             for i in range (0, len(db_couts_jour)) :
@@ -238,6 +242,7 @@ class Database :
         nb_occupants = '"""+ str(reservation._nb_occupants) +"""',
         accompte = '"""+ str(reservation._accompte) +"""',
         origine = '"""+ reservation._origine +"""',
+        est_reglee = '"""+ str(reservation._est_reglee).upper() +"""',
         id_chambre = '"""+ str(reservation._id_chambre) +"""'
         WHERE id = """+ str(reservation._id))
         self._connexion.commit()

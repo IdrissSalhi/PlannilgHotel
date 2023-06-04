@@ -144,13 +144,27 @@ class Cout_View :
 
         #Facture
 
-        Button(master = self.master_facture, command = lambda arg1 = self._reservation, arg2 = self._controller  : generer_facture(arg1, arg2),
+        
+        def confirmation_facture():
+              
+            answer = askyesno(title='Facturation',
+                        message="Voulez-vous enregistrer la transaction ?", parent = self.window)
+            if answer == True :
+                generer_facture(self._reservation,self._controller, True)   
+                self._reservation._est_reglee = True 
+                self._controller.modifier_reservation_byId(self._reservation)
+            else:
+                generer_facture(self._reservation,self._controller, False)  
+
+
+        Button(master = self.master_facture, command = confirmation_facture,
                 text = " Générer Facture",font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),
                 height = int(self.element_height),width = int(self.element_width),
                 image =  self.images["facture"], compound = LEFT).grid(row = 0, column = 0)
         
         
         
+
         def sauvegarder_infos() :
             x = False
             for i in range (0, len(data_stringvar)) : 

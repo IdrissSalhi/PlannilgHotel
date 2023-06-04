@@ -146,8 +146,8 @@ class View :
                         machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
     
                         canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE)
-                        """if (resa._est_reglee) :
-                            canva.configure (background = COUL_RESERVATION_PAYEE)"""
+                        if (resa._est_reglee) :
+                            canva.configure (background = COUL_RESERVATION_PAYEE)
                     
                         canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
 
@@ -511,10 +511,12 @@ class View :
         num_chambre = IntVar()
         nb_occupants = IntVar()
         origine = StringVar()
+        est_reglee = IntVar()
         nom_client.set(client._nom)
         prenom_client.set(client._prenom)
         nb_occupants.set(resa._nb_occupants)
         origine.set(resa._origine)
+        est_reglee.set(1 if resa._est_reglee else 0)
         liste_num_ch = []
         liste_nb_occupants = []
         liste_origine = ["", "Booking", "Fastbooking"]
@@ -534,6 +536,8 @@ class View :
                 text="OCCUPANTS :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=3,column =0, sticky=E)
         Label(master_infos, 
                 text="ORIGINE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =2, sticky=E)
+        Label(master_infos, 
+                text="REGLEE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =0, sticky=E)
         
         def parameter_selected(event):
             resa._nb_occupants = e_nb_occupants.get() 
@@ -568,6 +572,7 @@ class View :
         e_date_depart.configure(state = "disabled")
         e_origine = ttk.Combobox(master_infos,state = "disabled",textvariable = origine, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE),width= 15)
         e_origine['values'] = liste_origine
+        e_est_reglee = ttk.Checkbutton(master_infos,state = "disabled",variable = est_reglee)
     
 
 
@@ -582,6 +587,7 @@ class View :
         e_date_depart.grid(row=2, column=3, sticky=W)
         e_nb_occupants.grid(row=3, column=1, sticky=W)
         e_origine.grid(row = 4, column = 3, sticky=W)
+        e_est_reglee.grid(row = 4, column = 1, sticky=W)
 
         def infos_couts_jour() :
             exit_button()
@@ -600,6 +606,7 @@ class View :
             resa._date_arrivee = datetime.combine(e_date_arrivee.get_date(),datetime.min.time())
             resa._date_depart = datetime.combine(e_date_depart.get_date(),datetime.min.time())
             resa._origine = origine.get()
+            resa._est_reglee = True if est_reglee.get()==1 else False
             if resa._date_arrivee > resa._date_depart :
                 messagebox.showerror(title=None, message="Les dates sont invalides", parent = window_infos )
             else :
@@ -621,6 +628,7 @@ class View :
                 e_date_arrivee.configure(state="normal")
                 e_date_depart.configure(state="normal")
                 e_origine.configure(state="readonly")
+                e_est_reglee.configure(state="normal")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_OUVERT, image = self.images["unlock"])
                 Button ( bout_quitter_frame, command=sauvegarder_infos, text = " Sauvegarder",
                 height=50,width=150, fg = COUL_POLICE_BOUTONS, font = font.Font(family = POLICE_BOUTONS, size =POLICE_BOUTONS_TAILLE),image = self.images["disk"],compound="left").pack(side = "left")
@@ -632,6 +640,7 @@ class View :
                 e_date_arrivee.configure(state="disabled")
                 e_date_depart.configure(state="disabled")
                 e_origine.configure(state="disabled")
+                e_est_reglee.configure(state="disabled")
                 bout_editer_frame.winfo_children()[0].configure(bg = COUL_CADENAS_FERME, image = self.images["lock"])
                 bout_quitter_frame.winfo_children()[1].destroy()
                 bout_quitter_frame.winfo_children()[1].destroy()
