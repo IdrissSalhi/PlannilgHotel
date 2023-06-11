@@ -149,10 +149,13 @@ class Cout_View :
               
             answer = askyesno(title='Facturation',
                         message="Voulez-vous enregistrer la transaction ?", parent = self.window)
+            self.window.quit()
+            self.window.destroy()
             if answer == True :
                 generer_facture(self._reservation,self._controller, True)   
-                self._reservation._est_reglee = True 
+                self._reservation._date_de_reglement = datetime.now() 
                 self._controller.modifier_reservation_byId(self._reservation)
+                self.view.update_data()
             else:
                 generer_facture(self._reservation,self._controller, False)  
 

@@ -276,13 +276,11 @@ def generer_facture(reservation : Src.Model.Reservation, controller, enregistrer
     
     if enregistrer:
         html_path = "Logs\\Factures\\Facture" + controller.getClientById(reservation._id_client)._nom + "_" + reservation._date_arrivee.strftime("%Y-%m-%d")+ "_" + reservation._date_depart.strftime("%Y-%m-%d") +".html"
-        fichier_html = open(html_path,"w")
-        fichier_html.write(content)
-        fichier_html.close()
-        webbrowser.open(html_path)
+
     else:
         html_path = "apercu.html"
-        fichier_html = open(html_path,"w")
-        fichier_html.write(content)
-        fichier_html.close()
-        webbrowser.open(html_path)
+    
+    fichier_html = open(html_path,"w")
+    fichier_html.write(content)
+    fichier_html.close()
+    webbrowser.open(html_path)

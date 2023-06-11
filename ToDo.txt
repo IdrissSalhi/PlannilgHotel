@@ -12,18 +12,17 @@ view
 
 - ajouter nationalité à client
 - ajouter raccourci claviers
+-quit
 
 
 generer facture :
 
-    - Générer fenetre pop up lorsqu"on clique sur générer facture
-    - choix: - pour consulter (ne pas enregistrer)
-             - pour payer - enrigistrer la facture + horodatage
-                         - ajouter statut au modèle de la resa (payée, impayée) 
-                         - changer le statut de la reservation
     
-    - ajouter option retirer le statut payé
-    _ optimiser le if enregistrer a la fin de html facture
+    - choix: -
+             - pour payer- enrigistrer la facture + horodatage
+    
+    - qui
+   
 
 
 

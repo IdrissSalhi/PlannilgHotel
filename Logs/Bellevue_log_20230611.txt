@@ -1,0 +1,67 @@
+12:43:33 Program Started
+12:44:06 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+12:45:05 Program Started
+12:45:40 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+12:45:58 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+12:46:11 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+12:46:18 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+13:00:34 Program Started
+13:00:41 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+13:00:47 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+13:05:38 Program Started
+13:05:46 Reservation modified : 1, 1, 1, 20230530, 20230604, Fastbooking
+13:40:36 Program Started
+13:40:47 Client added : BRUCE, Lee, BRUCE.Lee@bellevue.default, c, 
+13:41:36 Program Started
+13:42:03 Reservation added : 1, 1, 1, 20230611, 20230614, 
+13:42:08 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+13:49:24 Program Started
+13:52:53 Program Started
+13:56:03 Program Started
+13:57:39 Program Started
+13:57:55 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+13:58:10 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+13:59:15 Program Started
+13:59:21 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:02:45 Program Started
+14:02:51 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:05:16 Program Started
+14:05:21 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:05:46 Program Started
+14:05:54 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:06:01 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:07:33 Program Started
+14:08:15 Program Started
+14:08:23 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:08:31 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:09:23 Program Started
+14:09:29 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:09:35 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:10:14 Program Started
+14:12:34 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:16:14 Program Started
+14:16:33 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:18:03 Program Started
+14:18:10 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:18:33 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:18:44 Reservation modified : 1, 1, 1, 20230611, 20230614, 
+14:18:53 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20230611, date depart :  20230614, origine : 
+14:19:11 Reservation added : 1, 1, 1, 20230608, 20230611, 
+14:23:04 Reservation modified : 1, 1, 1, 20230608, 20230611, 
+14:23:05 Program Started
+14:27:15 Program Started
+14:27:45 Program Started
+14:27:51 Client added : X, , X.@bellevue.default, , 
+14:28:04 Reservation added : 1, 1, 1, 20230611, 20230611, 
+14:28:22 Reservation modified : 1, 1, 1, 20230611, 20230611, 
+14:28:39 Reservation added : 1, 2, 1, 20230611, 20230611, 
+14:30:04 Program Started
+14:30:15 Reservation added : 1, 5, 1, 20230611, 20230611, 
+14:30:25 Reservation modified : 1, 5, 1, 20230611, 20230611, 
+14:32:48 Program Started
+14:32:55 Reservation modified : 1, 5, 1, 20230611, 20230611, 
+14:35:11 Program Started
+14:35:16 Reservation modified : 1, 5, 1, 20230611, 20230611, 
+14:35:24 Reservation modified : 1, 2, 1, 20230611, 20230611, Fastbooking
+14:35:52 Reservation modified : 1, 1, 1, 20230611, 20230611, 
+14:36:14 Reservation modified : 1, 1, 1, 20230608, 20230611, 

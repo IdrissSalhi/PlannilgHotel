@@ -146,7 +146,7 @@ class View :
                         machaineresa = client._nom + "\n" + client._prenom + "\n" + str(resa._nb_occupants) +" pers"
     
                         canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE)
-                        if (resa._est_reglee) :
+                        if (resa._date_de_reglement) :
                             canva.configure (background = COUL_RESERVATION_PAYEE)
                     
                         canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
@@ -516,7 +516,7 @@ class View :
         prenom_client.set(client._prenom)
         nb_occupants.set(resa._nb_occupants)
         origine.set(resa._origine)
-        est_reglee.set(1 if resa._est_reglee else 0)
+        est_reglee.set(1 if resa._date_de_reglement else 0)
         liste_num_ch = []
         liste_nb_occupants = []
         liste_origine = ["", "Booking", "Fastbooking"]
@@ -538,6 +538,8 @@ class View :
                 text="ORIGINE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =2, sticky=E)
         Label(master_infos, 
                 text="REGLEE :",fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row=4,column =0, sticky=E)
+        Label(master_infos, 
+                text=str(resa._date_de_reglement.strftime("%d-%m-%Y")) if resa._date_de_reglement else "" ,fg = COUL_POLICE_CHAMPS, font = font.Font(family = POLICE_CHAMPS, size =POLICE_CHAMPS_TAILLE)).grid(row= 4,column = 1, sticky=E)
         
         def parameter_selected(event):
             resa._nb_occupants = e_nb_occupants.get() 
@@ -574,6 +576,7 @@ class View :
         e_origine['values'] = liste_origine
         e_est_reglee = ttk.Checkbutton(master_infos,state = "disabled",variable = est_reglee)
     
+    
 
 
 
@@ -606,7 +609,15 @@ class View :
             resa._date_arrivee = datetime.combine(e_date_arrivee.get_date(),datetime.min.time())
             resa._date_depart = datetime.combine(e_date_depart.get_date(),datetime.min.time())
             resa._origine = origine.get()
-            resa._est_reglee = True if est_reglee.get()==1 else False
+            if est_reglee.get() == 1 and resa._date_de_reglement == None:
+                msgbox = messagebox.askquestion('Modification','Êtes-vous sûr de vouloir modifier la date de reglement ?',icon = 'error', parent = window_infos) 
+                if msgbox == 'yes':
+                    resa._date_de_reglement = datetime.now()
+            elif est_reglee.get() == 0 and resa._date_de_reglement != None:
+                msgbox = messagebox.askquestion('Modification','Êtes-vous sûr de vouloir modifier la date de reglement ?',icon = 'error', parent = window_infos) 
+                if msgbox == 'yes':
+                    resa._date_de_reglement = None
+
             if resa._date_arrivee > resa._date_depart :
                 messagebox.showerror(title=None, message="Les dates sont invalides", parent = window_infos )
             else :
@@ -619,7 +630,9 @@ class View :
                 resa.update_couts(nouveaux_jours)
                 resa._id = self.controller.modifier_reservation_byId(resa)
                 resa._couts = self.controller.getReservationById(resa._id)._couts
-                self.update_data()          
+
+                self.update_data() 
+                exit_button()        
         
         def activer_modif () :
             if bout_editer_frame.winfo_children()[0]['bg'] == COUL_CADENAS_FERME :
