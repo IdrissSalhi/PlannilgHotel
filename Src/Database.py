@@ -1,6 +1,7 @@
 import sqlite3
 from Src.Model import *
-
+from datetime import datetime
+import calendar
 
 class Database : 
 
@@ -52,9 +53,10 @@ class Database :
             nb_occupants INTEGER NOT NULL,
             accompte INTEGER,
             origine TINYTEXT,
-            date_de_reglement DATE,
+            id_facture INTEGER NOT NULL,
             FOREIGN KEY (id_client) references CLIENTS (id),
-            FOREIGN KEY (id_chambre) references CHAMBRES(id)
+            FOREIGN KEY (id_chambre) references CHAMBRES(id),
+            FOREIGN KEY (id_facture) references FACTURE(id)
             
             
         )
@@ -69,8 +71,15 @@ class Database :
             total_taxe_sejour INTEGER NOT NULL,
             PRIMARY KEY (id_reservation, date_jour),
             FOREIGN KEY (id_reservation) references RESERVATIONS (id)
-
-            
+     
+        )
+        """)
+        self._cursor.execute("""CREATE TABLE IF NOT EXISTS FACTURE(
+            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+            numero_facture INTEGER NOT NULL,
+            date_emission DATE,
+            date_de_reglement DATE,
+            fichier_html BLOB
         )
         """)
 
@@ -95,8 +104,8 @@ class Database :
 
     def ajouter_reservation(self, reservation) :
         
-        db_reservation = (reservation._id_client, reservation._id_chambre, reservation._date_arrivee, reservation._date_depart, reservation._nb_occupants, reservation._accompte, reservation._origine, reservation._date_de_reglement if reservation._date_de_reglement else None)
-        self._cursor.execute("""INSERT INTO RESERVATIONS (id_client, id_chambre, date_arrivee, date_depart, nb_occupants, accompte, origine, date_de_reglement) VALUES (?,?,?,?,?,?,?,?)""",db_reservation)
+        db_reservation = (reservation._id_client, reservation._id_chambre, reservation._date_arrivee, reservation._date_depart, reservation._nb_occupants, reservation._accompte, reservation._origine, -1)
+        self._cursor.execute("""INSERT INTO RESERVATIONS (id_client, id_chambre, date_arrivee, date_depart, nb_occupants, accompte, origine, id_facture) VALUES (?,?,?,?,?,?,?,?)""",db_reservation)
         self._cursor.execute("""SELECT LAST_INSERT_ROWID(); """)
         self._connexion.commit()
         id_resa = self._cursor.fetchall()[0][0]
@@ -108,7 +117,9 @@ class Database :
                                      total_petit_dej, total_bar, total_telephone,
                                      total_taxe_sejour) VALUES (?,?,?,?,?,?,?) """, db_cj) 
             self._connexion.commit()
-
+        if reservation._facture:
+            self.modifier_facture_byId(reservation._facture._id)
+        
 
         return id_resa
         
@@ -146,13 +157,16 @@ class Database :
         else :
             reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6], db_reservation[0][7])
             reservation._id = db_reservation[0][0]
-            reservation._date_de_reglement = datetime.strptime(db_reservation[0][8],"%Y-%m-%d %H:%M:%S") if db_reservation[0][8] != None else None
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(_id))
             db_couts_jour = self._cursor.fetchall()
             for i in range (0, len(db_couts_jour)) :
                 couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][3], db_couts_jour[i][4], db_couts_jour[i][5], db_couts_jour[i][6])
                 reservation._couts.append(couts_jour)
+            if db_reservation[0][8] != -1:
+                reservation._facture = self.getFactureById(db_reservation[0][8])
+                
             return reservation
+
     
 
     def getClientByMail(self,_mail) :
@@ -218,13 +232,14 @@ class Database :
         else :
             reservation = Reservation(db_reservation[0][1],db_reservation[0][2],datetime.strptime(db_reservation[0][3],"%Y-%m-%d %H:%M:%S"),datetime.strptime(db_reservation[0][4],"%Y-%m-%d %H:%M:%S"),db_reservation[0][5],db_reservation[0][6], db_reservation[0][7])
             reservation._id = db_reservation[0][0]
-            reservation._date_de_reglement = datetime.strptime(db_reservation[0][8],"%Y-%m-%d %H:%M:%S") if db_reservation[0][8] != None else None
             self._cursor.execute("""Select * from COUTS_JOUR where id_reservation = """ + str(reservation._id))
             db_couts_jour = self._cursor.fetchall()
             for i in range (0, len(db_couts_jour)) :
                 couts_jour = Couts_jour(datetime.strptime(db_couts_jour[i][1],"%Y-%m-%d %H:%M:%S"), db_couts_jour[i][2], db_couts_jour[i][3], db_couts_jour[i][4], db_couts_jour[i][5], db_couts_jour[i][6])
                 reservation._couts.append(couts_jour)
-
+            if db_reservation[0][8] != -1:
+                reservation._facture = self.getFactureById(db_reservation[0][8])
+            
             return reservation
 
     def get_id_byNumChambre (self, id_chambre) : 
@@ -236,14 +251,16 @@ class Database :
             return db_chambre[0][0]
     
     def modifier_reservation_byId (self, reservation) :
-        date_reg = ("'" + str(reservation._date_de_reglement.strftime("%Y-%m-%d %H:%M:%S")) + "'") if reservation._date_de_reglement else "NULL"
+        facture = -1 
+        if reservation._facture:
+            facture = reservation._facture._id
         self._cursor.execute("""UPDATE RESERVATIONS
         SET date_arrivee = '"""+ str(reservation._date_arrivee.strftime("%Y-%m-%d %H:%M:%S")) +"""',
         date_depart = '"""+ str(reservation._date_depart.strftime("%Y-%m-%d %H:%M:%S")) +"""',
         nb_occupants = '"""+ str(reservation._nb_occupants) +"""',
         accompte = '"""+ str(reservation._accompte) +"""',
         origine = '"""+ reservation._origine +"""',
-        date_de_reglement = """+ date_reg  +""",
+        id_facture = """+ str(facture)  +""",
         id_chambre = '"""+ str(reservation._id_chambre) +"""'
         WHERE id = """+ str(reservation._id))
         self._connexion.commit()
@@ -256,7 +273,8 @@ class Database :
                                      total_petit_dej, total_bar, total_telephone,
                                      total_taxe_sejour) VALUES (?,?,?,?,?,?,?) """, db_cj) 
             self._connexion.commit()
-
+        if reservation._facture:
+            self.modifier_facture_byId(reservation._facture)
 
     def get_capacite_max_chambre(self) : 
         self._cursor.execute("""SELECT MAX(capacite) as max_capacite
@@ -271,6 +289,8 @@ class Database :
     def supprimer_resa_byId(self,reservation) :
         self._cursor.execute("""Delete from RESERVATIONS where id = """+str(reservation._id))
         self._cursor.execute("""Delete from COUTS_JOUR where id_reservation = """+str(reservation._id))
+        if reservation._facture:
+            self._cursor.execute("""Delete from FACTURE where id = """+str(reservation._facture._id))
         self._connexion.commit()
 
     def get_chambre_dispo(self, reservation) :
@@ -297,12 +317,64 @@ class Database :
 
     def supprimer_resa_byClient(self,client):
         self._cursor.execute("""DELETE from COUTS_JOUR WHERE id_reservation IN (SELECT id FROM RESERVATIONS WHERE id_client = '""" +str(client._id)+ """')"""  )
-        self._cursor.execute("""DELETE from RESERVATIONS WHERE id_client = """+str(client._id))
+        self._cursor.execute("""SELECT id_facture from RESERVATION where  id_client = """+str(client._id))
+        factures = self._cursor.fetchall()
+        for k in factures:
+            self._cursor.execute("""Delete from FACTURE where id = """+str(k[0]))
+        
+        self._cursor.execute("""DELETE from RESERVATIONS WHERE id_client = """+str(client._id))       
 
         self._connexion.commit()
 
     
-    
+    def ajouter_facture(self, facture):
+        date_emission = facture._date_emission
+        debut_mois = date_emission.replace(day = 1, hour =0, minute = 0 , second = 0)
+        fin_mois = date_emission.replace(day = calendar.monthrange(date_emission.year,date_emission.month)[1] , hour =23, minute = 59 , second = 59)
+        self._cursor.execute("""SELECT * from FACTURE where date_emission >=
+                             julianday('""" + debut_mois.strftime("%Y-%m-%d %H:%M:%S") + """')  and date_emission <=
+                             julianday('""" + fin_mois.strftime("%Y-%m-%d %H:%M:%S") + """') ORDER BY date_emission""")
+        
+        db_factures = self._cursor.fetchall()
+        num_fac = 1
+        if db_factures != []:
+            num_fac = db_factures[-1][1] + 1
+        db_facture = (num_fac, facture._date_emission, None, facture._fichier_html)
+        
+        self._cursor.execute("""
+        INSERT INTO FACTURE(numero_facture, date_emission, date_de_reglement, fichier_html) VALUES(?,?,?,?)""", db_facture)
+        self._cursor.execute("""SELECT LAST_INSERT_ROWID(); """)
+        self._connexion.commit()
+        id_facture = self._cursor.fetchall()[0][0]
+        
+        return id_facture
 
 
+    def getFactureById(self, _id):
+        
+        self._cursor.execute("""Select * from FACTURE where id = """+str(_id))
+        db_facture = self._cursor.fetchall()
+        if len(db_facture)==0 :
+            return None
+        else:
+            facture = Facture(db_facture[0][4])
+            facture._id = _id
+            facture._numero_facture = db_facture[0][1]
+            facture._date_emission = datetime.strptime(db_facture[0][2],"%Y-%m-%d %H:%M:%S")
+            facture._date_de_reglement = datetime.strptime(db_facture[0][3],"%Y-%m-%d %H:%M:%S")
+            
+            return facture 
+   
+   
+    def modifier_facture_byId(self, facture): 
+  
+        self._cursor.execute("""UPDATE FACTURE
+        SET numero_facture = '"""+ str(facture._numero_facture) +"""',
+        date_emission = '"""+ str(facture._date_emission.strftime("%Y-%m-%d %H:%M:%S")) +"""',
+        date_de_reglement = '"""+ str(facture._date_de_reglement.strftime("%Y-%m-%d %H:%M:%S")) +"""',
+        fichier_html = '"""+ str(facture._fichier_html) +"""',  
+        WHERE id = """+ str(facture._id))
+        self._connexion.commit()
+       
     
+   

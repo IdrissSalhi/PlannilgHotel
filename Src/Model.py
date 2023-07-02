@@ -1,4 +1,4 @@
-from datetime import *
+
 
 class Client :
     
@@ -30,8 +30,8 @@ class Reservation :
         self._date_depart = date_depart
         self._origine = origine
         self._accompte = accompte
-        self._date_de_reglement = None
         self._couts = []
+        self._facture = None
     
     def getNuitees(self, from_date):
         if from_date == None :
@@ -84,7 +84,13 @@ class Couts_jour :
     def get_total_jour(self):
         return  self._total_chambre + self._total_petit_dej + self._total_bar + self._total_telephone + self._total_taxe_sejour
     
-    
+class Facture:
+    def __init__ (self, fichier_html = None):
+        self._id = -1
+        self._numero_facture = -1
+        self._date_emission = None
+        self._date_de_reglement = None
+        self._fichier_html = fichier_html
     
 
 

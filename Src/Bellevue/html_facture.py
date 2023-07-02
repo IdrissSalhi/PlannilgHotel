@@ -80,7 +80,9 @@ def generer_facture(reservation : Src.Model.Reservation, controller, enregistrer
             <div id=\"infos_facture\">
                 <h2>FACTURE</h2>
                 n°"""
-    content += str(datetime.now().year)+"."+ str(datetime.now().month)
+    content += str(datetime.now().year) + "." + str(datetime.now().month)
+    content += "<br> <br>"
+    content += "Le " + str(datetime.now().day) + "/" + str(datetime.now().month) + "/" + str(datetime.now().year)
     content += """</div>
         </div>
         
@@ -90,6 +92,8 @@ def generer_facture(reservation : Src.Model.Reservation, controller, enregistrer
     content += "<br>"
     content += str(controller.getClientById(reservation._id_client)._nom)+"  "+ str(controller.getClientById(reservation._id_client)._prenom)
     content += """</div>
+    
+    
     </header>"""
 
     
@@ -283,4 +287,6 @@ def generer_facture(reservation : Src.Model.Reservation, controller, enregistrer
     fichier_html = open(html_path,"w")
     fichier_html.write(content)
     fichier_html.close()
+    if enregistrer and reservation._facture:
+        reservation._facture._fichier_html = fichier_html
     webbrowser.open(html_path)

@@ -21,9 +21,12 @@ generer facture :
     - choix: -
              - pour payer- enrigistrer la facture + horodatage
     
-    - qui
-   
-
+    -Numéro facture: - 
+                     - modifier classe et table reservation:
+                         
+                         - tester!!!    
+                            - ValueError("unconverted data remains: %s" %
+                                ValueError: unconverted data remains: .077943   (strptime)
 
 
 LOGS : 

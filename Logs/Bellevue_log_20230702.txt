@@ -1,0 +1,24 @@
+13:46:31 Program Started
+13:46:47 Program Started
+13:46:53 Client added : X, , X.@bellevue.default, , 
+13:47:17 Reservation added : 1, 1, 1, 20230627, 20230702, 
+13:51:39 Program Started
+13:51:45 Client added : X, , X.@bellevue.default, , 
+13:52:01 Reservation added : 1, 1, 1, 20230627, 20230702, 
+13:52:37 facture added : -1, None
+13:55:12 Program Started
+13:55:20 facture added : -1, 2023-07-02 13:55:20.828773
+13:55:57 Program Started
+13:56:05 facture added : -1, 2023-07-02 13:56:05.051960
+13:56:05 Reservation modified : 1, 1, 1, 20230627, 20230702, 
+13:57:01 Program Started
+13:57:05 facture added : -1, 2023-07-02 13:57:05.587626
+13:57:05 Reservation modified : 1, 1, 1, 20230627, 20230702, 
+13:58:38 Program Started
+13:58:46 facture added : -1, 2023-07-02 13:58:46.304640
+13:58:46 Reservation modified : 1, 1, 1, 20230627, 20230702, 
+14:02:29 Program Started
+14:03:08 Program Started
+14:03:14 Client added : X, , X.@bellevue.default, , 
+14:03:24 Reservation added : 1, 1, 1, 20230630, 20230702, 
+14:03:29 facture added : -1, 2023-07-02 14:03:29.077943

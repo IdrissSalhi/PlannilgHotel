@@ -35,6 +35,12 @@ class Controller :
         if reservation != None :
             self.log("Reservation added : "+ str(reservation._id_client) + ", " + str(reservation._id_chambre) + ", " + str(reservation._nb_occupants) + ", " + reservation._date_arrivee.strftime("%Y%m%d") + ", " + reservation._date_depart.strftime("%Y%m%d") + ", " + reservation._origine )
             self._database.ajouter_reservation(reservation)
+    
+    def ajouter_facture(self, facture):
+        if facture != None :
+            self.log("facture added : " + str(facture._numero_facture) + ", " + str( facture._date_emission))
+            return self._database.ajouter_facture(facture)
+
 
     
     def getClientById(self, _id) :
@@ -46,6 +52,9 @@ class Controller :
 
     def getReservationById(self, _id) :
         return self._database.getReservationById(_id)
+    
+    def getFactureById(self, _id) :
+        return self._database.getFactureById(_id)
     
     def getClientByMail(self, _mail) :
         return self._database.getClientByMail(_mail)
@@ -127,6 +136,10 @@ class Controller :
         self.log("Les reservations de "+ client._nom + " " + client._prenom + " ont ete supprimees")
         self._database.supprimer_resa_byClient(client)
 
+    def modifier_facture_byId(self, facture):
+        self.log("Facture modified : "+ str(facture._numero_facture) + ", " + str(facture._date_emission))
+        self._database.modifier_facture_byId(facture)
+        return facture._id
         
     
 

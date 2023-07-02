@@ -152,8 +152,12 @@ class Cout_View :
             self.window.quit()
             self.window.destroy()
             if answer == True :
+                facture = Facture()
+                facture._date_emission = datetime.now()
+                id_facture = self._controller.ajouter_facture(facture)
+                facture = self._controller.getFactureById(id_facture)
+                self._reservation._facture = facture
                 generer_facture(self._reservation,self._controller, True)   
-                self._reservation._date_de_reglement = datetime.now() 
                 self._controller.modifier_reservation_byId(self._reservation)
                 self.view.update_data()
             else:
