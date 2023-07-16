@@ -1,0 +1,103 @@
+12:38:35 Program Started
+12:38:51 Reservation added : 1, 1, 1, 20230711, 20230716, 
+12:38:58 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+12:39:20 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+12:39:44 facture added : -1, 2023-07-16 12:39:44.731786
+12:41:05 Program Started
+12:41:13 facture added : -1, 2023-07-16 12:41:13.968189
+12:42:22 Program Started
+12:42:29 facture added : -1, 2023-07-16 12:42:29.652402
+12:49:39 Program Started
+12:49:45 facture added : -1, 2023-07-16 12:49:45.900114
+12:52:12 Program Started
+12:52:18 facture added : -1, 2023-07-16 12:52:18.441763
+12:52:40 Program Started
+12:52:44 facture added : -1, 2023-07-16 12:52:44.691660
+12:56:52 Program Started
+12:56:58 facture added : -1, 2023-07-16 12:56:58.150464
+12:57:43 Program Started
+12:57:48 facture added : -1, 2023-07-16 12:57:48.076525
+12:59:20 Program Started
+12:59:25 facture added : -1, 2023-07-16 12:59:25.806487
+13:00:14 Program Started
+13:00:20 facture added : -1, 2023-07-16 13:00:20.251954
+13:02:01 Program Started
+13:02:06 facture added : -1, 2023-07-16 13:02:06
+13:04:27 Program Started
+13:04:33 facture added : -1, 2023-07-16 13:04:33
+13:04:33 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:04:48 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:07:39 Program Started
+13:07:45 facture added : -1, 2023-07-16 13:07:45
+13:07:45 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:10:37 Program Started
+13:10:47 facture added : -1, 2023-07-16 13:10:47
+13:10:47 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:11:15 Program Started
+13:11:21 facture added : -1, 2023-07-16 13:11:21
+13:11:22 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:12:31 Program Started
+13:12:37 facture added : -1, 2023-07-16 13:12:37
+13:12:37 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:15:51 Program Started
+13:15:57 facture added : -1, 2023-07-16 13:15:57
+13:15:57 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:17:42 Program Started
+13:17:47 facture added : -1, 2023-07-16 13:17:47
+13:17:47 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:18:36 Program Started
+13:18:42 facture added : -1, 2023-07-16 13:18:42
+13:18:42 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:25:23 Program Started
+13:27:51 Program Started
+13:27:57 Client added : X, , X.@bellevue.default, , 
+13:28:11 Reservation added : 1, 1, 1, 20230712, 20230716, 
+13:28:23 facture added : -1, 2023-07-16 13:28:23
+13:28:23 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:32:46 Program Started
+13:32:55 facture added : -1, 2023-07-16 13:32:55
+13:32:55 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:35:36 Program Started
+13:35:42 facture added : -1, 2023-07-16 13:35:42
+13:35:42 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:37:27 Program Started
+13:37:33 facture added : -1, 2023-07-16 13:37:33
+13:37:33 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:39:01 Program Started
+13:39:05 facture added : -1, 2023-07-16 13:39:05
+13:39:06 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:48:34 Program Started
+13:48:43 facture added : -1, 2023-07-16 13:48:43
+13:48:43 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:50:22 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:51:01 Program Started
+13:51:08 Reservation modified : 1, 1, 1, 20230712, 20230716, 
+13:53:22 Program Started
+13:53:37 Program Started
+13:54:00 Program Started
+13:54:05 Client added : D, , D.@bellevue.default, , 
+13:54:17 Reservation added : 1, 1, 1, 20230711, 20230716, 
+13:54:21 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:54:35 facture added : -1, 2023-07-16 13:54:35
+13:54:35 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:54:46 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:56:17 Program Started
+13:56:29 Program Started
+13:56:33 Client added : C, , C.@bellevue.default, , 
+13:56:40 Reservation added : 1, 1, 1, 20230711, 20230716, 
+13:56:44 facture added : -1, 2023-07-16 13:56:44
+13:56:44 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:56:54 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:57:12 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:57:21 Reservation modified : 1, 1, 1, 20230711, 20230716, 
+13:57:31 Reservation supprimee  : id client : 1, id chambre : 1, nombre d'occupants : 1, date-arrivee :  20230711, date depart :  20230716, origine : 
+13:57:40 Reservation added : 1, 1, 1, 20230710, 20230716, Booking
+13:57:47 Reservation modified : 1, 1, 1, 20230710, 20230716, Booking
+14:05:59 Program Started
+14:06:13 Reservation modified : 1, 1, 1, 20230710, 20230716, Booking
+14:10:50 Program Started
+14:11:09 Reservation modified : 1, 1, 1, 20230710, 20230716, Booking
+14:11:24 facture added : -1, 2023-07-16 14:11:24
+14:11:24 Reservation modified : 1, 1, 1, 20230710, 20230716, Booking
+14:11:36 Reservation modified : 1, 1, 1, 20230710, 20230716, Booking
+14:11:40 Reservation modified : 1, 1, 1, 20230710, 20230716, Booking

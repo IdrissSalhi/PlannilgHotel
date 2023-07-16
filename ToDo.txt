@@ -22,12 +22,12 @@ generer facture :
              - pour payer- enrigistrer la facture + horodatage
     
     -Numéro facture: - 
-                     - modifier classe et table reservation:
                          
                          - tester!!!    
-                            - ValueError("unconverted data remains: %s" %
-                                ValueError: unconverted data remains: .077943   (strptime)
+                            
 
+
+- POP UP AUCUNE FACTURE NA ETE GENEREE QUAND ON COCHE REGLE
 
 LOGS : 
 MAJ des logs pour qu'ils prennent en compte les nouvelles fonctionalités

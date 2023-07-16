@@ -288,5 +288,6 @@ def generer_facture(reservation : Src.Model.Reservation, controller, enregistrer
     fichier_html.write(content)
     fichier_html.close()
     if enregistrer and reservation._facture:
-        reservation._facture._fichier_html = fichier_html
+        with open(html_path,"rb") as fichier_html:
+            reservation._facture._fichier_html = fichier_html.read()
     webbrowser.open(html_path)

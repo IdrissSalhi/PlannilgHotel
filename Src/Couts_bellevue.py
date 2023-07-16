@@ -10,7 +10,7 @@ from tkinter import *
 import tkinter.font as font
 from tkinter.messagebox import askyesno
 from Src.Bellevue.html_facture import *
-
+import datetime
 
 locale.setlocale(locale.LC_TIME, 'fr_FR')
 
@@ -153,7 +153,8 @@ class Cout_View :
             self.window.destroy()
             if answer == True :
                 facture = Facture()
-                facture._date_emission = datetime.now()
+                facture._date_emission = datetime.datetime.now()
+                facture._date_emission = facture._date_emission.replace(microsecond=0)
                 id_facture = self._controller.ajouter_facture(facture)
                 facture = self._controller.getFactureById(id_facture)
                 self._reservation._facture = facture

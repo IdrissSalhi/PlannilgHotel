@@ -148,7 +148,9 @@ class View :
                         canva = Canvas(master = data_cell,height = c_height, width = c_width, background= COUL_RESERVATION_IMPAYEE)
                         if (resa._facture and resa._facture._date_de_reglement) :
                             canva.configure (background = COUL_RESERVATION_PAYEE)
-                    
+                        elif (resa._facture):
+                            canva.configure (background = COUL_RESERVATION_EN_ATTENTE)
+                            
                         canva.create_text(c_width/2, c_height/2, text=machaineresa, width= 8*c_width/10, justify= 'center', font = font.Font(family = POLICE_DATA, size = POLICE_DATA_TAILLE))
 
 
@@ -613,11 +615,15 @@ class View :
                 msgbox = messagebox.askquestion('Modification','Êtes-vous sûr de vouloir modifier la date de reglement ?',icon = 'error', parent = window_infos) 
                 if msgbox == 'yes':
                     resa._facture._date_de_reglement = datetime.now()
+                    resa._facture._date_de_reglement = resa._facture._date_de_reglement.replace(microsecond=0)
             elif est_reglee.get() == 0 and resa._facture and resa._facture._date_de_reglement:
                 msgbox = messagebox.askquestion('Modification','Êtes-vous sûr de vouloir modifier la date de reglement ?',icon = 'error', parent = window_infos) 
                 if msgbox == 'yes':
                     resa._facture._date_de_reglement = None
+            elif not resa._facture:
+                messagebox.showerror(title=None, message="Cette reservation n'a pas encore de facture", parent = window_infos )
 
+                
             if resa._date_arrivee > resa._date_depart :
                 messagebox.showerror(title=None, message="Les dates sont invalides", parent = window_infos )
             else :

@@ -360,21 +360,24 @@ class Database :
             facture = Facture(db_facture[0][4])
             facture._id = _id
             facture._numero_facture = db_facture[0][1]
-            facture._date_emission = datetime.strptime(db_facture[0][2],"%Y-%m-%d %H:%M:%S")
-            facture._date_de_reglement = datetime.strptime(db_facture[0][3],"%Y-%m-%d %H:%M:%S")
+            facture._date_emission = datetime.strptime(db_facture[0][2],"%Y-%m-%d %H:%M:%S")    
+            facture._date_de_reglement = datetime.strptime(db_facture[0][3],"%Y-%m-%d %H:%M:%S") if db_facture[0][3] else None
             
             return facture 
    
    
     def modifier_facture_byId(self, facture): 
   
+        date_reg = None
+        if facture._date_de_reglement:
+            date_reg = facture._date_de_reglement
         self._cursor.execute("""UPDATE FACTURE
-        SET numero_facture = '"""+ str(facture._numero_facture) +"""',
+        SET numero_facture = """+ str(facture._numero_facture) +""",
         date_emission = '"""+ str(facture._date_emission.strftime("%Y-%m-%d %H:%M:%S")) +"""',
-        date_de_reglement = '"""+ str(facture._date_de_reglement.strftime("%Y-%m-%d %H:%M:%S")) +"""',
-        fichier_html = '"""+ str(facture._fichier_html) +"""',  
-        WHERE id = """+ str(facture._id))
+        date_de_reglement = ?,
+        fichier_html = ?
+        WHERE id = """+ str(facture._id),(date_reg, facture._fichier_html))
         self._connexion.commit()
        
-    
+     #fichier_html = ?    WHERE id = """+ str(facture._id),(date_reg, facture._fichier_html))
    
